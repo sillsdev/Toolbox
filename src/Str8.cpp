@@ -71,10 +71,17 @@ void Str8Validate()
 	s2 += s3;
 	ASSERT( s2 == "abcdef" );
 	s1 = "ab";
+#ifdef UseCharStar
 	s3.Prepend( s1 );
 	ASSERT( s3 == "abf" );
 	s3.Prepend( "c" );
 	ASSERT( s3 == "cabf" );
+#else
+	s3.Insert(0, s1);
+	ASSERT(s3 == "abf");
+	s3.Insert(0, "c");
+	ASSERT(s3 == "cabf");
+#endif
 	s1 = "a";
 	ASSERT( s1 == 'a' );
 	s1 = s1 + 'z';

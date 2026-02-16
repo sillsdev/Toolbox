@@ -2071,9 +2071,7 @@ void CMString::Delete( int iChar, int iNum ) // Delete iNum chars at pos iChar
     ASSERT( iChar <= iLen ); // Don't allow pos out of string
     if ( iChar + iNum > iLen ) // If delete more than end of string, delete only to end
         iNum = iLen - iChar;
-    char* psz = GetBuffer( 1 ) + iChar; // Get pointer to deletion place
-    memmove( psz, psz + iNum, iLen - iChar - iNum ); // Move tail down
-    ReleaseBuffer( iLen - iNum ); // Release buffer back to Str8
+    Str8::Delete(iChar, iNum);
 }
 
 void CMString::DeleteAll( const char cRemove ) // Delete all occurrences of cRemove

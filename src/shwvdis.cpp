@@ -2888,7 +2888,7 @@ void CShwView::CalcCaretLocX() // calc x pos of caret loc using m_rpsCur
         int iX = 0; // length of text up to caret
         CRecPos rpsB;  // substring begin
         CRecPos rpsE;  // substring end
-        do  {
+        do {
             rps.MoveRightPastViewSubstring( &rpsB, &rpsE );
             CFont* pfnt = (CFont*)rpsB.pmkr()->pfnt();  // substring font
             pdc->SelectObject( pfnt );
