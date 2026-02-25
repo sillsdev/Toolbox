@@ -4,7 +4,7 @@
 
 This repository contains the source code and notes for building Toolbox. 
 
-Currently, released versions of Toolbox are built on a legacy computer. This repository provides updated code that can be built on newer systems, though it is still in testing and development phase only.
+Currently, released versions of Toolbox are built on a legacy computer. This repository provides updated code that can be built on newer systems, though it is still in testing and development phase.
 
 Homepage: http://www.fieldlinguiststoolbox.org/
 

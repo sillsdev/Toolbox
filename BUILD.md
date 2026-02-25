@@ -1,6 +1,6 @@
 # Building the Project
 
-These steps are for **Visual Studio 2022** on Windows.
+These notes are for **Visual Studio 2022** on Windows.
 They were needed on my system for the recent `.sln` file.
 
 ## Visual Studio Installer
@@ -11,4 +11,8 @@ They were needed on my system for the recent `.sln` file.
 - Change build to `Debug Unicode` rather than MacWine
 - Set *Conformance Mode* to `No (/permissive)`
 - *Enforce Type Conversion Rules* = `No`
-- Add `/wd4596` to command line options
+- Add `/wd4596` to command line options to prevent warnings.
+
+## When Moving or Sending
+- Ensure that cc32.dll is in the same folder as Toolbox.exe.
+

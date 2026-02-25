@@ -115,7 +115,9 @@ public:
     BOOL bAnotherInstanceAlreadyRunning()
         { return m_bAnotherInstanceAlreadyRunning; }
     
-    void WriteTitleToIni( const char* pszTitle ); // write current window title to .ini file
+    void WriteToIni_Title( const char* pszTitle ); // write current window title to .ini file
+    void WriteToIni_ProjectPath(const char* pszProjectPath,
+        const char* pszKey = nullptr); // write path of currently opened project, optionally specify key
     Str8 sLastWndTitle(); // get window title from .ini file to see if another instance is running
 // Overrides
     virtual BOOL InitInstance();
@@ -204,8 +206,7 @@ private:
         // NOTE NOTE NOTE: In the MDI window list, the next direction
         // means toward the bottom; prev means toward the top.
 
-    void CommandLine_Args(const char* pszCommandLine,
-            Str8* psProjectName);
+    Str8 CShwApp::DetermineWinProjectPath();
     Str8 sGetLastProjectFromIni(); // get ProjectLastClosed setting from .ini file
 
     void NewProject();  // 1998-03-16 MRP

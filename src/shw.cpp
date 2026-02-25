@@ -33,6 +33,7 @@
 #include "resmac.h" // Mac specific resources
 #else
 #include "respc.h"
+#include <shlobj.h>
 #endif
 
 #include <direct.h> // _mkdir
@@ -145,6 +146,7 @@ static const char* psz_AppPath2 = "AppPath2";
 static const char* psz_IniFile = "Shoebox Preferences";
 #else
 static const char* psz_IniFile = "shoebox.ini";  // 1998-03-18 MRP
+static Str8 s_sIniPath;
 static const char* psz_HelpFile = "Toolbox.hlp";
 static Str8 s_sHelpFilePath;
 #endif
@@ -188,9 +190,9 @@ BOOL CShwApp::InitInstance()
 	free((void*)m_pszHelpFilePath);
 	m_pszHelpFilePath = _tcsdup( swUTF16( s_sHelpFilePath) ); // 1.4qyj
 
-	// if this is truely needed:
+	// if this is truly needed:
     // SetDialogBkColor( ::GetSysColor(COLOR_BTNFACE), ::GetSysColor(COLOR_BTNTEXT) );
-	// Then in each dialog�s OnCtlColor() (by adding ON_WM_CTLCOLOR() in their BEGIN_MESSAGE_MAP(CMyDialog, CDialog)...END_MESSAGE_MAP())
+	// Then in each dialog’s OnCtlColor() (by adding ON_WM_CTLCOLOR() in their BEGIN_MESSAGE_MAP(CMyDialog, CDialog)...END_MESSAGE_MAP())
 	//if (nCtlColor == CTLCOLOR_DLG)
 	//	return GetAppDialogBrush(pDC);
 
@@ -217,19 +219,9 @@ BOOL CShwApp::InitInstance()
 	g_clrDialogText = ::GetSysColor(COLOR_BTNTEXT);
 
 #ifndef _MAC
-    // Parse command line arguments 
+    // Parse command line arguments.
     // On the Mac: see OpenDocumentFile and CreateInitialDocument below.
-    Str8 sProjectPath = sAppPath() + "Toolbox.prj"; // 1.5.0de Look for Toolbox.prj in folder with program
-	if ( bFileExists(sProjectPath) ) // 1.5.0de If Toolbox.prj found, don't look for other path
-		m_bProjectOpenedPortable = TRUE; // 1.5.0de 
-	else // 1.5.4c If Toolbox.prj not found, check for Toolbox Project.prj
-		{
-		sProjectPath = sAppPath() + "Toolbox Project.prj"; // 1.5.4c Look for Toolbox Project.prj in folder with program
-		if ( bFileExists(sProjectPath) ) // 1.5.4c If Toolbox Project.prj found, don't look for other path
-			m_bProjectOpenedPortable = TRUE; // 1.5.4c Note that project will be opened portable
-		}
-	if ( !m_bProjectOpenedPortable ) // 1.5.4c If project is not opening portable, get command line args
-		CommandLine_Args( sUTF8( m_lpCmdLine ), &sProjectPath); // 1.4qyk // 1.5.0de 
+    Str8 sProjectPath = DetermineWinProjectPath();
     if ( !sProjectPath.IsEmpty() ) // no project on command line or in .ini file
         {
 		if ( sProjectPath[0] == '\"' ) // If path has quotes, remove them
@@ -362,7 +354,7 @@ int CShwApp::ExitInstance()
     // Shoebox from running even when there aren't any other instances.
     // Blanking out the item when Shoebox exits avoids the confusion.
     if ( !m_bAnotherInstanceAlreadyRunning )  // 1998-05-11 MRP
-        WriteTitleToIni("");
+        WriteToIni_Title("");
     
     return 0;  // The application's exit code: no errors
 }
@@ -430,23 +422,44 @@ void CShwApp::OnFileOpen() // Set default folder
 #endif // DoesntWork
 }
 
-void CShwApp::WriteTitleToIni( const char* pszTitle )
+void CShwApp::WriteToIni_Title( const char* pszTitle )
 {
-    WritePrivateProfileString( swUTF16( psz_ShSection ), swUTF16( psz_LastWndTitle ), swUTF16( pszTitle ), swUTF16( psz_IniFile ) ); // 1.4qxn Upgrade WritePrivateProfileString for Unicode build
+    WritePrivateProfileString(
+        swUTF16(psz_ShSection),
+        swUTF16(psz_LastWndTitle),
+        swUTF16(pszTitle),
+        swUTF16(s_sIniPath));
 }
 
-Str8 sGetPrivateProfileString( const char* pszDesiredProfile ) // 1.4qxh Make sPrivateProfileString for Unicode build
+void CShwApp::WriteToIni_ProjectPath(const char* pszProjectPath, const char* pszKey)
+{
+    if (!pszKey)
+        pszKey = psz_ProjectLastClosed;
+    if (m_bProjectOpenedPortable)
+        // If project opened from Toolbox.exe folder, don't save in registry.
+        return;
+    WritePrivateProfileString(
+        swUTF16(psz_ShSection),
+        swUTF16(pszKey),
+        swUTF16(pszProjectPath),
+        swUTF16(s_sIniPath)
+    );
+}
+
+Str8 sGetPrivateProfileString( const char* pszDesiredProfile )
 	{
-	CString swDesiredProfile = swUTF16( pszDesiredProfile ); // 1.4qxj
-	CString swShSection = swUTF16( psz_ShSection ); // 1.4qxj
-	CString swEmptyString = swUTF16( "" ); // 1.4qxj
-	CString swIniFile = swUTF16( psz_IniFile ); // 1.4qxj
-	CString swProfile; // 1.4qxh
-	LPTSTR pswzProfile = swProfile.GetBufferSetLength( 4096 ); // 1.4qxh
-    DWORD dw = ::GetPrivateProfileString( swShSection, swDesiredProfile, swEmptyString, pswzProfile, 4096, swIniFile); // 1.4qxh Upgrade GetPrivateProfileString for Unicode build
+    CString swProfile;
+    LPTSTR pswzProfile = swProfile.GetBufferSetLength(4096);
+    DWORD dw = ::GetPrivateProfileString(
+        swUTF16(psz_ShSection),
+        swUTF16(pszDesiredProfile),
+        swUTF16(""),
+        pswzProfile,
+        4096,
+        swUTF16(s_sIniPath));
     ASSERT(dw < 4095);
-	swProfile.ReleaseBuffer(); // 1.4qxh
-    return sUTF8( swProfile ); // 1.4qxh
+	swProfile.ReleaseBuffer();
+    return sUTF8( swProfile );
 	}
 
 Str8 CShwApp::sLastWndTitle()
@@ -462,23 +475,13 @@ BOOL CShwApp::SaveAllModified()
 		return TRUE; // 1.4sa
 
 	if ( Shw_pProject()->bExerciseNoSave() ) // 1.4rac On exercise, don't save name of project last closed
-		return TRUE; // 1.4rac
-
-//	if ( bProjectOpen() ) // 1.4sa
-		(void) Shw_app().bSaveAllFiles( true, !Shw_pProject()->bAutoSave() ); // 1.4qzhk Fix U problem of writing emtpy output file
+		return TRUE;
+	(void) Shw_app().bSaveAllFiles( true, !Shw_pProject()->bAutoSave() ); // 1.4qzhk Fix U problem of writing emtpy output file
 
     if ( CWinApp::SaveAllModified() )
         {
         // This is the last chance to save the properties of all the
         // open databases and windows before the framework closes them.
-//        Str8 sProjectPath; // 1.4ysb 
-//		if (  bProjectOpen() ) // 1.4sa
-//			{ // 1.4sa
-//            pProject()->SaveSettings(); // 1.4ysb Avoid writing settings files twice on close
-//            sProjectPath = pProject()->pszPath(); // 1.4ysb 
-//			} // 1.4sa
-        // Update the name of the last project closed (i.e. this one) in SHW.INI section of registry
-//	    WritePrivateProfileString( swUTF16( psz_ShSection ), swUTF16( psz_ProjectLastClosed ), swUTF16( sProjectPath ), swUTF16( psz_IniFile ) ); // 1.4qxn Upgrade WritePrivateProfileString for Unicode build // 1.4ysb 
         return TRUE;
         }
     m_bClosing = FALSE;
@@ -486,23 +489,52 @@ BOOL CShwApp::SaveAllModified()
     return FALSE;  // the user cancelled closing Shoebox
 }
 
-
-void CShwApp::CommandLine_Args(const char* pszCommandLine,
-        Str8* psProjectName)
+Str8 CShwApp::DetermineWinProjectPath()
 {
-    // 1995-09-28 MRP: Eventually we may have to parse multiple arguments.  
-    ASSERT( pszCommandLine );
-    Str8 sProjectName = pszCommandLine;  // trim white space here
-        
+    Str8 sProjectPath;
+
+    // Look for standard .prj in folder with program, i.e. portable setup.
+    m_bProjectOpenedPortable = FALSE;
+    for (const char* name : { "Toolbox.prj", "Toolbox Project.prj" })
+    {
+        sProjectPath = sAppPath() + name;
+        if (bFileExists(sProjectPath))
+        {
+            m_bProjectOpenedPortable = TRUE;
+            return sProjectPath;
+        }
+    }
+    // Keep INI file in APPDATA instead of C:\Windows or the registry.
+    TCHAR szAppData[MAX_PATH];
+    if (SUCCEEDED(SHGetFolderPath(nullptr, CSIDL_LOCAL_APPDATA, nullptr, 0, szAppData)))
+    {
+        Str8 folderPath = sUTF8(szAppData) + "\\Toolbox";
+        s_sIniPath = folderPath + "\\" + psz_IniFile;
+        CreateDirectory(swUTF16(folderPath), nullptr);
+    }
+    else
+    {
+        s_sIniPath = sAppPath() + psz_IniFile;
+    }
+
+    // Command-line argument
+    Str8 sProjectName = sUTF8(m_lpCmdLine);
+
     // A .SET file contains Shoebox's project/workspace settings.
     // The name of the settings file for this session is:
     // 1. the contents of the command line (e.g. "David"); otherwise
     // 2. the ProjectLastClosed entry in SHW.INI section of registry
-    if ( sProjectName.IsEmpty() )
+    if (sProjectName.IsEmpty()) {
         sProjectName = sGetLastProjectFromIni();
-
-    ASSERT( psProjectName );
-    *psProjectName = sProjectName;
+        if (!sProjectName.IsEmpty() && !bFileExists(sProjectName))
+        {
+            // Path doesn’t exist, clear the cached value
+            WriteToIni_ProjectPath("");
+            sProjectName = "";
+        }
+    }
+    sProjectPath = sProjectName;
+    return sProjectPath;
 }
 
 Str8 CShwApp::sGetLastProjectFromIni()
@@ -510,10 +542,11 @@ Str8 CShwApp::sGetLastProjectFromIni()
 	Str8 sProjectLastClosed = sGetPrivateProfileString( psz_ProjectLastClosed ); // 1.4qxk Upgrade GetPrivateProfileString for Unicode build
 	if ( sProjectLastClosed == "" ) // 1.0ce If Toolbox last project not found, check for Shoebox last project
 		{
-		sProjectLastClosed = sGetPrivateProfileString( psz_ShoeboxProjectLastClosed ); // 1.4qxk
-	    WritePrivateProfileString( swUTF16( psz_ShSection ), swUTF16( psz_ShoeboxProjectLastClosed ), swUTF16( "" ), swUTF16( psz_IniFile ) ); // 1.0ce If using Shoebox last project, clear it so Shoebox won't accidentally open Toolbox project // 1.4qxn Upgrade WritePrivateProfileString for Unicode build
+		sProjectLastClosed = sGetPrivateProfileString( psz_ShoeboxProjectLastClosed );
+        // 1.0ce If using Shoebox last project, clear it so Shoebox won't accidentally open Toolbox project
+        WriteToIni_ProjectPath("", psz_ShoeboxProjectLastClosed);
 		}
-	return sProjectLastClosed; // 1.4qxk
+	return sProjectLastClosed;
 }
 
 BOOL CShwApp::OnIdle( LONG lCount )
@@ -958,8 +991,7 @@ BOOL CShwApp::bSaveAllFiles( BOOL bWriteProtect, bool bAsk ) // 1.2gz Unwrite pr
     pProject()->SaveSettings();
     // Update the name of the project in SHW.INI section of registry
     Str8 sProjectPath = pProject()->pszPath();
-	if ( !m_bProjectOpenedPortable ) // 1.5.0de If project opened portable (from Toolbox.exe folder), don't save in registry
-		WritePrivateProfileString( swUTF16( psz_ShSection ), swUTF16( psz_ProjectLastClosed ), swUTF16( sProjectPath ), swUTF16( psz_IniFile ) ); // 1.4qxn Upgrade WritePrivateProfileString for Unicode build
+    WriteToIni_ProjectPath(sProjectPath);
     return TRUE;
 }
 

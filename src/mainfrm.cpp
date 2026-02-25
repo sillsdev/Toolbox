@@ -568,7 +568,7 @@ void CMainFrame::OnUpdateFrameTitle( BOOL bAddToTitle ) // override to save curr
     if ( sText != m_sCurrentTitle ) // if title has changed, update it in .ini file
         {
         m_sCurrentTitle = sText;
-        Shw_papp()->WriteTitleToIni( sText ); // save in .ini file to keep another instance of Shoebox from running
+        Shw_papp()->WriteToIni_Title( sText ); // save in .ini file to keep another instance of Shoebox from running
         }
 #endif
 }
