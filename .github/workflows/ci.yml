@@ -19,10 +19,13 @@ jobs:
       - name: Build solution
         run: msbuild src/Toolbox.sln /p:Configuration="Release Unicode" /p:Platform="Win32"
 
+      - name: Build tests
+        run: msbuild tests/Tests.vcxproj /p:Configuration="Debug Unicode" /p:Platform="Win32"
+
       - name: Run tests
         shell: pwsh
         run: |
-          $primaryPath = "./tests/x64/Release/Tests.exe"
+          $primaryPath = "./tests/Debug Unicode/Tests.exe"
           if (Test-Path $primaryPath) {
             Write-Host "Expected path found: $primaryPath"
             & $primaryPath --exit --success
