@@ -1,0 +1,39 @@
+name: CI - Build & Test (Windows)
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build-and-test:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Build solution
+        run: msbuild src/Toolbox.sln /p:Configuration=Release /p:Platform=x64
+
+      - name: Run tests
+        shell: pwsh
+        run: |
+          $primaryPath = "./tests/x64/Release/Tests.exe"
+          if (Test-Path $primaryPath) {
+            Write-Host "Expected path found: $primaryPath"
+            & $primaryPath --exit --success
+          } else {
+            Write-Warning "Expected path $primaryPath not found. Searching recursively..."
+            $fallbackPath = Get-ChildItem -Path . -Filter Tests.exe -Recurse | Select-Object -ExpandProperty FullName -First 1
+            if ($fallbackPath) {
+              Write-Host "Found fallback path: $fallbackPath"
+              & $fallbackPath --exit --success
+            } else {
+              Write-Error "Tests.exe could not be found anywhere in the workspace."
+              exit 1
+            }
+          }

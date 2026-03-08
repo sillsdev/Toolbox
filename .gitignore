@@ -1,27 +1,27 @@
 ﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+# .gitignore
 ################################################################################
 
-/.vs
-/AlansBackups/Toolbox164j
-/AlansBackups/Toolbox164kIncr
-/AlansBackups/Toolbox164qIncr
-/AlansBackups/Toolbox164rIncr
-/AlansBackups/Toolbox164sIncr
+*.suo
+*.user
+*.lnk
+.vs/
+.vscode/
+[Dd]ebug*/
+[Rr]elease*/
+
 /src/shw.cpp
 /src/SHW32.idb
 /src/shw32.pdb
 /src/Shwnotes.aps
 /src/Toolbox.sdf
-/src/Toolbox.suo
 /src/Toolbox.vcxproj.filters
-/src/Toolbox.vcxproj.user
-/src/Debug_U
-/src/.vs/Toolbox
-/src/Release_U
-/src/.vscode
+
+/AlansBackups/Toolbox164j
+/AlansBackups/Toolbox164kIncr
+/AlansBackups/Toolbox164qIncr
+/AlansBackups/Toolbox164rIncr
+/AlansBackups/Toolbox164sIncr
 /AlansBackups/Toolbox/Install
 /AlansBackups/Toolbox/Copy of Release_U
-/AlansBackups/Toolbox/Debug_U
 /AlansBackups/Toolbox/MacWineRelease
-/AlansBackups/Toolbox/Release_U
