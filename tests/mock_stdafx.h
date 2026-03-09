@@ -23,4 +23,4 @@ class CFont;
 class CListBox;
 class CWnd;
 
-#include "Shwdefs.h"
+#include "shwdefs.h"

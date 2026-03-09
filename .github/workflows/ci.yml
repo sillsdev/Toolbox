@@ -7,25 +7,26 @@ on:
     branches: [ master ]
 
 jobs:
-  build-and-test:
+  build:
     runs-on: windows-latest
-
     steps:
       - uses: actions/checkout@v4
-
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v2
-
       - name: Build main exe
         run: msbuild src/Toolbox.vcxproj /p:Configuration="Release" /p:Platform="Win32"
 
-      - name: Build lib (required for testing)
+  test:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+      - name: Build main library
         run: msbuild src/Toolbox.vcxproj /p:Configuration="TestLib" /p:Platform="Win32"
-
       - name: Build tests
         run: msbuild tests/Tests.vcxproj /p:Configuration="Debug" /p:Platform="Win32"
-
-      - name: Run Tests
+      - name: Run tests
         shell: pwsh
         run: |
           & "tests/Debug/Tests.exe" --exit --success
