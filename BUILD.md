@@ -1,19 +1,28 @@
 # Building the Project
 
-These notes are for **Visual Studio 2022** on Windows. They were needed on my system for the recent `.sln` file.
+These notes are for **Visual Studio 2022** on Windows.
 
 ## Visual Studio Installer
+
 - Add C++ MFC component
 - **ATL** is automatically included when adding MFC
 
 ## Project Configuration
-- Change build to `Debug Unicode` rather than MacWine
+
+- Select *All Configurations* to modify. These changes are required to avoid compile warnings, although they should already be set if you use the .sln from the repo.
 - Set *Conformance Mode* to `No (/permissive)`
 - *Enforce Type Conversion Rules* = `No`
 - Add `/wd4596` to command line options to prevent warnings.
+- When building, use solution config `Debug` rather than MacWine.
 
 ## When Moving or Sending
-- Ensure that cc32.dll is in the same folder as Toolbox.exe.
+
+- Ensure that `cc32.dll` (Consistent Changes) is in the same folder as Toolbox.exe.
 
 ## Tests
-- Either run on command line or by right-clicking **Tests** project and going to *Debug > Start New Instance*.
+
+1. Build a full Toolbox.lib (not the small one that is only about 3kb). To do this, select the main project in Configuration Manager and set configuration to **TestLib**, then build the project again. This should be fast if you've already built the .exe.
+
+2. Build the **Tests** project. Make sure it links against Toolbox.lib.
+
+3. Either run Tests.exe on command line, or right-click **Tests** project and go to *Debug > Start New Instance*.

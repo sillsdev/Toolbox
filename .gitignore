@@ -7,8 +7,9 @@
 *.lnk
 .vs/
 .vscode/
-[Dd]ebug*/
-[Rr]elease*/
+[Dd]ebug/
+[Rr]elease/
+TestLib/
 
 /src/shw.cpp
 /src/SHW32.idb

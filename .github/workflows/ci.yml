@@ -16,27 +16,17 @@ jobs:
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v2
 
-      - name: Build solution
-        run: msbuild src/Toolbox.sln /p:Configuration="Release Unicode" /p:Platform="Win32"
+      - name: Build main exe
+        run: msbuild src/Toolbox.vcxproj /p:Configuration="Release" /p:Platform="Win32"
+
+      - name: Build lib (required for testing)
+        run: msbuild src/Toolbox.vcxproj /p:Configuration="TestLib" /p:Platform="Win32"
 
       - name: Build tests
-        run: msbuild tests/Tests.vcxproj /p:Configuration="Debug Unicode" /p:Platform="Win32"
+        run: msbuild tests/Tests.vcxproj /p:Configuration="Debug" /p:Platform="Win32"
 
-      - name: Run tests
+      - name: Run Tests
         shell: pwsh
         run: |
-          $primaryPath = "./tests/Debug Unicode/Tests.exe"
-          if (Test-Path $primaryPath) {
-            Write-Host "Expected path found: $primaryPath"
-            & $primaryPath --exit --success
-          } else {
-            Write-Warning "Expected path $primaryPath not found. Searching recursively..."
-            $fallbackPath = Get-ChildItem -Path . -Filter Tests.exe -Recurse | Select-Object -ExpandProperty FullName -First 1
-            if ($fallbackPath) {
-              Write-Host "Found fallback path: $fallbackPath"
-              & $fallbackPath --exit --success
-            } else {
-              Write-Error "Tests.exe could not be found anywhere in the workspace."
-              exit 1
-            }
-          }
+          & "tests/Debug/Tests.exe" --exit --success
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
