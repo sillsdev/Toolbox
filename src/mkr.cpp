@@ -2013,21 +2013,12 @@ BOOL CMString::bIsEmptyOrWhite() // Return true if empty or all whitespace
 
 void CMString::Trim() // Trim trailing spaces and nl's
 {
-    char* pszStart = GetBuffer( 1 );
-    char* psz = pszStart + strlen( pszStart ) - 1;
-    for ( ; psz >= pszStart && ( *psz == ' ' || *psz == '\n' ); psz-- )
-        *psz = '\0';
-    ReleaseBuffer( psz - pszStart + 1 );    
+    Str8::TrimRight();
 }
 
 void CMString::TrimBothEnds() // Trim leading and trailing spaces and nl's
 {
-    Trim(); // Trim trailing
-    char* psz = GetBuffer( 1 );
-    int iLen = strlen( psz );
-    for ( ; *psz == ' ' || *psz == '\n'; iLen-- )
-        memmove( psz, psz + 1, iLen );
-    ReleaseBuffer( iLen );
+    Str8::Trim();
 }
 
 void CMString::Insert( UINT nChar, int iChar, int iNum ) // Insert iNum instances of nChar at pos iChar
@@ -2042,25 +2033,23 @@ void CMString::Insert( UINT nChar, int iChar, int iNum ) // Insert iNum instance
 #endif
     if ( iChar > iLen ) // Protect against overly high argument by appending at end
         iChar = iLen;
-    char* psz = GetBuffer( iLen + iNum ) + iChar; // Get pointer to insertion place, get buffer long enough
-    memmove( psz + iNum, psz, iLen - iChar ); // Move tail up
-    memset( psz, nChar, iNum ); // Insert chars
-    ReleaseBuffer( iLen + iNum ); // Release buffer back to Str8
+    Str8 sToInsert;
+    char* pszBuf = sToInsert.GetBuffer(iNum);
+    memset(pszBuf, (char)nChar, iNum);
+    sToInsert.ReleaseBuffer(iNum);
+    Str8::Insert(iChar, sToInsert);
 }
 
 void CMString::Insert( const char* pszInsert, int iChar ) // Insert string pszInsert at pos iChar
 {
-    ASSERT( pszInsert );
-    ASSERT( iChar >= 0 );
-    int iLen =  GetLength(); // Remember current length
-    int iNum = strlen( pszInsert ); // Get number of chars to insert
-    if ( !bValidFldLen( iLen + iNum ) )
+    ASSERT(pszInsert);
+    ASSERT(iChar >= 0);
+    int iLen = GetLength(); // Remember current length
+    int iNum = strlen(pszInsert); // Get number of chars to insert
+    if (!bValidFldLen(iLen + iNum))
         return;
-    ASSERT( iChar <= iLen ); // Don't allow pos out of string
-    char* psz = GetBuffer( iLen + iNum ) + iChar; // Get pointer to insertion place, get buffer long enough
-    memmove( psz + iNum, psz, iLen - iChar ); // Move tail up
-    memmove( psz, pszInsert, iNum ); // Insert string
-    ReleaseBuffer( iLen + iNum ); // Release buffer back to Str8
+    ASSERT(iChar <= iLen); // Don't allow pos out of string
+    Str8::Insert(iChar, pszInsert);
 }
 
 void CMString::Delete( int iChar, int iNum ) // Delete iNum chars at pos iChar
@@ -2076,14 +2065,13 @@ void CMString::Delete( int iChar, int iNum ) // Delete iNum chars at pos iChar
 
 void CMString::DeleteAll( const char cRemove ) // Delete all occurrences of cRemove
 {
-    int iLenRest =  GetLength(); // Remember length
-    char* psz = GetBuffer( 1 ); // Get writeable pointer
-    for ( ; iLenRest; iLenRest-- ) // For all of string
-        if ( *psz == cRemove ) // If remove char found
-            memmove( psz, psz + 1, iLenRest ); // Move tail down to delete it
-        else
-            psz++;
-    ReleaseBuffer(); // Release Str8 buffer
+    int iLen = GetLength();
+    char* psz = GetBuffer(iLen);
+    int iWritePos = 0;
+    for (int iReadPos = 0; iReadPos < iLen; ++iReadPos)
+        if (psz[iReadPos] != cRemove)
+            psz[iWritePos++] = psz[iReadPos];
+    ReleaseBuffer(iWritePos);
 }
 
 void CMString::Extend( int iNewLen ) // Extend as necessary with spaces to be at least length iNewLen
@@ -2103,47 +2091,71 @@ void CMString::Overlay( const char* pszInsert, int iChar, int iLen ) // Overlay 
     ASSERT( bValidFldLen( iLen ) );
     int iLenInsert = strlen( pszInsert );
     Extend( iChar + __max( iLen, iLenInsert ) ); // Extend to be safe if overlay len goes past end of string
-    char* psz = GetBuffer( 1 ) + iChar; // Get writeable pointer
-    while ( *pszInsert ) // Overlay insertion string
-        *psz++ = *pszInsert++;
-    for ( ; iLenInsert < iLen; iLenInsert++ ) // Overlay spaces up to delete len
-        *psz++ = ' ';
-    ReleaseBuffer(); // Release Str8 buffer
-}
-
-BOOL CMString::bVerify( const char* pszInsert, int iChar, int iLen ) // Verify pszInsert starting at iChar
-{
-    ASSERT( pszInsert );
-    ASSERT( iChar >= 0 );
-    ASSERT( bValidFldLen( iLen ) );
-	const char* psz = *this;
-	psz += iChar;
-	while ( *pszInsert ) // Compare insert string to existing
-		if ( *pszInsert++ != *psz++ ) // If any non-match, fail
-			return FALSE;
-	if ( *psz && *psz != ' ' ) // If existing longer than insert, fail
-		return FALSE;
-	return TRUE; // If no match failures, return success
+    int iCurrentLen = GetLength();
+    char* psz = GetBuffer(iCurrentLen) + iChar;
+    int i = 0;
+    while (pszInsert[i] && i < iLen)
+    {
+        psz[i] = pszInsert[i];  // Copy insertion string
+        i++;
+    }
+    while (i < iLen)
+    {
+        psz[i] = ' ';  // Pad with spaces
+        i++;
+    }
+    ReleaseBuffer(iCurrentLen);
 }
 
 void CMString::Overlay( const char cInsert, int iChar ) // Overlay cInsert at iChar
 {
     ASSERT( cInsert );
     ASSERT( iChar >= 0 );
-    char* psz = GetBuffer( 1 ) + iChar; // Get writeable pointer
-    *psz = cInsert; // Overlay char
-    ReleaseBuffer(); // Release Str8 buffer
+    Str8::SetAt(iChar, cInsert);
 }
 
 void CMString::OverlayAll( const char cRemove, const char cInsert, int iChar ) // Overlay all occurrences of cRemove with cInsert, starting at iChar
 {
     ASSERT( cRemove );
     ASSERT( cInsert );
-    char* psz = GetBuffer( 1 ) + iChar; // Get writeable pointer
-    for ( ; *psz; psz++ ) // For all of string
-        if ( *psz == cRemove ) // If remove char found
-            *psz = cInsert; // Overlay with insert char
-    ReleaseBuffer(); // Release Str8 buffer
+    int iLen = GetLength();
+    char* psz = GetBuffer(iLen);
+    for (int i = iChar; i < iLen; i++)
+    {
+        if (psz[i] == cRemove)
+        {
+            psz[i] = cInsert;
+        }
+    }
+    ReleaseBuffer(iLen);
+}
+
+BOOL CMString::bVerify(const char* pszInsert, int iChar, int iLen) // Verify pszInsert starting at iChar
+{
+    ASSERT(pszInsert);
+    ASSERT(iChar >= 0);
+    ASSERT(bValidFldLen(iLen));
+
+    int iCurrentLen = GetLength();
+    if (iChar + iLen > iCurrentLen)
+        return FALSE;  // Not enough chars at position
+    for (int i = 0; i < iLen; i++)
+    {
+        char cInsert = pszInsert[i];
+        char cExisting = GetChar(iChar + i);
+        if (cInsert == '\0')  // End of insert string before iLen
+        {
+            for (int j = i; j < iLen; j++)
+            {
+                if (GetChar(iChar + j) != ' ')  // Rest must be spaces
+                    return FALSE;
+            }
+            return TRUE;
+        }
+        if (cInsert != cExisting)
+            return FALSE;
+    }
+    return TRUE;  // All matched
 }
 
 void CMString::AddSuffHyphSpaces( const char* pszMorphBreakChars, char cForceStart, char cForceEnd ) // Add a space before each suffix hyphen that doesn't have space

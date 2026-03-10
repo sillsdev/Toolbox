@@ -105,9 +105,9 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>UseCct;NDEBUG;WIN32;_WINDOWS;NO_DUMP;_MBCS;OBSTREAM_NOTES;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AssemblerListingLocation>.\Release_U\</AssemblerListingLocation>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <PrecompiledHeaderOutputFile>.\SHW32.PCH</PrecompiledHeaderOutputFile>
-      <ObjectFileName>.\Release_U\</ObjectFileName>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>.\SHW32.PDB</ProgramDataBaseFileName>
       <StructMemberAlignment>4Bytes</StructMemberAlignment>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -117,7 +117,7 @@
     </ClCompile>
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <TypeLibraryName>.\Release_U\Toolbox.tlb</TypeLibraryName>
+      <TypeLibraryName>$(OutDir)$(ProjectName).tlb</TypeLibraryName>
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <TargetEnvironment>Win32</TargetEnvironment>
     </Midl>
@@ -127,14 +127,14 @@
     </ResourceCompile>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>.\Release_U\Toolbox.bsc</OutputFile>
+      <OutputFile>$(IntDir)$(ProjectName).bsc</OutputFile>
     </Bscmake>
     <Link>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>libc;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <OutputFile>$(OutDir)Toolbox.exe</OutputFile>
+      <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
       <AdditionalDependencies>winmm.lib;usp10.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <StackReserveSize>10240</StackReserveSize>
       <EntryPointSymbol>wWinMainCRTStartup</EntryPointSymbol>
@@ -156,9 +156,9 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>NDEBUG;WIN32;_WINDOWS;NO_DUMP;_MBCS;OBSTREAM_NOTES;MacWine;UseCct;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AssemblerListingLocation>.\MacWineRelease\</AssemblerListingLocation>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <PrecompiledHeaderOutputFile>.\SHW32.PCH</PrecompiledHeaderOutputFile>
-      <ObjectFileName>.\MacWineRelease\</ObjectFileName>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>.\SHW32.PDB</ProgramDataBaseFileName>
       <StructMemberAlignment>4Bytes</StructMemberAlignment>
       <ConformanceMode>false</ConformanceMode>
@@ -167,7 +167,7 @@
     </ClCompile>
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <TypeLibraryName>.\MacWineRelease\Toolbox.tlb</TypeLibraryName>
+      <TypeLibraryName>$(OutDir)$(ProjectName).tlb</TypeLibraryName>
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <TargetEnvironment>Win32</TargetEnvironment>
     </Midl>
@@ -177,14 +177,14 @@
     </ResourceCompile>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>.\MacWineRelease\Toolbox.bsc</OutputFile>
+      <OutputFile>$(IntDir)$(ProjectName).bsc</OutputFile>
     </Bscmake>
     <Link>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>libc;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <OutputFile>$(OutDir)Toolbox.exe</OutputFile>
+      <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
       <AdditionalDependencies>Cclib32.lib;winmm.lib;usp10.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <StackReserveSize>10240</StackReserveSize>
       <EntryPointSymbol>wWinMainCRTStartup</EntryPointSymbol>
@@ -201,10 +201,10 @@
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <PreprocessorDefinitions>UseCct;WIN32;_DEBUG;_WINDOWS;NO_DUMP;_MBCS;OBSTREAM_NOTES;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AssemblerListingLocation>.\Debug_U\</AssemblerListingLocation>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BrowseInformation>true</BrowseInformation>
       <PrecompiledHeaderOutputFile>.\SHW32.PCH</PrecompiledHeaderOutputFile>
-      <ObjectFileName>.\Debug_U\</ObjectFileName>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>.\SHW32.PDB</ProgramDataBaseFileName>
       <StructMemberAlignment>4Bytes</StructMemberAlignment>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -215,23 +215,23 @@
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <TypeLibraryName>.\Debug_U\Toolbox.tlb</TypeLibraryName>
+      <TypeLibraryName>$(OutDir)$(ProjectName).tlb</TypeLibraryName>
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <TargetEnvironment>Win32</TargetEnvironment>
     </Midl>
     <ResourceCompile>
       <Culture>0x0409</Culture>
-      <ResourceOutputFileName>.\Debug_U/Shw.res</ResourceOutputFileName>
+      <ResourceOutputFileName>$(IntDir)Shw.res</ResourceOutputFileName>
       <PreprocessorDefinitions>_DEBUG;WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>.\Debug_U\Toolbox.bsc</OutputFile>
+      <OutputFile>$(IntDir)$(ProjectName).bsc</OutputFile>
     </Bscmake>
     <Link>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <OutputFile>$(OutDir)Toolbox.exe</OutputFile>
+      <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
       <StackReserveSize>10240</StackReserveSize>
       <EntryPointSymbol>wWinMainCRTStartup</EntryPointSymbol>
       <SubSystem>Windows</SubSystem>
@@ -257,10 +257,10 @@
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <PreprocessorDefinitions>UseCct;WIN32;_DEBUG;_WINDOWS;NO_DUMP;_MBCS;OBSTREAM_NOTES;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AssemblerListingLocation>.\Debug_U\</AssemblerListingLocation>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BrowseInformation>true</BrowseInformation>
       <PrecompiledHeaderOutputFile>.\SHW32.PCH</PrecompiledHeaderOutputFile>
-      <ObjectFileName>.\Debug_U\</ObjectFileName>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
       <ProgramDataBaseFileName>.\SHW32.PDB</ProgramDataBaseFileName>
       <StructMemberAlignment>4Bytes</StructMemberAlignment>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -271,23 +271,23 @@
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <TypeLibraryName>.\Debug_U\Toolbox.tlb</TypeLibraryName>
+      <TypeLibraryName>$(IntDir)$(ProjectName).tlb</TypeLibraryName>
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <TargetEnvironment>Win32</TargetEnvironment>
     </Midl>
     <ResourceCompile>
       <Culture>0x0409</Culture>
-      <ResourceOutputFileName>.\Debug_U/Shw.res</ResourceOutputFileName>
+      <ResourceOutputFileName>$(IntDir)Shw.res</ResourceOutputFileName>
       <PreprocessorDefinitions>_DEBUG;WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>.\Debug_U\Toolbox.bsc</OutputFile>
+      <OutputFile>$(IntDir)$(ProjectName).bsc</OutputFile>
     </Bscmake>
     <Link>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <OutputFile>$(OutDir)Toolbox.exe</OutputFile>
+      <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
       <StackReserveSize>10240</StackReserveSize>
       <EntryPointSymbol>wWinMainCRTStartup</EntryPointSymbol>
       <SubSystem>Windows</SubSystem>

@@ -11,12 +11,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="TestsMain.cpp" />
-    <ClCompile Include="Test_CMString.cpp" />
+    <ClCompile Include="test_main.cpp" />
+    <ClCompile Include="test_cmstring.cpp" />
+    <ClCompile Include="test_str8.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\doctest.h" />
-    <ClInclude Include="mock_stdafx.h" />
+    <ClInclude Include="test_common.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

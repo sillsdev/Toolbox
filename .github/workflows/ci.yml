@@ -29,5 +29,5 @@ jobs:
       - name: Run tests
         shell: pwsh
         run: |
-          & "tests/Debug/Tests.exe" --exit --success
+          & "tests/Debug/Tests.exe" --exit
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }

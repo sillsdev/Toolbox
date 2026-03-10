@@ -44,7 +44,6 @@ extern void CorrTest(CShwView* pview); // Body is below
 void DebugAlan(CShwView* pview) // ID_DEBUG_ALAN Triggered by Ctrl+Alt+Shift+Z
 {
 	int iAns = IDNO;
-//	Str8Validate(); // 1.4vyc Disable Str8 validate, seems fine
 	Str8 sDbType = pview->ptyp()->sName();
 	if ( sDbType != "kb" ) // 1.4be Disable DebugAlan if not knowledge base db type
 		return;

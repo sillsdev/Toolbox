@@ -74,7 +74,6 @@ public:
 	// Compatibility with CStringEx, wait till later
 // #define iFindFrom Find
 
-void Str8Validate(); // Validation of the class as a whole
 Str8 sTestCopy( const char* psz ); // Copy for testing
 
 BOOL operator==( const Str8& s, const Str8& s2 );
