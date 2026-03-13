@@ -21,8 +21,10 @@ These notes are for **Visual Studio 2022** on Windows.
 
 ## Tests
 
-1. Build a full Toolbox.lib (not the stub that is only about 3kb). To do this, select the main project in Configuration Manager and set configuration to **TestLib**, then build the project again. This should be fast if you've already built the .exe.
+1. Build a full `Toolbox.lib` (not the stub that is only about 3kb). To do this, find the main project in Configuration Manager and set configuration to **TestLib**, then build the project again. This should be fast if you've already built the .exe.
 
-2. Build the **Tests** project. Make sure it links against Toolbox.lib.
+2. Build the **Tests** project. Make sure it links against Toolbox.lib. The project is powered by *doctest*.
 
-3. Either run Tests.exe on command line, or right-click **Tests** project and go to *Debug > Start New Instance*.
+3. To run from within Visual Studio, right-click **Tests** project and go to *Debug > Start New Instance*.
+
+4. It is more flexible to run the executable from command line. For example, select a test case in powershell with verbose output: `& ./Tests.exe --test-case="CDblList with CDblListEl" --success`

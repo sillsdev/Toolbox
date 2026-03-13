@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="test_cdbllist.cpp" />
     <ClCompile Include="test_main.cpp" />
     <ClCompile Include="test_cmstring.cpp" />
     <ClCompile Include="test_str8.cpp" />

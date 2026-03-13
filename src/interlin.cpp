@@ -3431,7 +3431,7 @@ void CInterlinearProcList::IndexUpdated( CIndexUpdate iup )
         pintprc->IndexUpdated( iup ); // For every process, update it
 }
 
-BOOL CInterlinearProcList::bInterlinearize( CRecPos& rpsCur, BOOL bAdapt, BOOL bWord ) // Run interlinearization processes, starting at process number iStartProc
+BOOL CInterlinearProcList::bInterlinearize( CRecPos& rpsCur, BOOL bAdapt, BOOL bWord ) // Run interlinearization processes
 {
     CRecPos rps = rpsCur; // Use temp so that changing m_rpsCur underneath won't change this 
     CRecPos rpsStart = rpsCur; // Remember starting place

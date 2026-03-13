@@ -2084,27 +2084,26 @@ void CMString::Extend( int iNewLen ) // Extend as necessary with spaces to be at
         Insert( ' ', iLen, iNewLen - iLen );
 }
 
-void CMString::Overlay( const char* pszInsert, int iChar, int iLen ) // Overlay pszInsert starting at iChar, filling out to iLen positions with spaces
+void CMString::Overlay(const char* pszInsert, int iChar, int iPadLen)   // Overlay pszInsert starting at iChar, filling out to iPadLen positions with spaces
 {
-    ASSERT( pszInsert );
-    ASSERT( iChar >= 0 );
-    ASSERT( bValidFldLen( iLen ) );
-    int iLenInsert = strlen( pszInsert );
-    Extend( iChar + __max( iLen, iLenInsert ) ); // Extend to be safe if overlay len goes past end of string
-    int iCurrentLen = GetLength();
-    char* psz = GetBuffer(iCurrentLen) + iChar;
-    int i = 0;
-    while (pszInsert[i] && i < iLen)
-    {
-        psz[i] = pszInsert[i];  // Copy insertion string
-        i++;
-    }
-    while (i < iLen)
-    {
-        psz[i] = ' ';  // Pad with spaces
-        i++;
-    }
-    ReleaseBuffer(iCurrentLen);
+    ASSERT(pszInsert);
+    ASSERT(iChar >= 0);
+    ASSERT(bValidFldLen(iPadLen));
+
+    // Make sure the buffer is big enough for either the insert or the padding
+    int iLenInsert = strlen(pszInsert);
+    Extend(iChar + __max(iPadLen, iLenInsert));
+    char* psz = GetBuffer(GetLength()) + iChar;
+
+    // 1. Copy the entire insert string
+    for (int i = 0; i < iLenInsert; i++)
+        psz[i] = pszInsert[i];
+
+    // 2. Pad with spaces if needed
+    for (int i = iLenInsert; i < iPadLen; i++)
+        psz[i] = ' ';
+
+    ReleaseBuffer(GetLength());
 }
 
 void CMString::Overlay( const char cInsert, int iChar ) // Overlay cInsert at iChar

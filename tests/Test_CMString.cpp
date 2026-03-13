@@ -133,19 +133,29 @@ TEST_CASE("CMString::Overlay")
     SUBCASE("Overlay single char")
     {
         CMString s(nullptr, "abc");
-        s.Overlay('X', 1); // replace 'b' with 'X'
+        s.Overlay('X', 1);
         CHECK(s == "aXc");
     }
 
-    SUBCASE("Overlay string with padding")
+    SUBCASE("Overlay string shorter than iPadLen pads spaces")
     {
         CMString s(nullptr, "HelloWorld");
-        // Extend first to ensure enough space
-        s.Overlay("XX", 5, 4);  // overlays "XX  " at position 5
-        CHECK(s.GetLength() >= 9);
-        // Verify 'XX' was written starting at position 5
-        CHECK(s.GetChar(5) == 'X');
-        CHECK(s.GetChar(6) == 'X');
+        s.Overlay("AB", 5, 4); // iPadLen > insert length
+        CHECK(s == "HelloAB  d");
+    }
+
+    SUBCASE("Overlay string longer than iPadLen copies full string")
+    {
+        CMString s(nullptr, "HelloWorld");
+        s.Overlay("ABCDEFG", 2, 3); // iPadLen < insert length
+        CHECK(s == "HeABCDEFGd");
+    }
+
+    SUBCASE("Overlay with iPadLen = 0 copies full string")
+    {
+        CMString s(nullptr, "HelloWorld");
+        s.Overlay("XYZ", 5, 0);
+        CHECK(s == "HelloXYZld");
     }
 
     SUBCASE("OverlayAll replaces chars from index")
@@ -158,7 +168,7 @@ TEST_CASE("CMString::Overlay")
     SUBCASE("OverlayAll with start index")
     {
         CMString s(nullptr, "aaabbaa");
-        s.OverlayAll('a', 'x', 2);  // Only replace 'a' from position 2 onwards
+        s.OverlayAll('a', 'x', 2); // Only replace 'a' from position 2 onwards
         CHECK(s == "aaxbbxx");
     }
 }
