@@ -25,6 +25,6 @@ These notes are for **Visual Studio 2022** on Windows.
 
 2. Build the **Tests** project. Make sure it links against Toolbox.lib. The project is powered by *doctest*.
 
-3. To run from within Visual Studio, right-click **Tests** project and go to *Debug > Start New Instance*.
+3. Right-click **Tests** project and choose *Set as Startup Project*, then run by pressing F5.
 
-4. It is more flexible to run the executable from command line. For example, select a test case in powershell with verbose output: `& ./Tests.exe --test-case="CDblList with CDblListEl" --success`
+4. To run a specific test case, go to *Project → Properties → Configuration Properties → Debugging → Command Arguments* and enter, for example: `--test-case="CDblList with CDblListEl" --no-breaks --success`

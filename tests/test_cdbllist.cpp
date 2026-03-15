@@ -1,13 +1,15 @@
 #include "test_common.h"
 #include "cdbllist.h"
 
-class TestEl : public CDblListEl {
+class CDblListEl_Test : public CDblListEl {
 public:
-    // promote protected to public for test
     using CDblListEl::lNum;
     using CDblListEl::SetNum;
     using CDblListEl::ClearNum;
-    using CDblListEl::lNumHasValue;
+
+    bool bStableIndex() {
+        return m_stableIndex.has_value();
+    }
 };
 
 TEST_CASE("CDblList with CDblListEl")
@@ -65,8 +67,8 @@ TEST_CASE("CDblList with CDblListEl")
     SUBCASE("RemoveAll clears list without deleting elements")
     {
         CDblList list;
-        auto pel1 = new TestEl;
-        auto pel2 = new TestEl;
+        auto pel1 = new CDblListEl_Test;
+        auto pel2 = new CDblListEl_Test;
         list.Add(pel1);
         list.Add(pel2);
         list.RemoveAll();
@@ -92,16 +94,16 @@ TEST_CASE("CDblList with CDblListEl")
 
     SUBCASE("m_stableIndex behavior")
     {
-        auto pel = new TestEl;
+        auto pel = new CDblListEl_Test;
         const int expected = 7;
-        CHECK(!pel->lNumHasValue());
+        CHECK(!pel->bStableIndex());
         pel->SetNum(expected);
+        CHECK(pel->bStableIndex());
         CHECK(pel->lNum() == expected);
-        CHECK(pel->lNumHasValue());
         pel->ClearNum();
-        CHECK(!pel->lNumHasValue());
+        CHECK(!pel->bStableIndex());
         pel->SetNum(expected);
         CHECK(pel->lNum() == expected);
-        CHECK(pel->lNumHasValue());
+        CHECK(pel->bStableIndex());
     }
 }
