@@ -12,7 +12,7 @@ public:
     }
 };
 
-TEST_CASE("CDblList with CDblListEl")
+TEST_CASE("CDblList")
 {
     SUBCASE("InsertBefore correctly links elements")
     {
@@ -25,6 +25,7 @@ TEST_CASE("CDblList with CDblListEl")
         CHECK(list.pelPrev(pelCur) == pelNew);
         CHECK(list.bIsFirst(pelNew));
         CHECK(list.bIsLast(pelCur));
+        list.DeleteAll();
     }
 
     SUBCASE("InsertAfter correctly links elements")
@@ -38,6 +39,7 @@ TEST_CASE("CDblList with CDblListEl")
         CHECK(list.pelNext(pelCur) == pelNew);
         CHECK(list.bIsFirst(pelCur));
         CHECK(list.bIsLast(pelNew));
+        list.DeleteAll();
     }
 
 
@@ -51,6 +53,7 @@ TEST_CASE("CDblList with CDblListEl")
         CHECK(list.bIsFirst(pel));
         CHECK(list.bIsLast(pel));
         CHECK(list.bIsMember(pel));
+        list.DeleteAll();
     }
 
     SUBCASE("DeleteAll removes elements")
@@ -76,6 +79,8 @@ TEST_CASE("CDblList with CDblListEl")
         // pointers still valid
         pel1->SetNum(1);
         pel2->SetNum(2);
+        delete pel1;
+        delete pel2;
     }
 
     SUBCASE("MoveElementsTo transfers elements")
@@ -90,6 +95,7 @@ TEST_CASE("CDblList with CDblListEl")
         CHECK(list1.bIsEmpty());
         CHECK(list2.bIsFirst(pel1));
         CHECK(list2.bIsLast(pel2));
+        list2.DeleteAll();
     }
 
     SUBCASE("m_stableIndex behavior")
@@ -105,5 +111,6 @@ TEST_CASE("CDblList with CDblListEl")
         pel->SetNum(expected);
         CHECK(pel->lNum() == expected);
         CHECK(pel->bStableIndex());
+        delete pel;
     }
 }

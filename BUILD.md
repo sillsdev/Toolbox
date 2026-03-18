@@ -27,4 +27,4 @@ These notes are for **Visual Studio 2022** on Windows.
 
 3. Right-click **Tests** project and choose *Set as Startup Project*, then run by pressing F5.
 
-4. To run a specific test case, go to *Project → Properties → Configuration Properties → Debugging → Command Arguments* and enter, for example: `--test-case="CDblList with CDblListEl" --no-breaks --success`
+4. To run a specific test case, go to *Project → Properties → Configuration Properties → Debugging → Command Arguments* and enter, for example: `--test-case="CDblList" --no-breaks --success`

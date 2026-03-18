@@ -197,7 +197,6 @@ public:
 #endif
 
 private:
-//    BOOL bCheckProject(const char* pszProjectPath, BOOL bOpening, const char* pszSettingsVersion, BOOL* pbConverting, BOOL* pbOlder); // 1.5.0fg 
     static BOOL s_bIsProjectFile(const char* pszPath, Str8& sVersion);
         // return TRUE if pszPath is a project file
     BOOL bInitializeProperties(BOOL bOpening);  // 1998-03-24 MRP

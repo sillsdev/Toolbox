@@ -133,14 +133,6 @@ BOOL CProject::s_bConstruct(const char* pszProjectPath, BOOL bOpening,
     ptypset->ReadAllProxies(notlst);
     BOOL bConverting = FALSE;
     BOOL bOlder = FALSE;
-#ifdef JUNK // 1.5.0fg 
-    if ( !pprj->bCheckProject(pszProjectPath, bOpening, pszSettingsVersion, &bConverting, &bOlder) )
-        {
-        delete pprj;
-        *ppprj = NULL;
-        return FALSE;
-        }
-#endif // JUNK // 1.5.0fg 
     
     if ( bConverting )
         {
@@ -259,7 +251,10 @@ void CProject::SetLangCtrlHeight( int iHeight ) // set size of language controls
         }
     CShwStatusBar* pStatusBar = (CShwStatusBar*)Shw_pmainframe()->GetMessageBar(); // get pointer to status bar
     ASSERT(pStatusBar);
-    pStatusBar->SetFontAndSize(); // resize status bar on the fly
+    if (pStatusBar != nullptr)
+    {
+        pStatusBar->SetFontAndSize(); // resize status bar on the fly
+    }
 }
 
 void CProject::DoAutoSave()
