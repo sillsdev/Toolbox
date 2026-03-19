@@ -754,7 +754,7 @@ public:
     void Delete( int iChar, int iNum = 1 ); // Delete iNum chars at pos iChar
     void DeleteAll( const char cRemove ); // Delete all occurrences of cRemove
     void Extend( int iNewLen ); // Extend as necessary with spaces to be at least length iNewLen
-    void Overlay( const char* pszInsert, int iChar, int iLen = 0 ); // Overlay pszInsert starting at iChar, filling out to iLen positions with spaces
+    void Overlay( const char* pszInsert, int iChar, int iPadLen = 0 ); // Overlay pszInsert starting at iChar, filling out to iPadLen positions with spaces
 	BOOL bVerify( const char* pszInsert, int iChar, int iLen ); // Verify pszInsert starting at iChar
     void Overlay( const char cInsert, int iChar ); // Overlay cInsert at iChar
     void OverlayAll( const char cRemove, const char cInsert, int iChar = 0 ); // Overlay all occurrences of cRemove with cInsert, starting at iChar

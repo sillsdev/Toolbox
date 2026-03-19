@@ -9,22 +9,23 @@ These notes are for **Visual Studio 2022** on Windows.
 
 ## Project Configuration
 
-- Select *All Configurations* to modify. These changes are required to avoid compile warnings, although they should already be set if you use the .sln from the repo.
+The following changes are required to avoid compiler warnings, although they should already be set if you use the files from the repo.
+
+- Select the **Toolbox** project, open *Project → Properties*, and choose *All Configurations*.
 - Set *Conformance Mode* to `No (/permissive)`
 - *Enforce Type Conversion Rules* = `No`
 - Add `/wd4596` to command line options to prevent warnings.
-- When building, use solution config `Debug` rather than MacWine.
+
+Then build the `Debug` solution configuration.
 
 ## When Moving or Sending
 
-- Ensure that `cc32.dll` (Consistent Changes) is in the same folder as Toolbox.exe.
+Ensure that `cc32.dll` (Consistent Changes) is in the same folder as `Toolbox.exe`.
 
 ## Tests
 
-1. Build a full `Toolbox.lib` (not the stub that is only about 3kb). To do this, find the main project in Configuration Manager and set configuration to **TestLib**, then build the project again. This should be fast if you've already built the .exe.
+1. Build the `Tests` solution config. This builds the main project as a full library (not the small stub that accompanies the .exe), then links the testing executable to it.
 
-2. Build the **Tests** project. Make sure it links against Toolbox.lib. The project is powered by *doctest*.
+2. Right-click **Tests** project and choose *Set as Startup Project*, then press F5. The test suite is powered by *doctest*.
 
-3. Right-click **Tests** project and choose *Set as Startup Project*, then run by pressing F5.
-
-4. To run a specific test case, go to *Project → Properties → Configuration Properties → Debugging → Command Arguments* and enter, for example: `--test-case="CDblList" --no-breaks --success`
+3. To run a specific test case, go to *Project → Properties → Configuration Properties → Debugging → Command Arguments* and enter, for example: `--test-case="CDblList" --no-breaks --success`
