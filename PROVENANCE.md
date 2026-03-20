@@ -1,4 +1,8 @@
-# Toolbox Version History
+# Project Provenance
+
+## 1. Toolbox History
+
+### 1.A Versions
 
 #### Version 1.6.4 May 2019 (Windows 10, Windows 8, Windows 7, Vista and XP, and Mac Windows emulators, Linux Wine)
 
@@ -105,7 +109,7 @@ Enhancements and bug fixes.
 
 This is the first release of Field Linguist's Toolbox.
 
-## A Brief History of Shoebox/Toolbox
+### 1.B A Brief History of Shoebox/Toolbox
 
 Shoebox was written as a DOS program in 1987 by an SIL field linguist
 named John Wimbish. He enhanced it through 1991, producing versions 1.0,
@@ -118,3 +122,19 @@ Buseman, Mark Pedrotti, Rod Early, Bryan Yoder, Tom Bogle, et al.) In
 changed to Field Linguist's Toolbox. This field entity continues to
 enhance Toolbox, producing versions as above. (Programmer Alan Buseman,
 support Karen Buseman.)
+
+## 2. Archival and Sources
+
+### 2.A Backups
+
+- `AlansBackups/` contains snapshots of MFC 4-era builds. The most recent released version `164` is stored with multiple variants:
+
+- - `164j` – likely the main release
+  - `164s`, `164slncr`, et cetera – probable internal/test variants
+
+- Built on offline machines. Serve as historical snapshots; not expected to build on modern systems.
+
+### 2.B Sample Projects
+
+- `SampleProjects/` may include example or test data from various personal or organizational sources.
+- May also include reference datasets for training.
