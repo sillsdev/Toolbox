@@ -13,4 +13,4 @@ Homepage: http://www.fieldlinguiststoolbox.org/
 - [BUILD.md](BUILD.md) – How to build the project
 - [ARCHITECTURE.md](ARCHITECTURE.md) – Overview of classes
 - [PROVENANCE.md](PROVENANCE.md) – Project history and source notes
-- [LICENSE.md](LICENSE.md) – MIT open source
+- [LICENSE.txt](LICENSE.txt) – MIT open source
