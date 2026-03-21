@@ -36,78 +36,14 @@ CRecPos → CRecord, CField (navigation cursor)
 ### 1.2 Ownership Graph
 
 ```mermaid
-graph TB
-    APP["CShwApp<br/>(global singleton)"]
-    PRJ["CProject"]
-    TYPSET["CDatabaseTypeSet"]
-    LNGSET["CLangEncSet"]
-    CORSET["CCorpusSet"]
-
-    DBT["CDatabaseType"]
-    MKR["CMarkerSet"]
-    FIL["CFilterSet"]
-    JMP["CJumpPathSet"]
-    INT["CInterlinearProcList"]
-
-    MF["CMainFrame"]
-    VIEW["CShwView"]
-
-    DOC["CShwDoc"]
-    INDSET["CIndexSet"]
-    IND["CIndex"]
-    RECLE["CRecLookEl"]
-    REC["CRecord"]
-
-    APP -->|owns| PRJ
-    APP -->|owns| MF
-    APP -->|owns| DOC
-
-    PRJ -->|owns| TYPSET
-    PRJ -->|owns| LNGSET
-    PRJ -->|owns| CORSET
-
-    TYPSET -->|contains| DBT
-    DBT -->|owns| MKR
-    DBT -->|owns| FIL
-    DBT -->|owns| JMP
-    DBT -->|owns| INT
-
-    MF -->|owns| VIEW
-    VIEW -.->|displays| DOC
-
-    DOC -->|owns| INDSET
-    INDSET -->|contains| IND
-    IND -->|contains| RECLE
-    RECLE -.->|references| REC
-
-    style APP fill:#2e7d32
-    style PRJ fill:#558b2f
-    style TYPSET fill:#558b2f
-    style LNGSET fill:#558b2f
-    style CORSET fill:#558b2f
-    style DBT fill:#81c784
-    style MKR fill:#a5d6a7
-    style FIL fill:#a5d6a7
-    style JMP fill:#a5d6a7
-    style INT fill:#a5d6a7
-    style MF fill:#1976d2
-    style VIEW fill:#1565c0
-    style DOC fill:#81c784
-    style INDSET fill:#a5d6a7
-    style IND fill:#a5d6a7
-    style RECLE fill:#b3e5fc
-    style REC fill:#4fc3f7
-```
-
-### 1.3 Project Structure Graph
-
-```mermaid
 graph TD
-    APP["CShwApp<br/>(global)"]
+    APP["CShwApp<br/>(global singleton)"]
     PRJ["CProject<br/>(current project)"]
     TYPSET["CDatabaseTypeSet"]
-    DBT1["CDatabaseType"]
-    DBT2["CDatabaseType"]
+    DBT1["CMarkerSet"]
+    DBT2["CFilterSet"]
+    DBT3["CJumpPathSet"]
+    DBT4["CInterlinearProcList"]
 
     LNGSET["CLangEncSet"]
     CORSET["CCorpusSet"]
@@ -129,8 +65,10 @@ graph TD
     PRJ -->|owns| LNGSET
     PRJ -->|owns| CORSET
 
-    TYPSET -->|contains| DBT1
-    TYPSET -->|contains| DBT2
+    TYPSET -->|owns| DBT1
+    TYPSET -->|owns| DBT2
+    TYPSET -->|owns| DBT3
+    TYPSET -->|owns| DBT4
 
     MWN -->|owns| VIEW
     VIEW -.->|displays| DOC
@@ -255,7 +193,7 @@ sequenceDiagram
 | ------------ | --------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- |
 | **Str8**     | UTF-8 string content              | Base class for all string objects                               | Raw string storage with UTF-8 support                           |
 | **CMString** | String text + marker reference    | Inherits from `Str8`; references `CMarker`                      | Marked string: text tagged with metadata
-| **CMarker**  | Descriptor metadata               | Referenced by `CField` (via `CMString`); member of `CMarkerSet` | Defines field type: name, language encoding, display properties |
+| **CMarker**  | Descriptor metadata               | Referenced by `CField` (via `CMString`); member of `CMarkerSet` | Defines type of text element: name, language encoding, display properties |
 | **CField**   | String content + marker reference | Inherits from `CMString` and `CDblListEl`; references `CMarker` | One field/data element in a record (e.g., `\dt definition`)     |
 
 ### 4.2 Field Collection Layer
@@ -638,8 +576,8 @@ sequenceDiagram
 | ----------------- | ----------------------------------- | ---------------------------------------------- |
 | **str8.cpp/h**    | `Str8`                              | UTF-8 string implementation                    |
 | **mkr.cpp/h**     | `CMString`, `CMarker`, `CMarkerSet` | Marked strings and marker definitions          |
-| **cfield.cpp/h**  | `CField`, `CFieldList`              | Field storage and collections                  |
-| **crecord.cpp/h** | `CRecord`                           | Record storage and layout                      |
+| **cfield.cpp/h**  | `CField`                            | Field storage and collections                  |
+| **crecord.cpp/h** | `CRecord`, `CFieldList`             | Record storage and layout                      |
 | **crecpos.cpp/h** | `CRecPos`                           | Navigation cursor                              |
 | **lng.cpp/h**     | `CLangEnc`, `CLangEncSet`           | Language encoding (writing system) definitions |
 
@@ -698,9 +636,9 @@ sequenceDiagram
 ```mermaid
 graph TD
     S["str8.cpp/h"]
-    M["mkr.cpp/h<br/>(CMString, CMarker)"]
-    CF["cfield.cpp/h<br/>(CField, CFieldList)"]
-    CR["crecord.cpp/h<br/>(CRecord)"]
+    M["mkr.cpp/h<br/>(CMString, CMarker, CMarkerSet)"]
+    CF["cfield.cpp/h<br/>(CField)"]
+    CR["crecord.cpp/h<br/>(CRecord, CFieldList)"]
     RP["crecpos.cpp/h<br/>(CRecPos)"]
     L["lng.cpp/h<br/>(CLangEnc, CLangEncSet)"]
     T["typ.cpp/h<br/>(CDatabaseType)"]

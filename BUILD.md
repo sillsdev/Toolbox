@@ -28,4 +28,4 @@ Ensure that `cc32.dll` (Consistent Changes) is in the same folder as `Toolbox.ex
 
 2. Right-click **Tests** project and choose *Set as Startup Project*, then press F5. The test suite is powered by *doctest*.
 
-3. To run a specific test case, go to *Project → Properties → Configuration Properties → Debugging → Command Arguments* and enter, for example: `--test-case="CDblList" --no-breaks --success`
+3. To run a specific test case, go to *Project → Properties → Configuration Properties → Debugging → Command Arguments* and enter, for example: `--test-case="CRecord Hierarchy,CRecord Ball Example" --no-breaks --success`

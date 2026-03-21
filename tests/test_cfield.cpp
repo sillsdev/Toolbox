@@ -6,10 +6,9 @@
 #include "crecpos.h"
 #include "lng.h"
 
-#ifdef _DEBUG
 TEST_CASE("CField Tokenizing")
 {
-    CLangEncSet lngset("1.0", "");  // backdoor constructor -- requires _DEBUG
+    CLangEncSet lngset("1.0", "");
     CMarkerSet mkrset(&lngset);
     CMarker* pmkr = mkrset.pmkrAdd_MarkAsNew("tx");
 
@@ -78,4 +77,3 @@ TEST_CASE("CField Tokenizing")
         CHECK(field.bParseFirstItem(nullptr, start, end, TRUE) == FALSE);
     }
 }
-#endif

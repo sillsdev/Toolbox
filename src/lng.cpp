@@ -2275,7 +2275,7 @@ CLangEncSet::CLangEncSet(const char* pszSettingsVersion)
     m_bReadFromString = FALSE;
 }
 
-#ifdef _DEBUG
+#if defined(TEST_BUILD) || defined(_DEBUG)
 CLangEncSet::CLangEncSet(const char* pszSettingsVersion,
         const char* pszProperties)
 {
@@ -2307,7 +2307,7 @@ CLangEncSet::CLangEncSet(const char* pszSettingsVersion,
     ASSERT( obs.bAtEnd() );
     ASSERT( notlst.bIsEmpty() );
 }
-#endif  // _DEBUG
+#endif  // TEST_BUILD or _DEBUG
 
 CLangEncSet::~CLangEncSet()
 {

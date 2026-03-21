@@ -40,6 +40,9 @@ class CRangeSet;  // crngset.h
 
 class CMarker : public CSetEl  // Hungarian: mkr
 {
+#ifdef TEST_BUILD
+    friend class CMarker_Test;
+#endif
 private:
     Str8 m_sFieldName;  // e.g. "Definition", like a Word style name
     Str8 m_sDescription;

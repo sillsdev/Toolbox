@@ -256,7 +256,7 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-      <PreprocessorDefinitions>UseCct;WIN32;_DEBUG;_WINDOWS;NO_DUMP;_MBCS;OBSTREAM_NOTES;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>TEST_BUILD;UseCct;WIN32;_DEBUG;_WINDOWS;NO_DUMP;_MBCS;OBSTREAM_NOTES;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BrowseInformation>true</BrowseInformation>
       <PrecompiledHeaderOutputFile>.\SHW32.PCH</PrecompiledHeaderOutputFile>

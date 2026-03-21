@@ -10,6 +10,7 @@
     <ClCompile Include="test_cdbllist.cpp" />
     <ClCompile Include="test_cfield.cpp" />
     <ClCompile Include="test_cproject.cpp" />
+    <ClCompile Include="test_crecord.cpp" />
     <ClCompile Include="test_main.cpp" />
     <ClCompile Include="test_cmstring.cpp" />
     <ClCompile Include="test_str8.cpp" />
