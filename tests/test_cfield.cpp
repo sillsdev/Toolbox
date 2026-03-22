@@ -1,7 +1,4 @@
 #include "test_common.h"
-#define private public
-#include "mkr.h"
-#undef private
 #include "cfield.h"
 #include "crecpos.h"
 #include "lng.h"
@@ -14,7 +11,7 @@ TEST_CASE("CField Tokenizing")
 
     SUBCASE("Standard Tokenization (bMultipleItemData = TRUE)")
     {
-        pmkr->m_bMultipleItemData = TRUE;
+        CMarker_Test::SetMultipleItemData(pmkr, TRUE);
         CField field(pmkr, "  alpha  beta   gamma  ");
         CRecPos start, end;
 
@@ -32,7 +29,7 @@ TEST_CASE("CField Tokenizing")
 
     SUBCASE("Single Item Mode (bMultipleItemData = FALSE)")
     {
-        pmkr->m_bMultipleItemData = FALSE; //
+        CMarker_Test::SetMultipleItemData(pmkr, FALSE);
         CField field(pmkr, "  item with spaces  ");
         CRecPos start, end;
 
@@ -58,7 +55,7 @@ TEST_CASE("CField Tokenizing")
 
     SUBCASE("Validation: Required Data")
     {
-        pmkr->m_bMustHaveData = TRUE;
+        CMarker_Test::SetMustHaveData(pmkr, TRUE);
         CField field(pmkr, "   "); // All whitespace
         CRecPos start, end;
         Str8 message;

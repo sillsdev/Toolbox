@@ -11,6 +11,8 @@
     <ClCompile Include="test_cfield.cpp" />
     <ClCompile Include="test_cproject.cpp" />
     <ClCompile Include="test_crecord.cpp" />
+    <ClCompile Include="test_crecpos.cpp" />
+    <ClCompile Include="test_interlin.cpp" />
     <ClCompile Include="test_main.cpp" />
     <ClCompile Include="test_cmstring.cpp" />
     <ClCompile Include="test_str8.cpp" />
@@ -50,7 +52,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>TEST_BUILD;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>TEST_BUILD;UseCct;WIN32;_DEBUG;_WINDOWS;NO_DUMP;_MBCS;OBSTREAM_NOTES;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)..\src;$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>

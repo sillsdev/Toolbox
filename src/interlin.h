@@ -117,6 +117,9 @@ public:
 class CWordFormulaSet;  // 1999-08-30 MRP: wdf.h
 
 class CLookupProc : public CInterlinearProc { // Lookup process, look up in database, return content of a field marker
+#ifdef TEST_BUILD
+    friend class CLookupProc_Test;
+#endif
 private:
     CDbTrie* m_pptri[ NUMTRIES ]; // See Trie.h for defines that give meanings to numbers
     BOOL m_bParseProc; // True if parsing

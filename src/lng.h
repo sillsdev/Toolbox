@@ -783,6 +783,9 @@ private:
 
 class CLangEncSet : public CSet  // Hungarian: lngset
 {
+#ifdef TEST_BUILD
+    friend class CLangEncSet_Test;
+#endif
 private:
     CKeyboardSet m_kbdset;
     CVarSet m_varset;  // variable names are shared by all language encodings

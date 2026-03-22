@@ -30,6 +30,9 @@ class CRunDos;
 // CProject
 class CProject
 {
+#ifdef TEST_BUILD
+    friend class CProject_Test;
+#endif
 private:
     Str8 m_sSettingsVersion;  // 1998-03-12 MRP
     Str8 m_sSettingsDirPath;

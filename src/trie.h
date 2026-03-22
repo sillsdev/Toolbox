@@ -166,6 +166,9 @@ class CDatabaseTypeSet; // For ptypset()
 //-----------------------------------------------------------------------------
 class CDbTrie : public CTrie // tri Database trie, public interface of trie
 {
+#ifdef TEST_BUILD
+    friend class CDbTrie_Test;
+#endif
 private:
     CTrieList m_tlsRedup; // Redup list
     CInterlinearProc* m_pintprcMyOwner; // Owning process

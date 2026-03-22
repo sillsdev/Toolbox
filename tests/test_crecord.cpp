@@ -1,17 +1,5 @@
 #include "test_common.h"
-#include "mkr.h"
-#define private public
 #include "crecord.h"
-#undef private
-
-class CMarker_Test {
-public:
-    static void SetParent(CMarker* pSub, CMarker* pParent) {
-        if (pSub) {
-            pSub->SetMarkerOverThis(pParent);
-        }
-    }
-};
 
 void CheckField(CField* pfldResult, CField* pfldExpected, const char* szLabel = "")
 {

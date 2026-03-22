@@ -5,17 +5,15 @@
 #define _WIN32_WINNT 0x0A00	// target windows 10 and later
 
 #include <filesystem>
+#include <fstream>
+#include <string>
 #include <afxwin.h>  // BOOL, CString, MFC base classes
 #include "Str8.h"
 #include "shwdefs.h"
+#include "mkr.h"
+#include "project.h"
+#include "shw.h"
 #include "doctest.h"  // lightweight modern testing framework
-
-namespace fs = std::filesystem;
-
-// test_common.h
-#include <fstream>
-#include <filesystem>
-#include <string>
 
 namespace fs = std::filesystem;
 
@@ -51,5 +49,60 @@ struct TestFile {
 
     inline std::string filename_str() const {
         return fullPath.filename().string();
+    }
+};
+
+class CMarker_Test {
+public:
+    static void SetInterlinear(CMarker* pmkr, BOOL bIsFirst = FALSE) {
+        if (pmkr) pmkr->SetInterlinear(bIsFirst);
+    }
+
+    static void SetParent(CMarker* pSub, CMarker* pParent) {
+        if (pSub) pSub->SetMarkerOverThis(pParent);
+    }
+
+    static void SetMultipleItemData(CMarker* pmkr, BOOL bVal) {
+        if (pmkr) pmkr->m_bMultipleItemData = bVal;
+    }
+
+    static void SetMustHaveData(CMarker* pmkr, BOOL bVal) {
+        if (pmkr) pmkr->m_bMustHaveData = bVal;
+    }
+};
+
+class CShwApp_Test {
+public:
+    static CProject*& Project(CShwApp* pApp) {
+        return pApp->m_pProject;
+    }
+
+    static void ResetProject(CShwApp* pApp) {
+        if (pApp && pApp->m_pProject) {
+            pApp->m_pProject->SetExerciseNoSave(TRUE);
+            CProject* pOld = pApp->m_pProject;
+            delete pOld;
+            pApp->m_pProject = nullptr;
+        }
+    }
+};
+
+class CProject_Test {
+public:
+    // Accessors for private members
+    static BOOL AutoWrap(const CProject* pprj) {
+        return pprj->m_bAutoWrap;
+    }
+
+    static const Str8& ProjectPath(const CProject* pprj) {
+        return pprj->m_sProjectPath;
+    }
+
+    static const Str8& SettingsDirPath(const CProject* pprj) {
+        return pprj->m_sSettingsDirPath;
+    }
+
+    static const Str8& ProjectName(const CProject* pprj) {
+        return pprj->m_sProjectName;
     }
 };

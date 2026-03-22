@@ -24,6 +24,9 @@ class CDatabaseType;  // typ.h
 //
 class CShwApp : public CWinApp
 {
+#ifdef TEST_BUILD
+    friend class CShwApp_Test;
+#endif
 private:
     CProject* m_pProject; // currently open project or NULL if none open
 

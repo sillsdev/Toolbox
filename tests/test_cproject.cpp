@@ -1,9 +1,5 @@
 #include "test_common.h"
-#define private public
-#include "shw.h"
 #include "mainfrm.h"
-#include "project.h"
-#undef private
 
 static const char* psz_ShProjectSettings = "ShProjectSettings";
 static const char* psz_AutoWrap = "AutoWrap";
@@ -36,21 +32,21 @@ TEST_CASE("Create CProject")
             // When s_bConstruct reaches the line:
             // *ppprj = pprj;
             // It writes the new project's address into the global m_pProject variable.
-            pApp->m_pProject = nullptr;
+            CShwApp_Test::ResetProject(pApp);
             bool ok = CProject::s_bConstruct(
                 mockFile.c_str(),
                 TRUE,
                 "1.2.3",
-                &(pApp->m_pProject));
+                &CShwApp_Test::Project(pApp));
             CHECK_MESSAGE(ok, "Project construction returned FALSE");
-            if (pApp->m_pProject != nullptr) {
-                CProject* pprj = pApp->m_pProject;
-                CHECK(pprj->m_bAutoWrap == tc.expected);
-                CHECK(std::string(pprj->m_sProjectPath) == mockFile.c_str());
-                CHECK(TestFile::normalize_path((const char*)pprj->m_sSettingsDirPath) == TestFile::normalize_path(mockFile.dir_str()));
-                CHECK(std::string(pprj->m_sProjectName) == mockFile.filename_str());
-                delete pApp->m_pProject;
-                pApp->m_pProject = nullptr;
+            CProject* pprj = CShwApp_Test::Project(pApp);
+            if (pprj != nullptr) {
+                CHECK(CProject_Test::AutoWrap(pprj) == tc.expected);
+                CHECK(std::string(CProject_Test::ProjectPath(pprj)) == mockFile.c_str());
+                CHECK(TestFile::normalize_path((const char*)CProject_Test::SettingsDirPath(pprj))
+                    == TestFile::normalize_path(mockFile.dir_str()));
+                CHECK(std::string(CProject_Test::ProjectName(pprj)) == mockFile.filename_str());
+                CShwApp_Test::ResetProject(pApp);
             }
             else {
                 CHECK_MESSAGE(false, "pProject is NULL");
