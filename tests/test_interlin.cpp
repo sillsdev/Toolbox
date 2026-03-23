@@ -60,7 +60,6 @@ TEST_CASE("CLookupProc: Morpheme Parsing Logic") {
     // Get pointers from the project
     CProject* pprj = CShwApp_Test::Project(pApp);
     CNoteList notlst;
-    CLangEnc* plng = pprj->plngset()->plngSearch_AddIfNew("TestLang", notlst);
     CDatabaseType* ptyp = pprj->ptypset()->ptypNew("Linguistic", "lx");
     CMarkerSet* mkrset = ptyp->pmkrset();
 

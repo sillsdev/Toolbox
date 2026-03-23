@@ -1,7 +1,14 @@
 #define DOCTEST_CONFIG_IMPLEMENT
 #include "doctest.h"
+#include <afxwin.h>
 #include <crtdbg.h>
 #include <windows.h>
+
+// Override AfxMessageBox to prevent popups.
+int AFXAPI AfxMessageBox(LPCTSTR lpszText, UINT nType, UINT nIDHelp) {
+    _ftprintf(stderr, _T("\n[CI INTERCEPT] AfxMessageBox: %s\n"), lpszText);
+    return IDOK; // Simulate clicking OK
+}
 
 int main(int argc, char** argv) {
     // 1. SILENCE THE POPUPS: Redirect CRT/MFC asserts to stderr
