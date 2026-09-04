@@ -72,7 +72,7 @@ public:
     BOOL bReadOnly() const { return m_pindset && m_pindset->bReadOnly(); } // 1.2be Fix bug of crash when file fails to open, new from 1.2an
     void SetReadOnly(BOOL b) { m_bReadOnly = b; } // m_pindset->SetReadOnly(b); } // 1.1ea
 
-    BOOL bWrite(const char* pszPath, BOOL bExport = FALSE, CIndex* pindExport = NULL, CMarkerSubSet* psubsetMarkersToExport = NULL, BOOL bCurrentRecord = FALSE, const CRecLookEl* prelCur = NULL );
+    BOOL bWrite(const char* pszPath, BOOL bExport = FALSE, CIndex* pindExport = NULL, CMarkerSubSet* psubsetMarkersToExport = NULL, BOOL bCurrentRecord = FALSE, const CRecLookEl* prelCur = NULL, DWORD* pdwError = NULL);
     
 #ifdef prjWritefstream // 1.6.4aa 
     void WriteProperties(Object_ofstream& obs);

@@ -847,58 +847,100 @@ BOOL CShwDoc::bReadRecords(const char* pszPath, std::ifstream& ios, SF_istream& 
     return TRUE;
 }  // CShwDoc::bReadRecords
 
-
 BOOL CShwDoc::bSave(const char* pszPath, Str8& sMessage)
 {
 	CProject* pprj = Shw_papp()->pProject();
-	if ( pprj->bExerciseNoSave() ) // 5.99f Don't save if exercises
+	if (pprj->bExerciseNoSave())
 		return TRUE;
-	if ( !bReadOnly() ) // 1.4vf 
+
+	if (!bReadOnly())
+	{
+		Str8 sPath = sGetDirPath(pszPath) + sGetFileName(pszPath, TRUE);
+		Str8 sTempPath = sPath + ".tmp";
+		Str8 sBackupPath = sPath + ".bak";
+
+		CString swPath = swUTF16(sPath);
+		CString swTempPath = swUTF16(sTempPath);
+		CString swBackupPath = swUTF16(sBackupPath);
+
+		// Clean up old backups or unprotect existing backup for ReplaceFileW
+		if (bFileExists(sBackupPath))
 		{
-		Str8 sPath = sGetDirPath( pszPath ) + sGetFileName( pszPath, TRUE ); // 1.6.2a Fix bug of save non-Latin making Temp instead
-			// Str8 sTempPath = sGetDirPath( pszPath ) + "Temp of " + sGetFileName( pszPath, TRUE ); // 1.5.1fm Make temp name // 1.6.3a No temp
-		Str8 sBackupPath = sGetDirPath( pszPath ) + "Backup of " + sGetFileName( pszPath, TRUE ); // 1.5.1fm Make backup name
-        if ( bFileExists( sBackupPath ) ) // 1.6.3a Remove any leftover old backup
-			{
-			UnWriteProtect( sBackupPath ); // 1.6.3a 
-            remove( sBackupPath ); // 1.6.3a delete file
-			}
-				// if ( !bWrite( sTempPath ) ) // 1.5.1fm Write to temp name // 1.5.9eb Check for write failure // 1.6.3a No temp
-		UnWriteProtect( sPath ); // 1.6.3a Fix bug of sometimes leaving Temp of instead of real file name
-		if ( !bWrite( sPath ) ) // 1.6.3a Fix bug of sometimes leaving Temp of instead of real file name
-			{
-			sMessage = "Failed to write file"; // 1.5.9eb Report write failure
-			return FALSE; // 1.5.9eb 
-			}
-#ifdef OUT163 // 1.6.3a Fix bug of sometimes leaving Temp of instead of real file name
-		if ( bAllASCII( sPath ) ) // 1.6.2a Fix bug of save as non-Latin not working, making Temp instead, rename doesn't work on non-ASCII
-			{
-			rename( sPath, sBackupPath ); // 1.5.1fm Rename old real to backup // 1.6.2a Fix bug of save non-Latin making Temp instead
-			rename( sTempPath, sPath ); // 1.5.1fm Rename temp to real // 1.6.2a Fix bug of save non-Latin making Temp instead
-			if ( pprj->bNoBackup() ) // 1.5.3p If no backup wanted, delete backup now
-				remove( sBackupPath ); // 1.5.3p 
-			}
-		else // 1.6.2a If non-Latin path, write directly instead of rename
-			{
-			UnWriteProtect( sPath ); // 1.6.2a 
-			bWrite( sPath ); // 1.6.2a Write file, should be successful because temp write above was successful
-			}
-#endif // OUT163 // 1.6.3a 
+			UnWriteProtect(sBackupPath);
+			if (pprj->bNoBackup())
+				DeleteFileW(swBackupPath);
 		}
 
-	if ( ptyp()->bCCTable() ) // 1.4qmh On save of CCTable source file, export the table as well // 1.4qzff Generalize CCTable db type to any name that starts that way
+		// Write the temp file, retry on transient lock/access errors
+		UnWriteProtect(sTempPath); // clear any stale leftover from a crash
+		BOOL bWroteTemp = FALSE;
+		DWORD dwErr = ERROR_SUCCESS;
+		const int kMaxWriteTries = 8;
+		for (int i = 0; i < kMaxWriteTries; ++i)
 		{
-	    POSITION pos = GetFirstViewPosition(); // 1.4qmh Find a view of this document
+			bWroteTemp = bWrite(sTempPath, FALSE, NULL, NULL, FALSE, NULL, &dwErr);
+			if (bWroteTemp)
+				break;
+			if (dwErr == ERROR_SHARING_VIOLATION || dwErr == ERROR_LOCK_VIOLATION || dwErr == EACCES)
+				Sleep(100);
+			else
+				break; // permanent failure (e.g. disk full, bad path) — don't waste time retrying
+		}
+		if (!bWroteTemp)
+		{
+			sMessage.Format("Failed to write file (code: %lu)", dwErr);
+			DeleteFileW(swTempPath);
+			return FALSE;
+		}
+
+		// Atomically swap temp into place
+		UnWriteProtect(sPath);
+		BOOL bSuccess = FALSE;
+		LPCWSTR pwszBackup = NULL;
+		if (!pprj->bNoBackup())
+			pwszBackup = swBackupPath;
+		const int kMaxSwapTries = 8;
+		for (int i = 0; i < kMaxSwapTries; ++i)
+		{
+			bSuccess = ReplaceFileW(swPath, swTempPath, pwszBackup, REPLACEFILE_IGNORE_MERGE_ERRORS, NULL, NULL);
+			if (bSuccess)
+				break;
+
+			dwErr = GetLastError();
+			if (dwErr == ERROR_FILE_NOT_FOUND) // first save — nothing to swap into yet
+			{
+				bSuccess = MoveFileExW(swTempPath, swPath, MOVEFILE_REPLACE_EXISTING);
+				if (bSuccess)
+					break;
+				dwErr = GetLastError();
+			}
+
+			if (dwErr == ERROR_SHARING_VIOLATION || dwErr == ERROR_LOCK_VIOLATION)
+				Sleep(100);
+			else
+				break;
+		}
+
+		if (!bSuccess)
+		{
+			sMessage.Format("Failed to write file (Win32 code: %lu)", dwErr);
+			DeleteFileW(swTempPath);
+			return FALSE;
+		}
+	}
+
+	if (ptyp()->bCCTable())
+	{
+		POSITION pos = GetFirstViewPosition();
 		if (pos != NULL)
-			{
-			CShwView* pView = (CShwView*)GetNextView(pos); // 1.4qmh Find a view of this document
-			pView->OnFileExport(); // 1.4qmh Export this document from a view
-			}
+		{
+			CShwView* pView = (CShwView*)GetNextView(pos);
+			pView->OnFileExport();
 		}
-    SetModifiedFlag(FALSE);  // 1995-07-17 MRP
-    return TRUE;
+	}
+	SetModifiedFlag(FALSE);
+	return TRUE;
 }
-
 
 #ifdef NotYetInterlinear // 1.5.9pa 
 void WriteInterlinearGroup( const CRecord* prec, CField*& pfld, FILE* pf, CMarkerSubSet* psubsetMarkersToExport ) // 1.5.9eb Write mkr group tag and fields under the mkr // 1.5.9ec Add rec mkr group attributes
@@ -1062,9 +1104,10 @@ void WriteGroup( const CRecord* prec, CField*& pfld, FILE* pf, CMarkerSubSet* ps
 #endif // OldWayWriteGroup // 1.6.1cf 
 
 BOOL CShwDoc::bWrite(const char* pszPath, BOOL bExport, CIndex* pindExport, 
-		CMarkerSubSet* psubsetMarkersToExport, BOOL bCurrentRecord, const CRecLookEl* prelCur )
+		CMarkerSubSet* psubsetMarkersToExport, BOOL bCurrentRecord, const CRecLookEl* prelCur, DWORD* pdwError)
 {
     ASSERT( pszPath );
+	if (pdwError) *pdwError = ERROR_SUCCESS;
 	Str8 sPath = pszPath; // 1.5.9eb Put path into string
 	CString swPath = swUTF16( sPath ); // 1.5.9eb Make utf16 path for file open
 	Str8 sMode = "w"; // Set up mode string // 1.5.9eb 
@@ -1072,7 +1115,11 @@ BOOL CShwDoc::bWrite(const char* pszPath, BOOL bExport, CIndex* pindExport,
 	FILE* pf = nullptr;
 	errno_t err = _wfopen_s(&pf, swPath, swMode);	// 1.5.9eb Open file
 	if (err != 0 || pf == nullptr) {	// If file open failed, return failure // 1.5.9eb 
-		// handle error
+		if (pdwError) // Capture error immediately, before anything else can overwrite it
+		{
+			DWORD dwWin32 = GetLastError(); // _wfopen_s calls CreateFileW internally, GetLastError often still valid
+			*pdwError = (dwWin32 != ERROR_SUCCESS) ? dwWin32 : (DWORD)err; // Fall back to errno_t if no Win32 code was set
+		}
 		return FALSE;
 	}
 	Str8 sTyp = ptyp()->sName(); // 1.5.9eb Get database type name
