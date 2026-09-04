@@ -8,21 +8,16 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: windows-2022
     steps:
       - uses: actions/checkout@v4
-      - name: Install MFC Components
-        run: |
-          $vsPath = & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -property installationPath
-          $installer = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\setup.exe"
-          Start-Process $installer -ArgumentList "modify --installPath `"$vsPath`" --add Microsoft.VisualStudio.Component.VC.ATLMFC --passive --norestart" -Wait
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v2
       - name: Build main exe
         run: msbuild src/Toolbox.vcxproj /p:Configuration="Release" /p:Platform="Win32"
 
   test:
-    runs-on: windows-latest
+    runs-on: windows-2022
     steps:
       - uses: actions/checkout@v4
       - name: Setup MSBuild
