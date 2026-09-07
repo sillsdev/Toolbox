@@ -151,14 +151,11 @@ static const char* psz_HelpFile = "Toolbox.hlp";
 static Str8 s_sHelpFilePath;
 #endif
 
+static char s_pszSettingsVersion[] = "5.0";
 
-// First number is major version. Tenths represent a full external test release.
-// Letters represent a minor internal or external test with limited distribution.
-// static char s_pszProgramVersion[] = "1.4gzp Apr 2005"; // Also in history in VersionDlg.cpp // 1.4gzp Move version number string to VersDlg.cpp
-
-static char s_pszSettingsVersion[] = "5.0"; // 1.0cd Change settings version to 1.0 as requested, changed back to 5.0 at 1.0ch
-
-extern Str8 g_sVersion;  // 1997-08-05
+// Defined in VersionDlg.cpp
+extern Str8 g_sVersion;
+extern Str8 g_sCopyright;
 
 HBRUSH CShwApp::GetAppDialogBrush(CDC* pDC)
 {
@@ -802,13 +799,16 @@ void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 {
     CDialog::DoDataExchange(pDX);
     //{{AFX_DATA_MAP(CAboutDlg)
-//    DDX_Txt(pDX, IDC_Version, g_sVersion);
+    //    DDX_Txt(pDX, IDC_Version, g_sVersion);
     //}}AFX_DATA_MAP
 }
 
 BOOL CAboutDlg::OnInitDialog()
 	{
-    SetDlgItemText( IDC_Version, swUTF16( g_sVersion ) ); // 1.4qpv
+    // Set dynamic version text
+    SetDlgItemText(IDC_Version, swUTF16(g_sVersion));
+    SetDlgItemText(IDC_Copyright, swUTF16(g_sCopyright));
+
 	return TRUE;
 	}
 

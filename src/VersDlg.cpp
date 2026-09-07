@@ -11,19 +11,28 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
-/////////////////////////////////////////////////////////////////////////////
-// CVersionDlg dialog
+// These strings get shown in the About dialog (IDD_ABOUTBOX).
 // First number is major version. Tenths represent a full external test release.
 // Letters represent a minor internal or external test with limited distribution.
 
-Str8 g_sVersion = "1.6.4s Mar 2022";  // 1.4gzp Move version number string to VersDlg.cpp
+Str8 g_sVersion = "2.0.0 TBD 2026";
+Str8 g_sCopyright = "Copyright \u00A9 2001-2026 SIL International";
+
+/////////////////////////////////////////////////////////////////////////////
+// CVersionDlg dialog
+//
+// This never gets called because IDC_btnVersionInfo in the About dialog
+// is hidden in Shw.rc.
+// The information below is an archive of pre-2.0 release notes
+// and internal build histories. Future major release notes can be kept in
+// project documentation (e.g. PROVENANCE.md).
 
 CVersionDlg::CVersionDlg(CWnd* pParent /*=NULL*/) : CDialog(CVersionDlg::IDD, pParent)
 {
 Str8 sVersionHistory = "\
 2.0.0 First version using VS 2022 \r\n";
 
-sVersionHistory = "\
+sVersionHistory += "\r\n\
 1.6.4s Test version for large corpus WordParse features. \r\n\
 1.6.4zn Fix bug reinterlinearize word parse moving to wrong place. \r\n\
 1.6.4zn Fix bug of return from jump finding cursor at top of text window. \r\n\

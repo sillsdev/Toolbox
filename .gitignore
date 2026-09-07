@@ -2,22 +2,32 @@
 # .gitignore
 ################################################################################
 
+# Compiler, Linker, Debugger
+src/*.idb
+src/*.pdb
+src/*.pch
+
+# Visual Studio
 *.suo
 *.user
+*.vcxproj.filters
+*.vcxproj.user
+*.sdf
+*.VC.db
+*.opensdf
+src/*.aps
+
+# Operating System
 *.lnk
+Thumbs.db
+Desktop.ini
+
+# Directories
 .vs/
 .vscode/
 [Dd]ebug/
 [Rr]elease/
 TestLib/
-
-/src/shw.cpp
-/src/SHW32.idb
-/src/shw32.pdb
-/src/Shwnotes.aps
-/src/Toolbox.sdf
-/src/Toolbox.vcxproj.filters
-
 /AlansBackups/Toolbox164j
 /AlansBackups/Toolbox164kIncr
 /AlansBackups/Toolbox164qIncr

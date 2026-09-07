@@ -917,6 +917,7 @@
 #define IDC_EDIT_Comment                1970
 #define IDC_MDF_edtChainProcess         1971
 #define IDC_UseInternalKeyboard         1972
+#define IDC_Copyright                   1973
 #define IDS_FILSET_TITLE                61264
 #define IDS_MKRSET_TITLE                61266
 #define IDS_VARSET_TITLE                61287

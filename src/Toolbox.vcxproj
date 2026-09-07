@@ -604,6 +604,7 @@
     <ClInclude Include="Update.h" />
     <ClInclude Include="Var.h" />
     <ClInclude Include="Var_d.h" />
+    <ClInclude Include="VersionDlg.h" />
     <ClInclude Include="Wav.h" />
     <ClInclude Include="wdf.h" />
     <ClInclude Include="wdf_d.h" />

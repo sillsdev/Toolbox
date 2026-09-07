@@ -1,4 +1,4 @@
-//Microsoft Developer Studio generated resource script.
+// Microsoft Visual C++ generated resource script.
 //
 #include "resource.h"
 
@@ -13,13 +13,11 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// English (U.S.) resources
+// English (United States) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
-#ifdef _WIN32
 LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 #pragma code_page(1252)
-#endif //_WIN32
 
 #ifdef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////
@@ -27,18 +25,18 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 // TEXTINCLUDE
 //
 
-1 TEXTINCLUDE DISCARDABLE 
+1 TEXTINCLUDE 
 BEGIN
     "resource.h\0"
 END
 
-2 TEXTINCLUDE DISCARDABLE 
+2 TEXTINCLUDE 
 BEGIN
     "#include ""afxres.h""\r\n"
     "#include ""dlgs.h""\0"
 END
 
-3 TEXTINCLUDE DISCARDABLE 
+3 TEXTINCLUDE 
 BEGIN
     "#include ""res\\shw.rc2""  // non-App Studio edited resources\r\n"
     "\r\n"
@@ -65,45 +63,45 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDR_MAINFRAME           ICON    DISCARDABLE     "RES\\SHW.ICO"
-IDR_SHWTYPE             ICON    DISCARDABLE     "RES\\SHWDOC.ICO"
-IDI_Exclamation         ICON    DISCARDABLE     "RES\\EXCLAMAT.ICO"
+IDR_MAINFRAME           ICON                    "RES\\SHW.ICO"
+
+IDR_SHWTYPE             ICON                    "RES\\SHWDOC.ICO"
+
+IDI_Exclamation         ICON                    "RES\\EXCLAMAT.ICO"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // Bitmap
 //
 
-IDR_MAINFRAME           BITMAP  MOVEABLE PURE   "RES\\TOOLBAR.BMP"
-IDR_SHWTYPE             BITMAP  MOVEABLE PURE   "RES\\IDR_SHWT.BMP"
+IDR_MAINFRAME           BITMAP                  "RES\\TOOLBAR.BMP"
+
+IDR_SHWTYPE             BITMAP                  "RES\\IDR_SHWT.BMP"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // Dialog
 //
 
-IDD_ABOUTBOX DIALOG DISCARDABLE  34, 22, 256, 111
-STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_ABOUTBOX DIALOGEX 34, 22, 256, 111
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "About Toolbox"
-FONT 8, "MS Sans Serif"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
 BEGIN
     CTEXT           "Field Linguist's Toolbox",IDC_STATIC,24,9,203,8
-    CTEXT           "Copyright (c) 2001-2022 SIL International",IDC_STATIC,
-                    26,59,203,8
+    CTEXT           "Version fills in here at runtime",IDC_Version,25,22,203,9
+    CTEXT           "Web: software.sil.org/toolbox   Email: Toolbox@sil.org",IDC_STATIC,10,36,236,8
+    CTEXT           "Produced from Shoebox 5.0 by SAG, with permission from SIL International",IDC_STATIC,10,49,236,8
+    CTEXT           "Copyright", IDC_Copyright, 26, 59, 203, 8
+    PUSHBUTTON      "Test version &Information",IDC_btnVersionInfo,5,80,88,14,NOT WS_VISIBLE | NOT WS_TABSTOP
     DEFPUSHBUTTON   "OK",IDOK,97,80,54,14,WS_GROUP
     ICON            IDR_MAINFRAME,IDC_STATIC,208,75,20,20
-    CTEXT           "Version fills in here at runtime",IDC_Version,25,22,203,
-                    9
-    PUSHBUTTON      "Test version &Information",IDC_btnVersionInfo,5,80,88,
-                    14,NOT WS_VISIBLE | NOT WS_TABSTOP
-    CTEXT           "Produced from Shoebox 5.0 by SAG, with permission from SIL International",
-                    IDC_STATIC,10,49,236,8
-    CTEXT           "Web: www.sil.org/computing/toolbox   Email: Toolbox@sil.org",
-                    IDC_STATIC,10,36,236,8
 END
 
-IDD_RECORD_INSERT DIALOG DISCARDABLE  0, 0, 242, 61
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_RECORD_INSERT DIALOG 0, 0, 242, 61
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Record Insert"
 FONT 8, "MS Sans Serif"
 BEGIN
@@ -113,163 +111,130 @@ BEGIN
     LTEXT           "&Key to insert:",IDC_STATIC,1,16,44,10
 END
 
-IDD_SET DIALOG DISCARDABLE  0, 0, 436, 148
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_SET DIALOG 0, 0, 436, 148
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 FONT 8, "MS Sans Serif"
 BEGIN
-    LISTBOX         IDC_SET_LIST,6,17,363,117,LBS_OWNERDRAWFIXED | 
-                    LBS_HASSTRINGS | LBS_USETABSTOPS | LBS_NOINTEGRALHEIGHT | 
-                    WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_SET_LIST,6,17,363,117,LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_USETABSTOPS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     DEFPUSHBUTTON   "Cl&ose",IDC_CLOSE,375,6,54,14
     PUSHBUTTON      "&Add...",IDC_ADD,375,26,54,14
     PUSHBUTTON      "&Copy...",IDC_COPY,375,43,54,14
     PUSHBUTTON      "&Modify...",IDC_MODIFY,375,60,54,14
     PUSHBUTTON      "&Delete",IDC_DELETE,375,77,54,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,375,
-                    97,54,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,375,97,54,14
     LTEXT           "&Name",IDC_SET_NAME,7,6,40,8,NOT WS_VISIBLE
     LTEXT           "",IDC_SET_LABEL,6,136,241,8
     LTEXT           "File Name",IDC_SET_FILE_NAME,218,6,67,8,NOT WS_VISIBLE
 END
 
-IDD_FILE_IMPORT DIALOG DISCARDABLE  0, 0, 255, 178
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_FILE_IMPORT DIALOG 0, 0, 255, 178
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Import"
 FONT 8, "MS Sans Serif"
 BEGIN
-    LTEXT           "This file is not in Toolbox file format:",
-                    IDC_lblWhyImport,6,6,177,8
-    LTEXT           "Select a database type",IDC_IMPORT_DESCRIPTION,7,31,156,
-                    16
+    LTEXT           "This file is not in Toolbox file format:",IDC_lblWhyImport,6,6,177,8
+    LTEXT           "Select a database type",IDC_IMPORT_DESCRIPTION,7,31,156,16
     LTEXT           "Database &Type",IDC_STATIC,6,52,100,8
-    COMBOBOX        IDC_IMPORT_DBTYP,6,63,116,98,CBS_DROPDOWNLIST | CBS_SORT | 
-                    WS_VSCROLL | WS_TABSTOP
-    PUSHBUTTON      "&Add a new Database Type...",IDC_DATABASE_TYPES,6,78,
-                    116,14
+    COMBOBOX        IDC_IMPORT_DBTYP,6,63,116,98,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "&Add a new Database Type...",IDC_DATABASE_TYPES,6,78,116,14
     GROUPBOX        "Make Consistent Changes",IDC_Import_CCGroup,6,98,116,58
-    CONTROL         "&Use Change Table:",IDC_USE_CCTABLE,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,12,112,109,10
+    CONTROL         "&Use Change Table:",IDC_USE_CCTABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,112,109,10
     LTEXT           "None",IDC_LBL_CCTABLE,22,125,94,8
     PUSHBUTTON      "&Browse...",IDC_BROWSE_CCTABLE,22,136,54,14
-    CONTROL         "&Remove hanging indent spaces",
-                    IDC_Import_chkRemoveSpaces,"Button",BS_AUTOCHECKBOX | 
-                    NOT WS_VISIBLE | WS_TABSTOP,6,162,121,10
+    CONTROL         "&Remove hanging indent spaces",IDC_Import_chkRemoveSpaces,
+                    "Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,6,162,121,10
     DEFPUSHBUTTON   "OK",IDOK,195,6,54,14
     PUSHBUTTON      "Cancel",IDCANCEL,195,23,54,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,195,
-                    43,54,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,195,43,54,14
     LTEXT           "&Preview",IDC_STATIC,134,52,53,8
-    EDITTEXT        IDC_IMPORT_FILEVIEW,134,63,115,93,ES_MULTILINE | 
-                    ES_OEMCONVERT | ES_READONLY | WS_VSCROLL | WS_HSCROLL
-    CONTROL         "Back up &original as *.ORI",IDC_BACKUP_ORI,"Button",
-                    BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,134,162,
-                    115,10
+    EDITTEXT        IDC_IMPORT_FILEVIEW,134,63,115,93,ES_MULTILINE | ES_OEMCONVERT | ES_READONLY | WS_VSCROLL | WS_HSCROLL
+    CONTROL         "Back up &original as *.ORI",IDC_BACKUP_ORI,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,134,162,115,10
     LTEXT           "Source File",IDC_SOURCEFILE,6,17,184,8
 END
 
-IDD_KEY DIALOG DISCARDABLE  0, 0, 251, 137
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_KEY DIALOG 0, 0, 251, 137
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 FONT 8, "MS Sans Serif"
 BEGIN
     EDITTEXT        IDC_KEY_KEY,6,15,180,36,ES_AUTOHSCROLL
     DEFPUSHBUTTON   "OK",IDOK,194,6,50,14,WS_GROUP
     PUSHBUTTON      "Cancel",IDCANCEL,194,23,50,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,194,
-                    43,50,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,194,43,50,14
     LTEXT           "",IDC_KEY_LABEL,6,5,135,8
-    CONTROL         "Match &whole field",IDC_KEY_WHOLE_KEY,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,6,52,110,10
+    CONTROL         "Match &whole field",IDC_KEY_WHOLE_KEY,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,52,110,10
     GROUPBOX        "Match characters",IDC_STATIC,6,63,135,68
-    CONTROL         "By &primary grouping only (loosest)",
-                    IDC_KEY_MATCH_SAME_PRIMARY,"Button",BS_AUTORADIOBUTTON | 
-                    WS_GROUP,14,79,124,10
-    CONTROL         "By secondary ordering, disregarding &case",
-                    IDC_KEY_MATCH_EXACT_DISREGARD_CASE,"Button",
-                    BS_AUTORADIOBUTTON,14,91,124,10
+    CONTROL         "By &primary grouping only (loosest)",IDC_KEY_MATCH_SAME_PRIMARY,
+                    "Button",BS_AUTORADIOBUTTON | WS_GROUP,14,79,124,10
+    CONTROL         "By secondary ordering, disregarding &case",IDC_KEY_MATCH_EXACT_DISREGARD_CASE,
+                    "Button",BS_AUTORADIOBUTTON,14,91,124,10
     CONTROL         "&Exactly by secondary ordering",IDC_KEY_MATCH_EXACT,
                     "Button",BS_AUTORADIOBUTTON,14,103,124,10
-    CONTROL         "Even those normally &ignored (strictest)",
-                    IDC_KEY_MATCH_EVEN_IGNORE,"Button",BS_AUTORADIOBUTTON,14,
-                    115,125,10
+    CONTROL         "Even those normally &ignored (strictest)",IDC_KEY_MATCH_EVEN_IGNORE,
+                    "Button",BS_AUTORADIOBUTTON,14,115,125,10
 END
 
-IDD_SORTINDEX DIALOG DISCARDABLE  0, 0, 259, 186
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_SORTINDEX DIALOG 0, 0, 259, 186
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Sorting by Fields"
 FONT 8, "MS Sans Serif"
 BEGIN
     GROUPBOX        "Fields for Sorting",IDC_SORTINDEX_FLDSGROUP,7,7,171,148
-    LTEXT           "&Available Markers",IDC_SORTINDEX_LBLAVAILABLE,14,20,50,
-                    16
-    LISTBOX         IDC_SORTINDEX_LSTMRKSAVAILABLE,14,40,50,105,
-                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "&Available Markers",IDC_SORTINDEX_LBLAVAILABLE,14,20,50,16
+    LISTBOX         IDC_SORTINDEX_LSTMRKSAVAILABLE,14,40,50,105,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     LTEXT           "&Sort Fields",IDC_SORTINDEX_LBLTOSORT,117,20,34,16
-    LISTBOX         IDC_SORTINDEX_LSTMRKSTOSORT,117,40,50,106,
-                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_SORTINDEX_LSTMRKSTOSORT,117,40,50,106,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "&First ->",IDC_SORTINDEX_FIRSTTO,71,40,40,15
     PUSHBUTTON      "&Last ->",IDC_SORTINDEX_LASTTO,71,60,40,15
     PUSHBUTTON      "&Insert ->",IDC_SORTINDEX_MOVETO,71,80,40,15
     PUSHBUTTON      "<- &Remove",IDC_SORTINDEX_MOVEFROM,71,100,40,15
     PUSHBUTTON      "<- &Clear",IDC_SORTINDEX_CLEARSORTS,71,120,40,15
-    LTEXT           "Sort &Order\nfor first field",
-                    IDC_SORTINDEX_LBLFIRSTFIELDSORTORD,185,20,64,16
-    COMBOBOX        IDC_SORTINDEX_CBXFIRSTFLD_SO,184,40,68,89,
-                    CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Sort &Order\nfor first field",IDC_SORTINDEX_LBLFIRSTFIELDSORTORD,185,20,64,16
+    COMBOBOX        IDC_SORTINDEX_CBXFIRSTFLD_SO,184,40,68,89,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     LTEXT           "from end",IDC_STATIC,196,67,58,18
-    CONTROL         "Sor&t first field",IDC_SORTINDEX_CHKSORTFROMEND,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,184,58,74,10
+    CONTROL         "Sor&t first field",IDC_SORTINDEX_CHKSORTFROMEND,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,184,58,74,10
     DEFPUSHBUTTON   "OK",IDOK,60,164,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,126,164,50,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,191,
-                    164,50,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,191,164,50,14
 END
 
-IDD_FIELD_MKR_EDIT DIALOG DISCARDABLE  0, 0, 39, 12
-STYLE WS_POPUP | WS_VISIBLE | WS_BORDER
+IDD_FIELD_MKR_EDIT DIALOG 0, 0, 39, 12
+STYLE DS_SETFONT | WS_POPUP | WS_VISIBLE | WS_BORDER
 FONT 10, "System"
 BEGIN
     LTEXT           "\\",IDC_BACKSLASH_LABEL,1,2,8,8
-    COMBOBOX        IDC_FIELD_MARKER_COMBO,4,0,35,103,CBS_DROPDOWN | 
-                    CBS_AUTOHSCROLL | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_FIELD_MARKER_COMBO,4,0,35,103,CBS_DROPDOWN | CBS_AUTOHSCROLL | CBS_SORT | WS_VSCROLL | WS_TABSTOP
 END
 
-IDD_RNGSET_INSERT DIALOG DISCARDABLE  0, 0, 292, 163
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_RNGSET_INSERT DIALOG 0, 0, 292, 163
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Insert from Range Set"
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "",IDC_RANGESET,6,6,137,8
-    LISTBOX         IDC_RNGSET_LIST,6,17,280,121,LBS_OWNERDRAWFIXED | 
-                    LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
-                    WS_TABSTOP
+    LISTBOX         IDC_RNGSET_LIST,6,17,280,121,LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     DEFPUSHBUTTON   "OK",IDOK,6,144,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,63,144,50,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,121,
-                    144,50,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,121,144,50,14
     PUSHBUTTON      "&Modify...",ID_MODIFY,235,144,50,15,NOT WS_VISIBLE
 END
 
-IDD_PROGRESS DIALOG DISCARDABLE  0, 0, 32, 14
-STYLE WS_POPUP | WS_VISIBLE
+IDD_PROGRESS DIALOG 0, 0, 32, 14
+STYLE DS_SETFONT | WS_POPUP | WS_VISIBLE
 FONT 8, "MS Sans Serif"
 BEGIN
     PUSHBUTTON      "Cancel",IDCANCEL,0,0,32,14,WS_DISABLED
 END
 
-IDD_BROWSEFIELDS DIALOG DISCARDABLE  0, 0, 247, 194
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_BROWSEFIELDS DIALOG 0, 0, 247, 194
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Browse Fields"
 FONT 8, "MS Sans Serif"
 BEGIN
     GROUPBOX        "Fields to Browse",IDC_BROWSEFIELDS_GRP,7,7,171,148
-    LTEXT           "&Available Fields",IDC_BROWSEFIELDS_LBLAVAILABLE,14,21,
-                    48,15
-    LISTBOX         IDC_BROWSEFIELDS_LSTFLDSAVAILABLE,14,40,50,105,
-                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "&Browse Fields",IDC_BROWSEFIELDS_LBLTOBROWSE,117,21,42,
-                    15
-    LISTBOX         IDC_BROWSEFIELDS_LSTFLDSTOBROWSE,117,40,50,106,
-                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "&Available Fields",IDC_BROWSEFIELDS_LBLAVAILABLE,14,21,48,15
+    LISTBOX         IDC_BROWSEFIELDS_LSTFLDSAVAILABLE,14,40,50,105,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "&Browse Fields",IDC_BROWSEFIELDS_LBLTOBROWSE,117,21,42,15
+    LISTBOX         IDC_BROWSEFIELDS_LSTFLDSTOBROWSE,117,40,50,106,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "&First ->",IDC_BROWSEFIELDS_FIRSTTO,71,40,40,14
     PUSHBUTTON      "&Last ->",IDC_BROWSEFIELDS_LASTTO,71,60,40,14
     PUSHBUTTON      "&Insert ->",IDC_BROWSEFIELDS_MOVETO,71,80,40,14
@@ -277,204 +242,161 @@ BEGIN
     PUSHBUTTON      "<- &Clear",IDC_BROWSEFIELDS_CLEARBROWSE,71,120,40,14
     LTEXT           "Display for an &empty Field:",IDC_STATIC,7,162,98,9
     EDITTEXT        IDC_BrowseEmptyField,7,174,94,13,ES_AUTOHSCROLL
-    LTEXT           "Display if there is &no Field:",IDC_STATIC,142,162,102,
-                    10
+    LTEXT           "Display if there is &no Field:",IDC_STATIC,142,162,102,10
     EDITTEXT        IDC_BrowseNoField,142,174,94,13,ES_AUTOHSCROLL
     DEFPUSHBUTTON   "OK",IDOK,186,11,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,186,28,50,14
 END
 
-IDD_DBTYP_OPTIONS_PAGE DIALOG DISCARDABLE  0, 0, 250, 150
-STYLE WS_CHILD | WS_VISIBLE | WS_DISABLED | WS_CAPTION | WS_SYSMENU
+IDD_DBTYP_OPTIONS_PAGE DIALOG 0, 0, 250, 150
+STYLE DS_SETFONT | WS_CHILD | WS_VISIBLE | WS_DISABLED | WS_CAPTION | WS_SYSMENU
 CAPTION "Options"
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "Type &Name:",IDC_STATIC,6,6,58,9
     LTEXT           "",IDC_TYP_NAME,67,6,177,8
     LTEXT           "&Description:",IDC_STATIC,6,21,56,8
-    EDITTEXT        IDC_TYP_EDITDESCRIPTION,66,20,178,45,ES_MULTILINE | 
-                    ES_WANTRETURN | WS_VSCROLL
+    EDITTEXT        IDC_TYP_EDITDESCRIPTION,66,20,178,45,ES_MULTILINE | ES_WANTRETURN | WS_VSCROLL
     LTEXT           "&Record Marker:",IDC_STATIC,6,70,58,8
     LTEXT           "",IDC_TYP_RECORDMARKER,66,70,68,8
     LTEXT           "Date &Stamp Marker:",IDC_DS_FLD,6,81,54,16
-    COMBOBOX        IDC_DATESTAMP_COMBO,66,83,96,48,CBS_DROPDOWNLIST | 
-                    WS_VSCROLL | WS_TABSTOP
-    CONTROL         "&Multi-Dictionary Formatter",IDC_TYP_chkMDF,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,66,116,175,10
-    EDITTEXT        IDC_DLG_NOT,65,128,178,20,ES_MULTILINE | ES_READONLY | 
-                    NOT WS_VISIBLE | WS_VSCROLL
-    COMBOBOX        IDC_TEXTREF_COMBO,66,100,96,48,CBS_DROPDOWNLIST | 
-                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_DATESTAMP_COMBO,66,83,96,48,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "&Multi-Dictionary Formatter",IDC_TYP_chkMDF,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,66,116,175,10
+    EDITTEXT        IDC_DLG_NOT,65,128,178,20,ES_MULTILINE | ES_READONLY | NOT WS_VISIBLE | WS_VSCROLL
+    COMBOBOX        IDC_TEXTREF_COMBO,66,100,96,48,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     LTEXT           "&Text Reference Marker:",IDC_DS_FLD2,6,99,54,16
 END
 
-IDD_SET_PAGE DIALOG DISCARDABLE  0, 0, 250, 150
-STYLE WS_CHILD | WS_VISIBLE | WS_DISABLED | WS_CAPTION
+IDD_SET_PAGE DIALOG 0, 0, 250, 150
+STYLE DS_SETFONT | WS_CHILD | WS_VISIBLE | WS_DISABLED | WS_CAPTION
 FONT 8, "MS Sans Serif"
 BEGIN
-    LISTBOX         IDC_SET_LIST,6,17,178,128,LBS_OWNERDRAWFIXED | 
-                    LBS_HASSTRINGS | LBS_USETABSTOPS | LBS_NOINTEGRALHEIGHT | 
-                    WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_SET_LIST,6,17,178,128,LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_USETABSTOPS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "&Add...",IDC_ADD,190,17,54,14
     PUSHBUTTON      "&Copy...",IDC_COPY,190,34,54,14
     PUSHBUTTON      "&Modify...",IDC_MODIFY,190,51,54,14
     PUSHBUTTON      "&Delete",IDC_DELETE,190,68,54,14
     LTEXT           "&Name",IDC_SET_NAME,7,6,19,8,NOT WS_VISIBLE
-    LTEXT           "Condition",IDC_FILSET_CONDITION,62,6,45,8,NOT 
-                    WS_VISIBLE
+    LTEXT           "Condition",IDC_FILSET_CONDITION,62,6,45,8,NOT WS_VISIBLE
     LTEXT           "Characters",IDC_SET_CHARS,38,6,52,8,NOT WS_VISIBLE
-    LTEXT           "Description",IDC_SET_DESCRIPTION,62,6,38,8,NOT 
-                    WS_VISIBLE
-    LTEXT           "Note: Cancel does not undo Add, Copy, Modify, or Delete.",
-                    IDC_STATIC,190,104,56,40
+    LTEXT           "Description",IDC_SET_DESCRIPTION,62,6,38,8,NOT WS_VISIBLE
+    LTEXT           "Note: Cancel does not undo Add, Copy, Modify, or Delete.",IDC_STATIC,190,104,56,40
 END
 
-IDD_MULTMATCH DIALOG DISCARDABLE  0, 0, 386, 157
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_MULTMATCH DIALOG 0, 0, 386, 157
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Multiple Matches"
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "&Match",IDC_MULTMATCH_WORD,7,6,50,8,NOT WS_VISIBLE
-    LISTBOX         IDC_MULTMATCH_LIST,6,17,316,134,LBS_OWNERDRAWFIXED | 
-                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "Additional &field to view",IDC_STATIC_ADDITIONAL_FIELD,
-                    328,103,56,15
-    COMBOBOX        IDC_MULTMATCH_MKRS,328,122,54,71,CBS_DROPDOWNLIST | 
-                    WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_MULTMATCH_LIST,6,17,316,134,LBS_OWNERDRAWFIXED | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Additional &field to view",IDC_STATIC_ADDITIONAL_FIELD,328,103,56,15
+    COMBOBOX        IDC_MULTMATCH_MKRS,328,122,54,71,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     DEFPUSHBUTTON   "OK",IDOK,327,6,54,14
     PUSHBUTTON      "Cancel",IDCANCEL,327,23,54,14
-    CONTROL         "&Show path",IDC_MULTMATCH_SHOWPATH,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,328,141,56,10
-    LTEXT           "Database",IDC_MULTMATCH_DATABASE,226,6,70,8,NOT 
-                    WS_VISIBLE
-    LTEXT           "",IDC_MULTMATCH_ADDITIONAL_FIELD1,100,6,30,8,NOT 
-                    WS_VISIBLE
+    CONTROL         "&Show path",IDC_MULTMATCH_SHOWPATH,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,328,141,56,10
+    LTEXT           "Database",IDC_MULTMATCH_DATABASE,226,6,70,8,NOT WS_VISIBLE
+    LTEXT           "",IDC_MULTMATCH_ADDITIONAL_FIELD1,100,6,30,8,NOT WS_VISIBLE
     PUSHBUTTON      "&Insert",IDC_INSERT,327,43,54,14
     PUSHBUTTON      "&Try Again",IDC_TRYAGAIN,327,63,54,14
-    LTEXT           "",IDC_MULTMATCH_ADDITIONAL_FIELD2,151,6,30,8,NOT 
-                    WS_VISIBLE
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | NOT WS_VISIBLE | 
-                    WS_DISABLED,327,83,54,14
+    LTEXT           "",IDC_MULTMATCH_ADDITIONAL_FIELD2,151,6,30,8,NOT WS_VISIBLE
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | NOT WS_VISIBLE | WS_DISABLED,327,83,54,14
 END
 
-IDD_JUMP DIALOG DISCARDABLE  0, 0, 203, 191
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_JUMP DIALOG 0, 0, 203, 191
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Jump To"
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "&Record to Jump To:",IDC_JUMPKEY_LABEL,8,6,128,8
     EDITTEXT        IDC_JUMP_KEY,7,16,135,21,ES_AUTOHSCROLL
     LTEXT           "&Language Encoding:",IDC_LANGENC_LABEL,7,41,135,8
-    COMBOBOX        IDC_LANGSET_COMBO,7,52,135,60,CBS_DROPDOWNLIST | 
-                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_LANGSET_COMBO,7,52,135,60,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     DEFPUSHBUTTON   "OK",IDOK,148,6,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,148,23,50,14
     PUSHBUTTON      "&Jump Path...",IDC_JUMPPATH,148,44,50,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,148,
-                    65,50,14
-    CONTROL         "Match &whole field",IDC_JUMP_WHOLE_KEY,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,7,100,135,10
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,148,65,50,14
+    CONTROL         "Match &whole field",IDC_JUMP_WHOLE_KEY,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,100,135,10
     GROUPBOX        "&Match characters",IDC_STATIC,7,116,135,68
-    CONTROL         "By &primary grouping only (loosest)",
-                    IDC_JUMP_MATCH_SAME_PRIMARY,"Button",BS_AUTORADIOBUTTON | 
-                    WS_GROUP,14,132,120,10
-    CONTROL         "By secondary ordering, disregarding &case",
-                    IDC_JUMP_MATCH_EXACT_DISREGARD_CASE,"Button",
-                    BS_AUTORADIOBUTTON,14,144,120,10
+    CONTROL         "By &primary grouping only (loosest)",IDC_JUMP_MATCH_SAME_PRIMARY,
+                    "Button",BS_AUTORADIOBUTTON | WS_GROUP,14,132,120,10
+    CONTROL         "By secondary ordering, disregarding &case",IDC_JUMP_MATCH_EXACT_DISREGARD_CASE,
+                    "Button",BS_AUTORADIOBUTTON,14,144,120,10
     CONTROL         "&Exactly by secondary ordering",IDC_JUMP_MATCH_EXACT,
                     "Button",BS_AUTORADIOBUTTON,14,156,120,10
-    CONTROL         "Even those normally &ignored (strictest)",
-                    IDC_JUMP_MATCH_EVEN_IGNORE,"Button",BS_AUTORADIOBUTTON,
-                    14,168,124,10
+    CONTROL         "Even those normally &ignored (strictest)",IDC_JUMP_MATCH_EVEN_IGNORE,
+                    "Button",BS_AUTORADIOBUTTON,14,168,124,10
     LTEXT           "Primary J&ump Path:",IDC_jmp_lblPriJumpPath,7,70,135,8
-    COMBOBOX        IDC_jmp_cboPriJumpPath,7,81,135,60,CBS_DROPDOWNLIST | 
-                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_jmp_cboPriJumpPath,7,81,135,60,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
 END
 
-IDD_WARN_DOC_IN_PATH DIALOG DISCARDABLE  0, 0, 187, 93
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_WARN_DOC_IN_PATH DIALOG 0, 0, 187, 93
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Field Linguist's Toolbox"
 FONT 8, "MS Sans Serif"
 BEGIN
     DEFPUSHBUTTON   "&Yes",IDYES,41,58,50,14
     PUSHBUTTON      "&No",IDNO,97,58,50,14
-    LTEXT           "This database is referenced by a jump path.  Selecting Yes and closing it will disable jumps to records within this database until it is reopened.  Do you wish to close this database anyway?",
-                    IDC_STATIC,12,11,165,42
+    LTEXT           "This database is referenced by a jump path.  Selecting Yes and closing it will disable jumps to records within this database until it is reopened.  Do you wish to close this database anyway?",IDC_STATIC,12,11,165,42
     CONTROL         "&Display this warning in the future",IDC_WARN_DOC_CLOSE,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,80,167,10
 END
 
-IDD_VAR DIALOG DISCARDABLE  0, 0, 299, 162
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_VAR DIALOG 0, 0, 299, 162
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Variable Properties"
 FONT 8, "MS Sans Serif"
 BEGIN
-    EDITTEXT        IDC_DLG_NOT,48,132,179,22,ES_MULTILINE | ES_READONLY | 
-                    NOT WS_VISIBLE | WS_VSCROLL
+    EDITTEXT        IDC_DLG_NOT,48,132,179,22,ES_MULTILINE | ES_READONLY | NOT WS_VISIBLE | WS_VSCROLL
     EDITTEXT        IDC_VAR_NAME,48,6,80,12,ES_AUTOHSCROLL
-    EDITTEXT        IDC_VAR_CHARS,48,24,179,101,ES_MULTILINE | ES_WANTRETURN | 
-                    WS_VSCROLL | WS_HSCROLL
+    EDITTEXT        IDC_VAR_CHARS,48,24,179,101,ES_MULTILINE | ES_WANTRETURN | WS_VSCROLL | WS_HSCROLL
     DEFPUSHBUTTON   "OK",IDOK,239,6,54,14
     PUSHBUTTON      "Cancel",IDCANCEL,239,23,54,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,239,
-                    43,54,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,239,43,54,14
     LTEXT           "&Name:",IDC_STATIC,6,8,38,8
     LTEXT           "&Characters:",IDC_STATIC,6,26,38,8
 END
 
-IDD_SRTSET_PAGE DIALOG DISCARDABLE  0, 0, 250, 150
-STYLE WS_CHILD | WS_VISIBLE | WS_DISABLED | WS_CAPTION
+IDD_SRTSET_PAGE DIALOG 0, 0, 250, 150
+STYLE DS_SETFONT | WS_CHILD | WS_VISIBLE | WS_DISABLED | WS_CAPTION
 CAPTION "Sort Orders"
 FONT 8, "MS Sans Serif"
 BEGIN
-    LISTBOX         IDC_SET_LIST,6,17,178,98,LBS_OWNERDRAWFIXED | 
-                    LBS_HASSTRINGS | LBS_USETABSTOPS | LBS_NOINTEGRALHEIGHT | 
-                    WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_SET_LIST,6,17,178,98,LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_USETABSTOPS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     RTEXT           "Default Sort &Order:",IDC_STATIC,8,124,101,8
-    LTEXT           "(also used in interlinearization)",IDC_STATIC,50,136,
-                    125,8
-    COMBOBOX        IDC_srtset_cbosrtDefault,114,123,70,56,CBS_DROPDOWNLIST | 
-                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "(also used in interlinearization)",IDC_STATIC,50,136,125,8
+    COMBOBOX        IDC_srtset_cbosrtDefault,114,123,70,56,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "&Add...",IDC_ADD,190,17,54,14
     PUSHBUTTON      "&Copy...",IDC_COPY,190,34,54,14
     PUSHBUTTON      "&Modify...",IDC_MODIFY,190,51,54,14
     PUSHBUTTON      "&Delete",IDC_DELETE,190,68,54,14
     LTEXT           "&Name",IDC_SET_NAME,7,6,40,8,NOT WS_VISIBLE
-    LTEXT           "Description",IDC_SET_DESCRIPTION,62,6,80,8,NOT 
-                    WS_VISIBLE
-    LTEXT           "Note: Cancel does not undo Add, Copy, Modify, or Delete.",
-                    IDC_STATIC,190,104,56,40
+    LTEXT           "Description",IDC_SET_DESCRIPTION,62,6,80,8,NOT WS_VISIBLE
+    LTEXT           "Note: Cancel does not undo Add, Copy, Modify, or Delete.",IDC_STATIC,190,104,56,40
 END
 
-IDD_LANGENC_OPTIONS_PAGE DIALOG DISCARDABLE  0, 0, 250, 150
-STYLE WS_CHILD | WS_VISIBLE | WS_DISABLED | WS_CAPTION
+IDD_LANGENC_OPTIONS_PAGE DIALOG 0, 0, 250, 150
+STYLE DS_SETFONT | WS_CHILD | WS_VISIBLE | WS_DISABLED | WS_CAPTION
 CAPTION "Options"
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "Language &Name:",IDC_STATIC,6,8,58,8
     EDITTEXT        IDC_lng_edtName,66,6,86,12,ES_AUTOHSCROLL
     LTEXT           "&Description:",IDC_STATIC,6,26,56,8
-    EDITTEXT        IDC_lng_edtDescription,66,24,178,48,ES_MULTILINE | 
-                    ES_WANTRETURN | WS_VSCROLL
+    EDITTEXT        IDC_lng_edtDescription,66,24,178,48,ES_MULTILINE | ES_WANTRETURN | WS_VSCROLL
     LTEXT           "&Keyboard:",IDC_kbd_lblKeyboard,6,80,56,8
-    COMBOBOX        IDC_kbd_cboKeyboard,66,78,178,55,CBS_DROPDOWNLIST | 
-                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_kbd_cboKeyboard,66,78,178,55,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "Choose &Font...",IDC_LANGENC_FONT,154,97,90,14
     PUSHBUTTON      "&Advanced...",IDC_BUTTON_LNG_ADV,154,117,90,14
-    EDITTEXT        IDC_DLG_NOT,6,123,141,21,ES_MULTILINE | ES_READONLY | 
-                    NOT WS_VISIBLE | WS_VSCROLL
-    LTEXT           "Keyman File:",IDC_STATIC,7,111,43,9,NOT WS_VISIBLE | 
-                    WS_DISABLED
-    LTEXT           "None",IDC_LBL_KeymanFile,58,111,23,10,NOT WS_VISIBLE | 
-                    WS_DISABLED
-    PUSHBUTTON      "&Browse...",IDC_Browse_KeymanFile,87,107,49,14,NOT 
-                    WS_VISIBLE | WS_DISABLED
-    CONTROL         "Use internal keyboard",IDC_UseInternalKeyboard,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,5,95,130,10
+    EDITTEXT        IDC_DLG_NOT,6,123,141,21,ES_MULTILINE | ES_READONLY | NOT WS_VISIBLE | WS_VSCROLL
+    LTEXT           "Keyman File:",IDC_STATIC,7,111,43,9,NOT WS_VISIBLE | WS_DISABLED
+    LTEXT           "None",IDC_LBL_KeymanFile,58,111,23,10,NOT WS_VISIBLE | WS_DISABLED
+    PUSHBUTTON      "&Browse...",IDC_Browse_KeymanFile,87,107,49,14,NOT WS_VISIBLE | WS_DISABLED
+    CONTROL         "Use internal keyboard",IDC_UseInternalKeyboard,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,5,95,130,10
 END
 
-IDD_NOMATCHES DIALOG DISCARDABLE  0, 0, 203, 92
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_NOMATCHES DIALOG 0, 0, 203, 92
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "No Matches"
 FONT 8, "MS Sans Serif"
 BEGIN
@@ -482,46 +404,37 @@ BEGIN
     DEFPUSHBUTTON   "&Insert",IDC_INSERT,6,68,43,14
     PUSHBUTTON      "&Try Again",IDC_TRYAGAIN,55,68,43,14
     PUSHBUTTON      "Cancel",IDCANCEL,104,68,43,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,153,
-                    68,43,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,153,68,43,14
     EDITTEXT        IDC_NOMATCHES_KEY,6,21,188,36,ES_AUTOHSCROLL
 END
 
-IDD_SELECT_DB DIALOG DISCARDABLE  0, 0, 242, 95
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_SELECT_DB DIALOG 0, 0, 242, 95
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Select Database"
 FONT 8, "MS Sans Serif"
 BEGIN
-    LTEXT           "&Database to insert new record into:",IDC_lblSelectDB,7,
-                    4,161,9
-    LISTBOX         IDC_SELECTDB_LISTBOX,6,15,161,75,LBS_SORT | 
-                    LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | 
-                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "&Database to insert new record into:",IDC_lblSelectDB,7,4,161,9
+    LISTBOX         IDC_SELECTDB_LISTBOX,6,15,161,75,LBS_SORT | LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     DEFPUSHBUTTON   "OK",IDOK,179,6,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,179,23,50,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,179,
-                    43,50,14
-    CONTROL         "&Show Path",IDC_SELECTDB_SHOWPATH,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,173,81,63,10
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,179,43,50,14
+    CONTROL         "&Show Path",IDC_SELECTDB_SHOWPATH,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,173,81,63,10
 END
 
-IDD_MDF_Options DIALOG DISCARDABLE  0, 0, 274, 234
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION
+IDD_MDF_Options DIALOG 0, 0, 274, 234
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION
 CAPTION "Multi-Dictionary Formatter Options"
 FONT 8, "MS Sans Serif"
 BEGIN
     CONTROL         "Sort by &citation form",IDC_MDF_chkSortByCitationForm,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,40,118,10
-    CONTROL         "Include &lexeme with citation form",
-                    IDC_MDF_chkIncludeLexemeWithCitationForm,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,12,53,122,10
+    CONTROL         "Include &lexeme with citation form",IDC_MDF_chkIncludeLexemeWithCitationForm,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,53,122,10
     CONTROL         "Include &example sentences",IDC_MDF_chkIncludeExamples,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,66,118,10
-    CONTROL         "Include &notes",IDC_MDF_chkIncludeNotes,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,12,79,118,10
-    CONTROL         "Include &regional with national",
-                    IDC_MDF_chkIncludeRegionalWithNational,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,12,92,118,10
+    CONTROL         "Include &notes",IDC_MDF_chkIncludeNotes,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,79,118,10
+    CONTROL         "Include &regional with national",IDC_MDF_chkIncludeRegionalWithNational,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,92,118,10
     CONTROL         "Include n&on-MDF fields",IDC_MDF_chkIncludeNonMDF,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,105,118,10
     GROUPBOX        "Gloss index (finderlist)",IDC_STATIC,6,127,130,30
@@ -531,218 +444,170 @@ BEGIN
     EDITTEXT        IDC_MDF_edtCopyright,80,162,186,36,ES_AUTOHSCROLL
     LTEXT           "",IDC_MDF_lblMarkerHierarchy,147,67,120,8
     GROUPBOX        "Document formatting",IDC_STATIC,147,81,120,76
-    CONTROL         "Head&words in the header",IDC_MDF_chkHeader,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,153,95,112,10
-    CONTROL         "&Date in the footer",IDC_MDF_chkDate,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,153,108,112,10
-    CONTROL         "Total nu&mber of entries",IDC_MDF_chkTotal,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,153,121,108,10
+    CONTROL         "Head&words in the header",IDC_MDF_chkHeader,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,153,95,112,10
+    CONTROL         "&Date in the footer",IDC_MDF_chkDate,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,153,108,112,10
+    CONTROL         "Total nu&mber of entries",IDC_MDF_chkTotal,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,153,121,108,10
     PUSHBUTTON      "Page Set&up...",IDC_MDF_btnPageSetup,153,137,108,14
     PUSHBUTTON      "OK",IDOK,213,6,54,14
     PUSHBUTTON      "Cancel",IDCANCEL,213,23,54,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,213,
-                    43,54,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,213,43,54,14
     GROUPBOX        "Dictionary",IDC_STATIC,6,6,130,115
-    PUSHBUTTON      "&Select Fields to be Excluded...",
-                    IDC_MDF_btnSelectFields,12,20,118,14
-    LTEXT           "Next process in chain (optional)",IDC_STATIC,6,202,160,
-                    8
+    PUSHBUTTON      "&Select Fields to be Excluded...",IDC_MDF_btnSelectFields,12,20,118,14
+    LTEXT           "Next process in chain (optional)",IDC_STATIC,6,202,160,8
     EDITTEXT        IDC_MDF_edtChainProcess,6,213,214,12,ES_AUTOHSCROLL
 END
 
-IDD_SORTEDIT DIALOG DISCARDABLE  0, 0, 301, 247
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_SORTEDIT DIALOG 0, 0, 301, 247
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Sort Order Properties"
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "&Name:",IDC_STATIC,6,7,42,10
     EDITTEXT        IDC_SORTEDIT_NAME,50,8,94,12,ES_AUTOHSCROLL
     LTEXT           "&Description:",IDC_STATIC,6,23,42,9
-    EDITTEXT        IDC_SORTEDIT_DESCRIBE,50,25,177,27,ES_MULTILINE | 
-                    ES_WANTRETURN | WS_VSCROLL
-    LTEXT           "&Primary characters (one group per line)",IDC_Primary,6,
-                    57,155,8
-    EDITTEXT        IDC_SORTEDIT_PRIMARIES,5,68,146,131,ES_MULTILINE | 
-                    ES_WANTRETURN | WS_VSCROLL | WS_HSCROLL
-    LTEXT           "Secondary characters ordered &before",IDC_STATIC,163,57,
-                    131,8
+    EDITTEXT        IDC_SORTEDIT_DESCRIBE,50,25,177,27,ES_MULTILINE | ES_WANTRETURN | WS_VSCROLL
+    LTEXT           "&Primary characters (one group per line)",IDC_Primary,6,57,155,8
+    EDITTEXT        IDC_SORTEDIT_PRIMARIES,5,68,146,131,ES_MULTILINE | ES_WANTRETURN | WS_VSCROLL | WS_HSCROLL
+    LTEXT           "Secondary characters ordered &before",IDC_STATIC,163,57,131,8
     LTEXT           "unmarked primaries",IDC_STATIC,163,65,129,8
     EDITTEXT        IDC_SORTEDIT_SECONDSBEFORE,163,75,131,36,ES_AUTOHSCROLL
-    LTEXT           "Secondary characters ordered &after",IDC_STATIC,163,112,
-                    136,9
+    LTEXT           "Secondary characters ordered &after",IDC_STATIC,163,112,136,9
     EDITTEXT        IDC_SORTEDIT_SECONDSAFTER,163,122,131,36,ES_AUTOHSCROLL
-    CONTROL         "Secondary characters &follow their",
-                    IDC_SORTEDIT_CHKSECONDARIESAFTER,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,163,160,136,9
+    CONTROL         "Secondary characters &follow their",IDC_SORTEDIT_CHKSECONDARIESAFTER,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,163,160,136,9
     LTEXT           "corresponding primaries",IDC_STATIC,173,170,126,8
     LTEXT           "&Ignore characters",IDC_STATIC,163,179,130,9
     EDITTEXT        IDC_SORTEDIT_IGNORES,163,190,131,36,ES_AUTOHSCROLL
-    EDITTEXT        IDC_DLG_NOT,5,201,149,23,ES_MULTILINE | ES_READONLY | 
-                    NOT WS_VISIBLE | WS_VSCROLL
+    EDITTEXT        IDC_DLG_NOT,5,201,149,23,ES_MULTILINE | ES_READONLY | NOT WS_VISIBLE | WS_VSCROLL
     DEFPUSHBUTTON   "OK",IDOK,244,4,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,244,21,50,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,244,
-                    39,50,14
-    LTEXT           "Note: characters are separated by spaces.",IDC_STATIC,
-                    158,4,81,16
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,244,39,50,14
+    LTEXT           "Note: characters are separated by spaces.",IDC_STATIC,158,4,81,16
     LTEXT           "",IDC_LBL_SortCCTable,5,231,291,13
 END
 
-IDD_mkrset_Page DIALOG DISCARDABLE  0, 0, 250, 150
-STYLE WS_CHILD | WS_VISIBLE | WS_DISABLED | WS_CAPTION
+IDD_mkrset_Page DIALOG 0, 0, 250, 150
+STYLE DS_SETFONT | WS_CHILD | WS_VISIBLE | WS_DISABLED | WS_CAPTION
 CAPTION "Markers"
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "Mar&ker",IDC_mkrset_lblMarker,7,6,31,8,NOT WS_VISIBLE
-    LTEXT           "Field Name",IDC_mkrset_lblFieldName,40,6,61,8,NOT 
-                    WS_VISIBLE
-    LTEXT           "Language",IDC_mkrset_lblLanguage,104,6,37,8,NOT 
-                    WS_VISIBLE
+    LTEXT           "Field Name",IDC_mkrset_lblFieldName,40,6,61,8,NOT WS_VISIBLE
+    LTEXT           "Language",IDC_mkrset_lblLanguage,104,6,37,8,NOT WS_VISIBLE
     LTEXT           "Under",IDC_mkrset_lblUnder,144,6,21,8,NOT WS_VISIBLE
-    LISTBOX         IDC_SET_LIST,6,17,188,106,LBS_OWNERDRAWFIXED | 
-                    LBS_HASSTRINGS | LBS_USETABSTOPS | LBS_NOINTEGRALHEIGHT | 
-                    WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_SET_LIST,6,17,188,106,LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_USETABSTOPS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     RTEXT           "Default &Language Encoding:",IDC_STATIC,2,128,116,8
     RTEXT           "(for newly added markers)",IDC_STATIC,4,136,114,8
-    COMBOBOX        IDC_mkrset_cbolngDefault,124,130,70,62,CBS_DROPDOWNLIST | 
-                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_mkrset_cbolngDefault,124,130,70,62,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "&Add...",IDC_ADD,200,17,44,14
     PUSHBUTTON      "&Copy...",IDC_COPY,200,34,44,14
     PUSHBUTTON      "&Modify...",IDC_MODIFY,200,51,44,14
     PUSHBUTTON      "&Delete",IDC_DELETE,200,68,44,14
-    LTEXT           "Note: Cancel doesn't undo Add, Copy, Modify, or Delete.",
-                    IDC_STATIC,200,94,49,48
+    LTEXT           "Note: Cancel doesn't undo Add, Copy, Modify, or Delete.",IDC_STATIC,200,94,49,48
     LTEXT           "SFR",IDC_mkrset_lblMisc,168,6,18,7,NOT WS_VISIBLE
 END
 
-IDD_FILTERSELECTION DIALOG DISCARDABLE  0, 0, 217, 71
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_FILTERSELECTION DIALOG 0, 0, 217, 71
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Filter"
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "&Filter",IDC_STATIC,6,5,30,9
-    COMBOBOX        IDC_FILTER_LIST,6,15,143,88,CBS_DROPDOWNLIST | 
-                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_FILTER_LIST,6,15,143,88,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "&Modify Filters...",IDC_FILSEL_FILTERS,6,49,65,14
     DEFPUSHBUTTON   "OK",IDOK,158,6,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,158,23,50,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,158,
-                    43,50,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,158,43,50,14
 END
 
-IDD_AMBIG DIALOG DISCARDABLE  0, 0, 676, 137
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_AMBIG DIALOG 0, 0, 676, 137
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Ambiguity Selection"
 FONT 8, "MS Sans Serif"
 BEGIN
-    LISTBOX         IDC_AMBIG_LIST,0,2,676,120,LBS_OWNERDRAWFIXED | 
-                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_AMBIG_LIST,0,2,676,120,LBS_OWNERDRAWFIXED | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     DEFPUSHBUTTON   "OK",IDOK,5,123,47,14
     PUSHBUTTON      "Cancel",IDCANCEL,57,123,47,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,161,
-                    123,47,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,161,123,47,14
     PUSHBUTTON      "Fo&rmulas...",IDC_wdf_btnFormulas,109,123,47,14
 END
 
-IDD_FIND DIALOG DISCARDABLE  0, 0, 266, 155
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_FIND DIALOG 0, 0, 266, 155
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Find"
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "&Text to Find:",IDC_STATIC,6,4,136,8
     EDITTEXT        IDC_FIND_TEXT,6,14,188,36,ES_AUTOHSCROLL
     GROUPBOX        "Find In",IDC_STATIC,6,52,112,98
-    CONTROL         "&Field:",IDC_FIND_IN_FLD,"Button",BS_AUTORADIOBUTTON | 
-                    WS_GROUP | WS_TABSTOP,12,67,37,10
-    CONTROL         "All fields of &language:",IDC_FIND_IN_LNG,"Button",
-                    BS_AUTORADIOBUTTON,12,81,104,10
-    COMBOBOX        IDC_FIND_MKRCOMBO,49,65,61,98,CBS_DROPDOWNLIST | 
-                    WS_VSCROLL | WS_TABSTOP
-    COMBOBOX        IDC_FIND_LNGCOMBO,34,94,76,85,CBS_DROPDOWNLIST | 
-                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
-    CONTROL         "Current record &only",IDC_FIND_CURRENTREC,"Button",
-                    BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,12,122,104,10
-    CONTROL         "Whole (filtered) &database",IDC_FIND_ALLRECORDS,"Button",
-                    BS_AUTORADIOBUTTON,12,134,105,10
-    CONTROL         "Match &whole word",IDC_FIND_WHOLE_WORD,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,128,58,127,10
+    CONTROL         "&Field:",IDC_FIND_IN_FLD,"Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,12,67,37,10
+    CONTROL         "All fields of &language:",IDC_FIND_IN_LNG,"Button",BS_AUTORADIOBUTTON,12,81,104,10
+    COMBOBOX        IDC_FIND_MKRCOMBO,49,65,61,98,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_FIND_LNGCOMBO,34,94,76,85,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Current record &only",IDC_FIND_CURRENTREC,"Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,12,122,104,10
+    CONTROL         "Whole (filtered) &database",IDC_FIND_ALLRECORDS,"Button",BS_AUTORADIOBUTTON,12,134,105,10
+    CONTROL         "Match &whole word",IDC_FIND_WHOLE_WORD,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,128,58,127,10
     GROUPBOX        "Match characters",IDC_STATIC,128,73,131,68
-    CONTROL         "By &primary grouping only (loosest)",
-                    IDC_FIND_MATCH_SAME_PRIMARY,"Button",BS_AUTORADIOBUTTON | 
-                    WS_GROUP,134,88,123,10
-    CONTROL         "By secondary ordering, disregarding &case",
-                    IDC_FIND_MATCH_EXACT_DISREGARD_CASE,"Button",
-                    BS_AUTORADIOBUTTON,134,100,123,10
+    CONTROL         "By &primary grouping only (loosest)",IDC_FIND_MATCH_SAME_PRIMARY,
+                    "Button",BS_AUTORADIOBUTTON | WS_GROUP,134,88,123,10
+    CONTROL         "By secondary ordering, disregarding &case",IDC_FIND_MATCH_EXACT_DISREGARD_CASE,
+                    "Button",BS_AUTORADIOBUTTON,134,100,123,10
     CONTROL         "&Exactly by secondary ordering",IDC_FIND_MATCH_EXACT,
                     "Button",BS_AUTORADIOBUTTON,134,112,123,10
-    CONTROL         "Even those normally &ignored (strictest)",
-                    IDC_FIND_MATCH_EVEN_IGNORE,"Button",BS_AUTORADIOBUTTON,
-                    134,124,123,10
+    CONTROL         "Even those normally &ignored (strictest)",IDC_FIND_MATCH_EVEN_IGNORE,
+                    "Button",BS_AUTORADIOBUTTON,134,124,123,10
     DEFPUSHBUTTON   "OK",IDOK,204,6,54,14
     PUSHBUTTON      "Cancel",IDCANCEL,204,23,54,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,204,
-                    43,54,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,204,43,54,14
     CTEXT           "__________________________",IDC_STATIC,9,107,104,8
 END
 
-IDD_INTPRC_PAGE DIALOG DISCARDABLE  0, 0, 250, 150
-STYLE WS_CHILD | WS_VISIBLE | WS_DISABLED | WS_CAPTION | WS_SYSMENU
+IDD_INTPRC_PAGE DIALOG 0, 0, 250, 150
+STYLE DS_SETFONT | WS_CHILD | WS_VISIBLE | WS_DISABLED | WS_CAPTION | WS_SYSMENU
 CAPTION "Interlinear"
 FONT 8, "MS Sans Serif"
 BEGIN
     PUSHBUTTON      "&Add...",IDC_ADD,193,17,50,14
     PUSHBUTTON      "&Modify...",IDC_MODIFY,193,34,50,14
     PUSHBUTTON      "&Delete",IDC_DELETE,193,51,50,14
-    PUSHBUTTON      "Quick &Setup",IDC_EXPRESS_SETUP,193,68,50,14,NOT 
-                    WS_TABSTOP
-    EDITTEXT        IDC_EDIT_INTERLINEAR_SPACING,229,130,15,12,
-                    ES_AUTOHSCROLL
-    LISTBOX         IDC_INTPRC_LIST,6,17,180,127,LBS_OWNERDRAWFIXED | 
-                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Quick &Setup",IDC_EXPRESS_SETUP,193,68,50,14,NOT WS_TABSTOP
+    EDITTEXT        IDC_EDIT_INTERLINEAR_SPACING,229,130,15,12,ES_AUTOHSCROLL
+    LISTBOX         IDC_INTPRC_LIST,6,17,180,127,LBS_OWNERDRAWFIXED | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     LTEXT           "&From",IDC_INTPRC_FROM,7,6,20,9
     LTEXT           "To",IDC_INTPRC_TO,30,6,20,9
     LTEXT           "Process",IDC_INTPRC_PROC,53,6,44,9
-    LTEXT           "Description",IDC_INTPRC_DESCRIPTION,100,6,83,8,NOT 
-                    WS_VISIBLE | WS_DISABLED
+    LTEXT           "Description",IDC_INTPRC_DESCRIPTION,100,6,83,8,NOT WS_VISIBLE | WS_DISABLED
     LTEXT           "Interlinear",IDC_STATIC,192,121,45,8
     LTEXT           "Spacing",IDC_STATIC,192,129,34,8
 END
 
-IDD_SELECT_PROCESS DIALOG DISCARDABLE  0, 0, 187, 92
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_SELECT_PROCESS DIALOG 0, 0, 187, 92
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Select Process"
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "Interlinear Processes",IDC_STATIC,7,4,85,7
-    LISTBOX         IDC_SELECT_PROC_LIST,6,14,117,72,LBS_NOINTEGRALHEIGHT | 
-                    WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_SELECT_PROC_LIST,6,14,117,72,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     DEFPUSHBUTTON   "OK",IDOK,131,6,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,131,23,50,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,131,
-                    43,50,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,131,43,50,14
 END
 
-IDD_PARSE DIALOG DISCARDABLE  0, 0, 279, 252
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_PARSE DIALOG 0, 0, 279, 252
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Parse"
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "&From Marker",IDC_STATIC,7,4,71,8
-    COMBOBOX        IDC_FROM_MARKER,6,14,65,118,CBS_DROPDOWNLIST | CBS_SORT | 
-                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_FROM_MARKER,6,14,65,118,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     LTEXT           "&To Marker",IDC_STATIC,86,4,78,8
-    COMBOBOX        IDC_TO_MARKER,85,14,65,118,CBS_DROPDOWNLIST | CBS_SORT | 
-                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_TO_MARKER,85,14,65,118,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "&Lexicons...",IDC_ROOT,6,35,50,14
     GROUPBOX        "If parse fails",IDC_STATIC,6,57,109,58
-    CONTROL         "Insert into Lexicon",IDC_InsertFail,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,13,68,98,10
-    CONTROL         "O&utput failure mark",IDC_SHOW_FAIL_MARK,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,13,79,98,10
-    CONTROL         "Output original &word",IDC_SHOW_WORD,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,13,90,98,10
-    CONTROL         "Output root gu&ess",IDC_SHOW_ROOT,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,13,101,101,10
+    CONTROL         "Insert into Lexicon",IDC_InsertFail,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,13,68,98,10
+    CONTROL         "O&utput failure mark",IDC_SHOW_FAIL_MARK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,13,79,98,10
+    CONTROL         "Output original &word",IDC_SHOW_WORD,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,13,90,98,10
+    CONTROL         "Output root gu&ess",IDC_SHOW_ROOT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,13,101,101,10
     LTEXT           "&Morpheme break characters:",IDC_STATIC,6,119,95,18
     EDITTEXT        IDC_EDIT_MORPH_BREAKS,103,118,59,36,ES_AUTOHSCROLL
     LTEXT           "Forced &gloss start and end:",IDC_STATIC,6,157,95,18
@@ -750,280 +615,211 @@ BEGIN
     EDITTEXT        IDC_EDIT_FC_GLOSS_END,134,156,27,36,ES_AUTOHSCROLL
     LTEXT           "Morphophonemic &boundary:",IDC_STATIC,6,196,95,18
     EDITTEXT        IDC_EDIT_MORPH_BOUND,103,195,28,36,ES_AUTOHSCROLL
-    CONTROL         "Infix before root",IDC_InfixBefore,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,124,45,94,10
-    CONTROL         "Allow multiple roots",IDC_CompRoot,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,124,56,137,10
+    CONTROL         "Infix before root",IDC_InfixBefore,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,124,45,94,10
+    CONTROL         "Allow multiple roots",IDC_CompRoot,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,124,56,137,10
     GROUPBOX        "Search sequence",IDC_STATIC,124,68,149,47
-    CONTROL         "Prefer prefixes",IDC_PreferPrefix,"Button",
-                    BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,129,79,130,10
-    CONTROL         "Prefer suffixes",IDC_PreferSuffix,"Button",
-                    BS_AUTORADIOBUTTON,129,90,130,10
+    CONTROL         "Prefer prefixes",IDC_PreferPrefix,"Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,129,79,130,10
+    CONTROL         "Prefer suffixes",IDC_PreferSuffix,"Button",BS_AUTORADIOBUTTON,129,90,130,10
     CONTROL         "Balance prefixes and suffixes",IDC_BalanceAffixes,
                     "Button",BS_AUTORADIOBUTTON,129,101,130,10
-    CONTROL         "&Keep capitalization",IDC_KEEPCAP,"Button",
-                    BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,170,146,106,10
-    CONTROL         "Keep &punctuation",IDC_KEEPPUNC,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,170,157,106,10
-    CONTROL         "SH&2 style parse",IDC_SH2_PARSE,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,170,171,105,10
+    CONTROL         "&Keep capitalization",IDC_KEEPCAP,"Button",BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,170,146,106,10
+    CONTROL         "Keep &punctuation",IDC_KEEPPUNC,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,170,157,106,10
+    CONTROL         "SH&2 style parse",IDC_SH2_PARSE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,170,171,105,10
     PUSHBUTTON      "Conjoined &Affixes...",IDC_PREFIX,170,184,103,12
     PUSHBUTTON      "Parse &Database...",IDC_PARSE,170,199,103,12
     DEFPUSHBUTTON   "OK",IDOK,219,6,54,14
     PUSHBUTTON      "Cancel",IDCANCEL,219,23,54,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,219,
-                    42,54,14
-    CONTROL         "Adaptation process",IDC_Adapt,"Button",BS_AUTOCHECKBOX | 
-                    BS_TOP | BS_MULTILINE | NOT WS_VISIBLE | WS_DISABLED | 
-                    WS_TABSTOP,65,33,52,19
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,219,42,54,14
+    CONTROL         "Adaptation process",IDC_Adapt,"Button",BS_AUTOCHECKBOX | BS_TOP | BS_MULTILINE | NOT WS_VISIBLE | WS_DISABLED | WS_TABSTOP,65,33,52,19
     CONTROL         "Enable word f&ormulas",IDC_wdf_chkEnableWordFormulas,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,236,156,10
     PUSHBUTTON      "Fo&rmulas...",IDC_wdf_btnFormulas,219,234,54,14
-    CONTROL         "Longest affix &override",IDC_LongerOverride,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,170,122,102,10
-    CONTROL         "Longer override on show all",IDC_OverrideShowAll,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,170,133,107,10
-    CONTROL         "Allow multiple infixes",IDC_InfixMultiple,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,124,33,91,10
+    CONTROL         "Longest affix &override",IDC_LongerOverride,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,170,122,102,10
+    CONTROL         "Longer override on show all",IDC_OverrideShowAll,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,170,133,107,10
+    CONTROL         "Allow multiple infixes",IDC_InfixMultiple,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,124,33,91,10
 END
 
-IDD_TRIE DIALOG DISCARDABLE  0, 0, 310, 162
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_TRIE DIALOG 0, 0, 310, 162
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Lexicons for Interlinear"
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "&Available Databases",IDC_TRIE_LBLAVAILABLE,6,5,118,10
-    LISTBOX         IDC_TRIE_LSTDBSAVAILABLE,5,16,95,39,LBS_SORT | 
-                    LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | 
-                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | 
-                    WS_TABSTOP
+    LISTBOX         IDC_TRIE_LSTDBSAVAILABLE,5,16,95,39,LBS_SORT | LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP
     PUSHBUTTON      "&Insert ->",IDC_TRIE_MOVETO,107,18,40,14
     PUSHBUTTON      "<- &Remove",IDC_TRIE_REMOVE,107,36,40,14
-    LTEXT           "Databases to &Search",IDC_SEARCHPATH_LBLINPATH,155,5,91,
-                    9
-    LISTBOX         IDC_TRIE_LSTDBSTOSEARCH,154,16,95,39,LBS_OWNERDRAWFIXED | 
-                    LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
-                    WS_TABSTOP
-    CONTROL         "Show &Whole Path",IDC_TRIE_SHOWPATH,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,7,61,130,10
+    LTEXT           "Databases to &Search",IDC_SEARCHPATH_LBLINPATH,155,5,91,9
+    LISTBOX         IDC_TRIE_LSTDBSTOSEARCH,154,16,95,39,LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Show &Whole Path",IDC_TRIE_SHOWPATH,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,61,130,10
     LTEXT           "Available &Markers",IDC_STATIC,6,79,116,10
-    LISTBOX         IDC_TRIE_LSTMKRSAVAILABLE,5,90,95,39,
-                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | 
-                    WS_TABSTOP
+    LISTBOX         IDC_TRIE_LSTMKRSAVAILABLE,5,90,95,39,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP
     PUSHBUTTON      "I&nsert ->",IDC_TRIE_MKRMOVETO,107,92,40,14
     PUSHBUTTON      "<- Remo&ve",IDC_TRIE_MKRREMOVE,107,110,40,14
     LTEXT           "Markers to &Find",IDC_STATIC,155,79,113,9
-    LISTBOX         IDC_TRIE_LSTMKRSTOFIND,154,90,95,39,LBS_NOINTEGRALHEIGHT | 
-                    WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_TRIE_LSTMKRSTOFIND,154,90,95,39,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     LTEXT           "Marker to &Output",IDC_STATIC,155,136,114,9
-    COMBOBOX        IDC_TRIE_MKROUTPUT,154,146,95,96,CBS_DROPDOWNLIST | 
-                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_TRIE_MKROUTPUT,154,146,95,96,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     DEFPUSHBUTTON   "OK",IDOK,256,6,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,256,23,50,14
-    LTEXT           "Don't delete or move, needed in CTrieDlg",
-                    IDC_SEARCHPATH_FIELDTOSEARCH,247,0,8,8,NOT WS_VISIBLE
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,256,
-                    43,50,14
+    LTEXT           "Don't delete or move, needed in CTrieDlg",IDC_SEARCHPATH_FIELDTOSEARCH,247,0,8,8,NOT WS_VISIBLE
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,256,43,50,14
 END
 
-IDD_lng_CasePage DIALOG DISCARDABLE  0, 0, 335, 177
-STYLE WS_CHILD | WS_VISIBLE | WS_DISABLED | WS_CAPTION
+IDD_lng_CasePage DIALOG 0, 0, 335, 177
+STYLE DS_SETFONT | WS_CHILD | WS_VISIBLE | WS_DISABLED | WS_CAPTION
 CAPTION "Case, Punct"
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "&Case Associations:",IDC_STATIC,6,6,70,8
-    EDITTEXT        IDC_lng_edtCase,6,17,130,79,ES_MULTILINE | ES_WANTRETURN | 
-                    WS_VSCROLL | WS_HSCROLL
-    EDITTEXT        IDC_DLG_NOT,141,58,105,39,ES_MULTILINE | ES_AUTOHSCROLL | 
-                    ES_READONLY | NOT WS_VISIBLE | WS_VSCROLL
-    EDITTEXT        IDC_lng_edtPunct,6,110,241,36,ES_AUTOHSCROLL | 
-                    ES_WANTRETURN
+    EDITTEXT        IDC_lng_edtCase,6,17,130,79,ES_MULTILINE | ES_WANTRETURN | WS_VSCROLL | WS_HSCROLL
+    EDITTEXT        IDC_DLG_NOT,141,58,105,39,ES_MULTILINE | ES_AUTOHSCROLL | ES_READONLY | NOT WS_VISIBLE | WS_VSCROLL
+    EDITTEXT        IDC_lng_edtPunct,6,110,241,36,ES_AUTOHSCROLL | ES_WANTRETURN
     LTEXT           "&Punctuation:",IDC_STATIC,6,99,116,8
 END
 
-IDD_TEMPLATE DIALOG DISCARDABLE  0, 0, 150, 82
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_TEMPLATE DIALOG 0, 0, 150, 82
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Set Template"
 FONT 8, "MS Sans Serif"
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,21,40,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,78,40,50,14
-    CTEXT           "The record template will be set to the fields in the current record.",
-                    IDC_STATIC,5,8,140,25
-    CONTROL         "&Include field contents",IDC_INCLUDE_CONTENTS,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,10,65,137,11
+    CTEXT           "The record template will be set to the fields in the current record.",IDC_STATIC,5,8,140,25
+    CONTROL         "&Include field contents",IDC_INCLUDE_CONTENTS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,65,137,11
 END
 
-IDD_NEWDBTYP DIALOG DISCARDABLE  0, 0, 179, 95
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_NEWDBTYP DIALOG 0, 0, 179, 95
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "New Database Type"
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "&Name:",IDC_STATIC,6,6,42,9
     EDITTEXT        IDC_TYP_NAME_EDIT,6,17,106,12,ES_AUTOHSCROLL
     LTEXT           "&Record Marker:",IDC_STATIC,6,38,97,9
-    COMBOBOX        IDC_TYP_RECORDMKR_COMBO,6,50,51,114,CBS_DROPDOWN | 
-                    CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_TYP_RECORDMKR_COMBO,6,50,51,114,CBS_DROPDOWN | CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
     DEFPUSHBUTTON   "OK",IDOK,121,6,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,121,23,50,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,121,
-                    43,50,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,121,43,50,14
 END
 
-IDD_TYP_RECMKR DIALOG DISCARDABLE  0, 0, 159, 77
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_TYP_RECMKR DIALOG 0, 0, 159, 77
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Database Type"
 FONT 8, "MS Sans Serif"
 BEGIN
-    LTEXT           "This database type is missing the record marker setting. Please enter the record marker for this database type.",
-                    IDC_STATIC,11,11,136,33
-    COMBOBOX        IDC_TYP_RECMKR,21,52,49,129,CBS_DROPDOWN | CBS_SORT | 
-                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "This database type is missing the record marker setting. Please enter the record marker for this database type.",IDC_STATIC,11,11,136,33
+    COMBOBOX        IDC_TYP_RECMKR,21,52,49,129,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     DEFPUSHBUTTON   "OK",IDOK,85,52,50,14
 END
 
-IDD_NEWDOC DIALOG DISCARDABLE  0, 0, 199, 92
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_NEWDOC DIALOG 0, 0, 199, 92
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Select Database Type"
 FONT 8, "MS Sans Serif"
 BEGIN
-    LTEXT           "Please select the database type for:",IDC_STATIC,7,7,
-                    128,10
+    LTEXT           "Please select the database type for:",IDC_STATIC,7,7,128,10
     LTEXT           "FILE.NAM",IDC_LBL_FILENAME,7,17,118,12
     LTEXT           "&Database Type",IDC_STATIC,7,34,95,9
-    COMBOBOX        IDC_NEWDOC_DBTYP,7,46,126,111,CBS_DROPDOWNLIST | 
-                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_NEWDOC_DBTYP,7,46,126,111,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "&Add New Type...",IDC_DATABASE_TYPES,7,65,90,14
     DEFPUSHBUTTON   "OK",IDOK,141,6,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,141,23,50,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,141,
-                    43,50,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,141,43,50,14
 END
 
-1536 DIALOG DISCARDABLE  36, 24, 265, 202
-STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+1536 DIALOG 36, 24, 265, 202
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Open"
 FONT 8, "Helv"
 BEGIN
     LTEXT           "File &Name:",stc3,6,6,76,9
     EDITTEXT        edt1,6,16,90,12,ES_AUTOHSCROLL | ES_OEMCONVERT
-    LISTBOX         lst1,6,32,90,68,LBS_SORT | LBS_OWNERDRAWFIXED | 
-                    LBS_HASSTRINGS | LBS_DISABLENOSCROLL | WS_VSCROLL | 
-                    WS_TABSTOP
+    LISTBOX         lst1,6,32,90,68,LBS_SORT | LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_DISABLENOSCROLL | WS_VSCROLL | WS_TABSTOP
     LTEXT           "&Directories:",IDC_STATIC,110,6,92,9
     LTEXT           "",stc1,110,18,92,9,SS_NOPREFIX
-    LISTBOX         lst2,110,32,92,68,LBS_SORT | LBS_OWNERDRAWFIXED | 
-                    LBS_HASSTRINGS | LBS_DISABLENOSCROLL | WS_VSCROLL | 
-                    WS_TABSTOP
+    LISTBOX         lst2,110,32,92,68,LBS_SORT | LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_DISABLENOSCROLL | WS_VSCROLL | WS_TABSTOP
     LTEXT           "List Files of &Type:",stc2,6,104,90,9
-    COMBOBOX        cmb1,6,114,90,36,CBS_DROPDOWNLIST | CBS_AUTOHSCROLL | 
-                    WS_BORDER | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        cmb1,6,114,90,36,CBS_DROPDOWNLIST | CBS_AUTOHSCROLL | WS_BORDER | WS_VSCROLL | WS_TABSTOP
     LTEXT           "Dri&ves:",stc4,110,104,92,9
-    COMBOBOX        cmb2,110,114,92,68,CBS_DROPDOWNLIST | CBS_OWNERDRAWFIXED | 
-                    CBS_AUTOHSCROLL | CBS_SORT | CBS_HASSTRINGS | WS_BORDER | 
-                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        cmb2,110,114,92,68,CBS_DROPDOWNLIST | CBS_OWNERDRAWFIXED | CBS_AUTOHSCROLL | CBS_SORT | CBS_HASSTRINGS | WS_BORDER | WS_VSCROLL | WS_TABSTOP
     DEFPUSHBUTTON   "OK",IDOK,208,6,50,14,WS_GROUP
     PUSHBUTTON      "Cancel",IDCANCEL,208,24,50,14,WS_GROUP
     PUSHBUTTON      "&Help",1038,208,46,50,14,WS_GROUP
-    CONTROL         "&Read Only",chx1,"Button",BS_AUTOCHECKBOX | WS_GROUP | 
-                    WS_TABSTOP,208,68,54,12
+    CONTROL         "&Read Only",chx1,"Button",BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,208,68,54,12
     GROUPBOX        "&Conversion Table",IDC_STATIC,143,134,116,62
     PUSHBUTTON      "&Browse...",IDC_BROWSE_CCTABLE,149,175,49,14
-    CONTROL         "&Use Conversion Table",IDC_USE_CCTABLE,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,149,147,105,10
+    CONTROL         "&Use Conversion Table",IDC_USE_CCTABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,149,147,105,10
     LTEXT           "None",IDC_LBL_CCTABLE,152,161,105,9
-    LTEXT           "Export outputs the current view as sorted and filtered. If the current view is sorted by a marker with multiple occurences in a record, duplicate records will be output.",
-                    IDC_STATIC,6,135,131,61
+    LTEXT           "Export outputs the current view as sorted and filtered. If the current view is sorted by a marker with multiple occurences in a record, duplicate records will be output.",IDC_STATIC,6,135,131,61
 END
 
-IDD_LOOKUP DIALOG DISCARDABLE  0, 0, 263, 154
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_LOOKUP DIALOG 0, 0, 263, 154
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Lookup"
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "&From Marker",IDC_STATIC,7,4,70,8
-    COMBOBOX        IDC_FROM_MARKER,6,14,65,106,CBS_DROPDOWNLIST | CBS_SORT | 
-                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_FROM_MARKER,6,14,65,106,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     LTEXT           "&To Marker",IDC_STATIC,86,4,70,8
-    COMBOBOX        IDC_TO_MARKER,85,14,65,105,CBS_DROPDOWNLIST | CBS_SORT | 
-                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_TO_MARKER,85,14,65,105,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "&Lexicons...",IDC_LOOKUP,10,38,50,14
     DEFPUSHBUTTON   "OK",IDOK,203,6,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,203,23,50,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,203,
-                    43,50,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,203,43,50,14
     GROUPBOX        "If lookup fails",IDC_STATIC,6,60,152,90
-    CONTROL         "Output &failure mark",IDC_SHOW_FAIL_MARK,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,14,84,140,8
-    CONTROL         "Output &word",IDC_SHOW_WORD,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,14,95,140,8
-    CONTROL         "Apply &CC table to output",IDC_APPLYCC,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,14,106,140,8
+    CONTROL         "Output &failure mark",IDC_SHOW_FAIL_MARK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,84,140,8
+    CONTROL         "Output &word",IDC_SHOW_WORD,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,95,140,8
+    CONTROL         "Apply &CC table to output",IDC_APPLYCC,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,106,140,8
     LTEXT           "None",IDC_LBL_CCTABLE,13,117,137,9
     PUSHBUTTON      "&Browse...",IDC_BROWSE_CCTABLE,21,130,49,14
-    CONTROL         "&Keep capitalization",IDC_KEEPCAP,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,165,70,94,10
-    CONTROL         "Keep &punctuation",IDC_KEEPPUNC,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,165,82,94,10
-    CONTROL         "&Stop at separator",IDC_STOP_AT_SEMICOLON,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,165,123,88,10
+    CONTROL         "&Keep capitalization",IDC_KEEPCAP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,165,70,94,10
+    CONTROL         "Keep &punctuation",IDC_KEEPPUNC,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,165,82,94,10
+    CONTROL         "&Stop at separator",IDC_STOP_AT_SEMICOLON,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,165,123,88,10
     LTEXT           "&Gloss separator:",IDC_STATIC,165,105,57,9
     EDITTEXT        IDC_EDIT_GLOSS_SEPARATOR,223,102,30,21,ES_AUTOHSCROLL
-    CONTROL         "Insert into lexicon",IDC_InsertFail,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,14,73,140,10
-    CONTROL         "Adaptation process",IDC_Adapt,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,165,140,94,10
+    CONTROL         "Insert into lexicon",IDC_InsertFail,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,73,140,10
+    CONTROL         "Adaptation process",IDC_Adapt,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,165,140,94,10
     GROUPBOX        "",IDC_STATIC,161,95,96,41
 END
 
-IDD_fil_MarkerText DIALOG DISCARDABLE  0, 0, 293, 142
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_fil_MarkerText DIALOG 0, 0, 293, 142
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Marker Text Filter Element"
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "&Marker:",IDC_STATIC,6,7,40,8
-    COMBOBOX        IDC_fil_cboMarker,50,6,77,48,CBS_DROPDOWNLIST | 
-                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_fil_cboMarker,50,6,77,48,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     LTEXT           "&Text:",IDC_STATIC,6,24,50,8
     EDITTEXT        IDC_fil_edtText,6,35,219,21,ES_AUTOHSCROLL
     GROUPBOX        "&Variable",IDC_STATIC,6,61,108,47
-    COMBOBOX        IDC_fil_cboVariable,12,73,96,48,CBS_DROPDOWNLIST | 
-                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
-    PUSHBUTTON      "&Insert into the Text",IDC_fil_btnInsertVariable,12,88,
-                    96,14
-    EDITTEXT        IDC_fil_edtNote,6,114,108,22,ES_MULTILINE | ES_READONLY | 
-                    NOT WS_VISIBLE | WS_VSCROLL
+    COMBOBOX        IDC_fil_cboVariable,12,73,96,48,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "&Insert into the Text",IDC_fil_btnInsertVariable,12,88,96,14
+    EDITTEXT        IDC_fil_edtNote,6,114,108,22,ES_MULTILINE | ES_READONLY | NOT WS_VISIBLE | WS_VSCROLL
     DEFPUSHBUTTON   "OK",IDOK,234,6,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,234,23,50,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,234,
-                    43,50,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,234,43,50,14
 END
 
-IDD_fil_LangEncText DIALOG DISCARDABLE  0, 0, 185, 142
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_fil_LangEncText DIALOG 0, 0, 185, 142
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Language Text Filter Element"
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "&Language:",IDC_STATIC,6,7,40,8
-    COMBOBOX        IDC_fil_cboLangEnc,50,6,64,48,CBS_DROPDOWNLIST | 
-                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_fil_cboLangEnc,50,6,64,48,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     LTEXT           "&Text:",IDC_STATIC,6,24,50,8
     EDITTEXT        IDC_fil_edtText,6,35,108,21,ES_AUTOHSCROLL
     GROUPBOX        "&Variable",IDC_STATIC,6,61,108,47
-    COMBOBOX        IDC_fil_cboVariable,12,73,96,48,CBS_DROPDOWNLIST | 
-                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
-    PUSHBUTTON      "&Insert into the Text",IDC_fil_btnInsertVariable,12,88,
-                    96,14
-    EDITTEXT        IDC_fil_edtNote,6,114,108,22,ES_MULTILINE | ES_READONLY | 
-                    NOT WS_VISIBLE | WS_VSCROLL
+    COMBOBOX        IDC_fil_cboVariable,12,73,96,48,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "&Insert into the Text",IDC_fil_btnInsertVariable,12,88,96,14
+    EDITTEXT        IDC_fil_edtNote,6,114,108,22,ES_MULTILINE | ES_READONLY | NOT WS_VISIBLE | WS_VSCROLL
     DEFPUSHBUTTON   "OK",IDOK,129,6,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,129,23,50,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,129,
-                    43,50,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,129,43,50,14
 END
 
-IDD_PAGE_SETUP DIALOG DISCARDABLE  0, 0, 234, 159
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_PAGE_SETUP DIALOG 0, 0, 234, 159
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Page Setup"
 FONT 8, "MS Sans Serif"
 BEGIN
@@ -1033,18 +829,14 @@ BEGIN
     EDITTEXT        IDC_PAGESETUP_TXT_MARGRIGHT,48,93,40,13,ES_AUTOHSCROLL
     EDITTEXT        IDC_PAGESETUP_TXT_MARGTOP,48,113,40,13,ES_AUTOHSCROLL
     EDITTEXT        IDC_PAGESETUP_TXT_MARGBOTTOM,48,133,40,13,ES_AUTOHSCROLL
-    CONTROL         "Whole &View",IDC_PAGESETUP_RB_PRINTVIEW,"Button",
-                    BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,114,79,106,10
-    CONTROL         "This record &only",IDC_PAGESETUP_RB_PRINTREC,"Button",
-                    BS_AUTORADIOBUTTON | WS_TABSTOP,114,93,108,10
-    CONTROL         "P&age break between records",
-                    IDC_PAGESETUP_CHK_PAGEBREAKS,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,108,125,122,10
+    CONTROL         "Whole &View",IDC_PAGESETUP_RB_PRINTVIEW,"Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,114,79,106,10
+    CONTROL         "This record &only",IDC_PAGESETUP_RB_PRINTREC,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,114,93,108,10
+    CONTROL         "P&age break between records",IDC_PAGESETUP_CHK_PAGEBREAKS,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,108,125,122,10
     LTEXT           "",IDC_PAGESETUP_CHK_PAGEBREAKS2,128,135,104,8
     DEFPUSHBUTTON   "OK",IDOK,174,6,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,174,23,50,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,174,
-                    45,50,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,174,45,50,14
     LTEXT           "&Header:",IDC_STATIC,6,7,35,17
     LTEXT           "&Footer:",IDC_STATIC,6,27,35,16
     LTEXT           "&Left:",IDC_STATIC,17,76,28,9
@@ -1055,18 +847,16 @@ BEGIN
     GROUPBOX        "What to print",IDC_STATIC,108,65,116,46
 END
 
-IDD_fil_New DIALOG DISCARDABLE  0, 0, 310, 186
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_fil_New DIALOG 0, 0, 310, 186
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Filter Properties"
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "Filter &Name:",IDC_STATIC,6,8,45,8
     EDITTEXT        IDC_fil_edtName,53,6,72,12,ES_AUTOHSCROLL
     LTEXT           "Filter &Elements",IDC_STATIC,7,24,64,8
-    LISTBOX         IDC_fil_lboChoices,6,35,64,105,LBS_NOINTEGRALHEIGHT | 
-                    WS_TABSTOP
-    EDITTEXT        IDC_fil_edtNote,6,146,116,34,ES_MULTILINE | ES_READONLY | 
-                    NOT WS_VISIBLE | WS_VSCROLL
+    LISTBOX         IDC_fil_lboChoices,6,35,64,105,LBS_NOINTEGRALHEIGHT | WS_TABSTOP
+    EDITTEXT        IDC_fil_edtNote,6,146,116,34,ES_MULTILINE | ES_READONLY | NOT WS_VISIBLE | WS_VSCROLL
     PUSHBUTTON      "&First ->",IDC_fil_btnFirst,76,35,46,14
     PUSHBUTTON      "&Insert ->",IDC_fil_btnInsert,76,52,46,14
     PUSHBUTTON      "&Last ->",IDC_fil_btnLast,76,69,46,14
@@ -1075,48 +865,36 @@ BEGIN
     PUSHBUTTON      "Delete &All",IDC_fil_btnDeleteAll,76,126,46,14
     LTEXT           "Elemen&t",IDC_fil_lblElement,129,24,36,8
     LTEXT           "Text",IDC_fil_lblText,168,24,71,8
-    LISTBOX         IDC_fil_lboElements,127,35,117,105,LBS_OWNERDRAWFIXED | 
-                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
-    CONTROL         "Match &whole field",IDC_fil_chkMatchWhole,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,134,145,124,10
+    LISTBOX         IDC_fil_lboElements,127,35,117,105,LBS_OWNERDRAWFIXED | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Match &whole field",IDC_fil_chkMatchWhole,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,134,145,124,10
     LTEXT           "Match &characters:",IDC_STATIC,134,158,149,8
-    COMBOBOX        IDC_fil_cboMatchChars,135,168,108,48,CBS_DROPDOWNLIST | 
-                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_fil_cboMatchChars,135,168,108,48,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     DEFPUSHBUTTON   "OK",IDOK,250,6,54,14
     PUSHBUTTON      "Cancel",IDCANCEL,250,23,54,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,250,
-                    41,54,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,250,41,54,14
 END
 
-IDD_fil_MarkerDate DIALOG DISCARDABLE  0, 0, 185, 142
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_fil_MarkerDate DIALOG 0, 0, 185, 142
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Marker Date"
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "&Marker:",IDC_STATIC,6,7,40,8
-    COMBOBOX        IDC_fil_cboMarker,50,6,64,48,CBS_DROPDOWNLIST | 
-                    WS_VSCROLL | WS_TABSTOP
-    CONTROL         "< &Before",IDC_fil_optBefore,"Button",
-                    BS_AUTORADIOBUTTON | WS_GROUP,6,24,55,10
-    CONTROL         "= &Equal",IDC_fil_optEqual,"Button",BS_AUTORADIOBUTTON,
-                    6,36,55,10
-    CONTROL         "> &After",IDC_fil_optAfter,"Button",BS_AUTORADIOBUTTON,
-                    6,48,55,10
+    COMBOBOX        IDC_fil_cboMarker,50,6,64,48,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "< &Before",IDC_fil_optBefore,"Button",BS_AUTORADIOBUTTON | WS_GROUP,6,24,55,10
+    CONTROL         "= &Equal",IDC_fil_optEqual,"Button",BS_AUTORADIOBUTTON,6,36,55,10
+    CONTROL         "> &After",IDC_fil_optAfter,"Button",BS_AUTORADIOBUTTON,6,48,55,10
     LTEXT           "&Date:",IDC_STATIC,6,64,108,8
-    LTEXT           "Examples:  30/Jun/2001 or Jun/2001 or 2001",IDC_STATIC,
-                    6,99,173,8
+    LTEXT           "Examples:  30/Jun/2001 or Jun/2001 or 2001",IDC_STATIC,6,99,173,8
     EDITTEXT        IDC_fil_edtDate,6,75,108,21,ES_AUTOHSCROLL
-    EDITTEXT        IDC_fil_edtNote,6,114,173,22,ES_MULTILINE | 
-                    ES_AUTOHSCROLL | ES_READONLY | NOT WS_VISIBLE | 
-                    WS_VSCROLL
+    EDITTEXT        IDC_fil_edtNote,6,114,173,22,ES_MULTILINE | ES_AUTOHSCROLL | ES_READONLY | NOT WS_VISIBLE | WS_VSCROLL
     DEFPUSHBUTTON   "OK",IDOK,125,6,54,14
     PUSHBUTTON      "Cancel",IDCANCEL,125,23,54,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,125,
-                    43,54,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,125,43,54,14
 END
 
-IDD_EXPRESS_TEXT DIALOG DISCARDABLE  0, 0, 207, 82
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_EXPRESS_TEXT DIALOG 0, 0, 207, 82
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Quick Setup Interlinear Text Markers"
 FONT 8, "MS Sans Serif"
 BEGIN
@@ -1126,99 +904,75 @@ BEGIN
     EDITTEXT        IDC_PS,82,61,40,13,ES_AUTOHSCROLL
     DEFPUSHBUTTON   "OK",IDOK,151,8,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,151,25,50,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,151,
-                    45,50,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,151,45,50,14
     RTEXT           "Text Marker",IDC_STATIC,6,14,70,8
     RTEXT           "Morpheme Breaks",IDC_STATIC,2,30,74,8
     RTEXT           "Gloss",IDC_STATIC,6,46,70,8
     RTEXT           "Part of Speech",IDC_STATIC,6,62,70,8
 END
 
-IDD_EXPRESS_LEXICON DIALOG DISCARDABLE  0, 0, 311, 145
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_EXPRESS_LEXICON DIALOG 0, 0, 311, 145
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Quick Setup Lexicon Markers"
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "&Available Databases",IDC_TRIE_LBLAVAILABLE,6,5,117,10
-    LISTBOX         IDC_LSTDBSAVAILABLE,5,16,95,39,LBS_SORT | 
-                    LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | 
-                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | 
-                    WS_TABSTOP
+    LISTBOX         IDC_LSTDBSAVAILABLE,5,16,95,39,LBS_SORT | LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP
     PUSHBUTTON      "&Insert ->",IDC_MOVETO,107,18,40,14
     PUSHBUTTON      "<- &Remove",IDC_REMOVE,107,36,40,14
-    LTEXT           "Databases to &Search",IDC_SEARCHPATH_LBLINPATH,155,5,91,
-                    9
-    LISTBOX         IDC_LSTDBSTOSEARCH,154,16,95,39,LBS_OWNERDRAWFIXED | 
-                    LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
-                    WS_TABSTOP
-    CONTROL         "Show &Whole Path",IDC_TRIE_SHOWPATH,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,7,61,117,10
+    LTEXT           "Databases to &Search",IDC_SEARCHPATH_LBLINPATH,155,5,91,9
+    LISTBOX         IDC_LSTDBSTOSEARCH,154,16,95,39,LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Show &Whole Path",IDC_TRIE_SHOWPATH,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,61,117,10
     EDITTEXT        IDC_GLOSS,107,77,40,13,ES_AUTOHSCROLL
     EDITTEXT        IDC_PS,107,93,40,13,ES_AUTOHSCROLL
     EDITTEXT        IDC_ALT,107,109,40,13,ES_AUTOHSCROLL
     EDITTEXT        IDC_UND,107,125,40,13,ES_AUTOHSCROLL
     DEFPUSHBUTTON   "OK",IDOK,256,6,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,256,23,50,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,256,
-                    43,50,14
-    LTEXT           "Don't delete or move, needed in CTrieDlg",
-                    IDC_SEARCHPATH_FIELDTOSEARCH,247,0,8,8,NOT WS_VISIBLE
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,256,43,50,14
+    LTEXT           "Don't delete or move, needed in CTrieDlg",IDC_SEARCHPATH_FIELDTOSEARCH,247,0,8,8,NOT WS_VISIBLE
     RTEXT           "Gloss Marker",IDC_STATIC,31,78,70,8
     RTEXT           "Alternate form",IDC_STATIC,31,110,70,8
     RTEXT           "Underlying form",IDC_STATIC,31,126,70,8
     RTEXT           "Part of Speech",IDC_STATIC,31,94,70,8
 END
 
-IDD_MDF DIALOG DISCARDABLE  0, 0, 299, 185
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_MDF DIALOG 0, 0, 299, 185
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Multi-Dictionary Formatter"
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "Process N&ame:",IDC_STATIC,6,6,36,16
     EDITTEXT        IDC_Export_edtName,44,8,184,12,ES_AUTOHSCROLL
     GROUPBOX        "Audience",IDC_STATIC,6,25,54,56
-    CONTROL         "&English",IDC_MDF_optEnglish,"Button",
-                    BS_AUTORADIOBUTTON | WS_GROUP,12,36,42,10
-    CONTROL         "&National",IDC_MDF_optNational,"Button",
-                    BS_AUTORADIOBUTTON,12,49,42,10
-    PUSHBUTTON      "&Setup...",IDC_MDF_btnAudienceSetup,12,62,42,14,
-                    WS_GROUP
+    CONTROL         "&English",IDC_MDF_optEnglish,"Button",BS_AUTORADIOBUTTON | WS_GROUP,12,36,42,10
+    CONTROL         "&National",IDC_MDF_optNational,"Button",BS_AUTORADIOBUTTON,12,49,42,10
+    PUSHBUTTON      "&Setup...",IDC_MDF_btnAudienceSetup,12,62,42,14,WS_GROUP
     GROUPBOX        "Format",IDC_STATIC,72,25,156,56
     LTEXT           "Dictionary",IDC_STATIC,80,35,144,8
     LTEXT           "Gloss index (finderlist)",IDC_STATIC,78,57,144,8
-    CONTROL         "&Diglot",IDC_MDF_optDiglot,"Button",BS_AUTORADIOBUTTON | 
-                    WS_GROUP,78,45,48,10
-    CONTROL         "&Triglot",IDC_MDF_optTriglot,"Button",
-                    BS_AUTORADIOBUTTON,126,45,48,10
-    CONTROL         "En&glish",IDC_MDF_optEnglishGlossIndex,"Button",
-                    BS_AUTORADIOBUTTON,78,67,48,10
-    CONTROL         "Nat&ional",IDC_MDF_optNationalGlossIndex,"Button",
-                    BS_AUTORADIOBUTTON,126,67,48,10
-    CONTROL         "&Regional",IDC_MDF_optRegionalGlossIndex,"Button",
-                    BS_AUTORADIOBUTTON,174,67,48,10
-    LTEXT           "Tit&le in the footer of the document:",IDC_STATIC,6,85,
-                    222,8
+    CONTROL         "&Diglot",IDC_MDF_optDiglot,"Button",BS_AUTORADIOBUTTON | WS_GROUP,78,45,48,10
+    CONTROL         "&Triglot",IDC_MDF_optTriglot,"Button",BS_AUTORADIOBUTTON,126,45,48,10
+    CONTROL         "En&glish",IDC_MDF_optEnglishGlossIndex,"Button",BS_AUTORADIOBUTTON,78,67,48,10
+    CONTROL         "Nat&ional",IDC_MDF_optNationalGlossIndex,"Button",BS_AUTORADIOBUTTON,126,67,48,10
+    CONTROL         "&Regional",IDC_MDF_optRegionalGlossIndex,"Button",BS_AUTORADIOBUTTON,174,67,48,10
+    LTEXT           "Tit&le in the footer of the document:",IDC_STATIC,6,85,222,8
     EDITTEXT        IDC_MDF_edtTitle,6,95,222,36,ES_AUTOHSCROLL
     LTEXT           "&Filter records:",IDC_STATIC,7,138,54,8
-    COMBOBOX        IDC_MDF_cboFilter,72,136,156,60,CBS_DROPDOWNLIST | 
-                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_MDF_cboFilter,72,136,156,60,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     LTEXT           "Exported file type:",IDC_STATIC,6,154,64,8
-    CONTROL         "Doc&ument (RTF)",IDC_MDF_optDocument,"Button",
-                    BS_AUTORADIOBUTTON | WS_GROUP,72,154,78,10
-    CONTROL         "&Web pages (HTML)",IDC_MDF_optWebPages,"Button",
-                    BS_AUTORADIOBUTTON | NOT WS_VISIBLE,150,154,78,10
-    CONTROL         "Check consistenc&y before exporting",
-                    IDC_Export_chkCheckConsistency,"Button",BS_AUTOCHECKBOX | 
-                    WS_GROUP | WS_TABSTOP,6,167,222,10
+    CONTROL         "Doc&ument (RTF)",IDC_MDF_optDocument,"Button",BS_AUTORADIOBUTTON | WS_GROUP,72,154,78,10
+    CONTROL         "&Web pages (HTML)",IDC_MDF_optWebPages,"Button",BS_AUTORADIOBUTTON | NOT WS_VISIBLE,150,154,78,10
+    CONTROL         "Check consistenc&y before exporting",IDC_Export_chkCheckConsistency,
+                    "Button",BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,6,167,222,10
     PUSHBUTTON      "OK",IDOK,239,6,54,14
     PUSHBUTTON      "Cancel",IDCANCEL,239,23,54,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,239,
-                    43,54,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,239,43,54,14
     PUSHBUTTON      "&Options...",IDC_MDF_btnOptions,239,63,54,14
 END
 
-IDD_REPLACE DIALOG DISCARDABLE  0, 0, 266, 212
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_REPLACE DIALOG 0, 0, 266, 212
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Replace"
 FONT 8, "MS Sans Serif"
 BEGIN
@@ -1227,42 +981,31 @@ BEGIN
     LTEXT           "Re&place with:",IDC_STATIC,6,55,136,9
     EDITTEXT        IDC_REPLACE_TEXT,6,67,188,36,ES_AUTOHSCROLL
     GROUPBOX        "Find In",IDC_STATIC,6,107,112,98
-    CONTROL         "&Field:",IDC_FIND_IN_FLD,"Button",BS_AUTORADIOBUTTON | 
-                    WS_GROUP | WS_TABSTOP,12,121,37,10
-    CONTROL         "All fields of &language:",IDC_FIND_IN_LNG,"Button",
-                    BS_AUTORADIOBUTTON,12,136,104,10
-    COMBOBOX        IDC_FIND_MKRCOMBO,50,120,62,98,CBS_DROPDOWNLIST | 
-                    WS_VSCROLL | WS_TABSTOP
-    COMBOBOX        IDC_FIND_LNGCOMBO,36,149,76,85,CBS_DROPDOWNLIST | 
-                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "&Field:",IDC_FIND_IN_FLD,"Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,12,121,37,10
+    CONTROL         "All fields of &language:",IDC_FIND_IN_LNG,"Button",BS_AUTORADIOBUTTON,12,136,104,10
+    COMBOBOX        IDC_FIND_MKRCOMBO,50,120,62,98,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_FIND_LNGCOMBO,36,149,76,85,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     CTEXT           "__________________________",IDC_STATIC,9,162,106,8
-    CONTROL         "Current record &only",IDC_FIND_CURRENTREC,"Button",
-                    BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,12,177,104,10
-    CONTROL         "Whole (filtered) &database",IDC_FIND_ALLRECORDS,"Button",
-                    BS_AUTORADIOBUTTON,12,189,105,10
-    CONTROL         "Match &whole word",IDC_FIND_WHOLE_WORD,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,128,116,127,10
+    CONTROL         "Current record &only",IDC_FIND_CURRENTREC,"Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,12,177,104,10
+    CONTROL         "Whole (filtered) &database",IDC_FIND_ALLRECORDS,"Button",BS_AUTORADIOBUTTON,12,189,105,10
+    CONTROL         "Match &whole word",IDC_FIND_WHOLE_WORD,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,128,116,127,10
     GROUPBOX        "Match characters",IDC_STATIC,128,132,131,68
-    CONTROL         "By &primary grouping only (loosest)",
-                    IDC_FIND_MATCH_SAME_PRIMARY,"Button",BS_AUTORADIOBUTTON | 
-                    WS_GROUP,134,147,123,10
-    CONTROL         "By secondary ordering, disregarding &case",
-                    IDC_FIND_MATCH_EXACT_DISREGARD_CASE,"Button",
-                    BS_AUTORADIOBUTTON,134,159,123,10
+    CONTROL         "By &primary grouping only (loosest)",IDC_FIND_MATCH_SAME_PRIMARY,
+                    "Button",BS_AUTORADIOBUTTON | WS_GROUP,134,147,123,10
+    CONTROL         "By secondary ordering, disregarding &case",IDC_FIND_MATCH_EXACT_DISREGARD_CASE,
+                    "Button",BS_AUTORADIOBUTTON,134,159,123,10
     CONTROL         "&Exactly by secondary ordering",IDC_FIND_MATCH_EXACT,
                     "Button",BS_AUTORADIOBUTTON,134,171,123,10
-    CONTROL         "Even those normally &ignored (strictest)",
-                    IDC_FIND_MATCH_EVEN_IGNORE,"Button",BS_AUTORADIOBUTTON,
-                    134,183,123,10
+    CONTROL         "Even those normally &ignored (strictest)",IDC_FIND_MATCH_EVEN_IGNORE,
+                    "Button",BS_AUTORADIOBUTTON,134,183,123,10
     DEFPUSHBUTTON   "&Replace...",IDOK,204,6,54,14
     PUSHBUTTON      "Replace &All",IDC_REPLACE_ALL,204,23,54,14
     PUSHBUTTON      "Cancel",IDCANCEL,204,40,54,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,204,
-                    60,54,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,204,60,54,14
 END
 
-IDD_ASK_REPLACE DIALOG DISCARDABLE  0, 0, 179, 26
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_ASK_REPLACE DIALOG 0, 0, 179, 26
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Replace this occurrence?"
 FONT 8, "MS Sans Serif"
 BEGIN
@@ -1271,8 +1014,8 @@ BEGIN
     PUSHBUTTON      "&Skip",IDC_SKIP,64,6,50,15
 END
 
-IDD_MKR_General_Page DIALOG DISCARDABLE  0, 0, 290, 181
-STYLE WS_CHILD | WS_VISIBLE | WS_DISABLED | WS_CAPTION
+IDD_MKR_General_Page DIALOG 0, 0, 290, 181
+STYLE DS_SETFONT | WS_CHILD | WS_VISIBLE | WS_DISABLED | WS_CAPTION
 CAPTION "General"
 FONT 8, "MS Sans Serif"
 BEGIN
@@ -1281,32 +1024,24 @@ BEGIN
     LTEXT           "Field &Name:",IDC_STATIC,6,26,56,9
     EDITTEXT        IDC_MKR_FIELD_NAME,65,24,96,12,ES_AUTOHSCROLL
     LTEXT           "&Under what in the Hierarchy:",IDC_STATIC,6,40,56,16
-    COMBOBOX        IDC_MKR_cboUnder,65,42,96,102,CBS_DROPDOWNLIST | 
-                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_MKR_cboUnder,65,42,96,102,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     LTEXT           "Marker for f&ollowing field:",IDC_STATIC,6,58,57,16
-    COMBOBOX        IDC_MKR_cboFollowing,65,60,96,96,CBS_DROPDOWNLIST | 
-                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_MKR_cboFollowing,65,60,96,96,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     LTEXT           "&Language Encoding:",IDC_STATIC,6,76,56,16
-    COMBOBOX        IDC_MKR_LNGSET_COMBO,65,78,96,84,CBS_DROPDOWNLIST | 
-                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_MKR_LNGSET_COMBO,65,78,96,84,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "Language Properti&es...",IDC_MKR_LNG,188,79,96,14
     LTEXT           "&Description:",IDC_STATIC,6,97,54,8
-    EDITTEXT        IDC_MKR_DESCRIPTION,6,108,278,43,ES_MULTILINE | 
-                    WS_VSCROLL
-    EDITTEXT        IDC_DLG_NOT,6,154,278,22,ES_MULTILINE | ES_READONLY | 
-                    NOT WS_VISIBLE | WS_VSCROLL
-    CONTROL         "Use Language Fon&t",IDC_USEDEFAULTFONT,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,188,48,96,10
+    EDITTEXT        IDC_MKR_DESCRIPTION,6,108,278,43,ES_MULTILINE | WS_VSCROLL
+    EDITTEXT        IDC_DLG_NOT,6,154,278,22,ES_MULTILINE | ES_READONLY | NOT WS_VISIBLE | WS_VSCROLL
+    CONTROL         "Use Language Fon&t",IDC_USEDEFAULTFONT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,188,48,96,10
     PUSHBUTTON      "Choose &Font...",IDC_MKRFONT,188,61,96,14
     GROUPBOX        "Style to Export",IDC_STATIC,188,5,96,40
-    CONTROL         "&Character",IDC_mkr_optCharStyle,"Button",
-                    BS_AUTORADIOBUTTON | WS_GROUP,194,17,86,10
-    CONTROL         "&Paragraph",IDC_mkr_optParStyle,"Button",
-                    BS_AUTORADIOBUTTON,194,31,86,10
+    CONTROL         "&Character",IDC_mkr_optCharStyle,"Button",BS_AUTORADIOBUTTON | WS_GROUP,194,17,86,10
+    CONTROL         "&Paragraph",IDC_mkr_optParStyle,"Button",BS_AUTORADIOBUTTON,194,31,86,10
 END
 
-IDD_MKR_RangeSet_Page DIALOG DISCARDABLE  0, 0, 290, 181
-STYLE WS_CHILD | WS_VISIBLE | WS_DISABLED | WS_CAPTION
+IDD_MKR_RangeSet_Page DIALOG 0, 0, 290, 181
+STYLE DS_SETFONT | WS_CHILD | WS_VISIBLE | WS_DISABLED | WS_CAPTION
 CAPTION "Range Set"
 FONT 8, "MS Sans Serif"
 BEGIN
@@ -1314,30 +1049,23 @@ BEGIN
     EDITTEXT        IDC_edtElement,6,29,280,21,ES_AUTOHSCROLL
     PUSHBUTTON      "&Add",IDC_btnAdd,164,52,54,12
     PUSHBUTTON      "&Replace",IDC_btnReplace,224,52,54,12
-    PUSHBUTTON      "&Build range set from the data",IDC_btnBuildRangeSet,9,
-                    166,133,12
-    LTEXT           "Character-based range set is not recommended.",
-                    IDC_lblCharRangeSet,102,0,186,9
+    PUSHBUTTON      "&Build range set from the data",IDC_btnBuildRangeSet,9,166,133,12
+    LTEXT           "Character-based range set is not recommended.",IDC_lblCharRangeSet,102,0,186,9
     PUSHBUTTON      "&More Information...",IDC_btnMoreInfo,199,9,86,10
-    PUSHBUTTON      "Convert to &Item-based",IDC_btnConvertCharRangeSet,89,9,
-                    107,10
+    PUSHBUTTON      "Convert to &Item-based",IDC_btnConvertCharRangeSet,89,9,107,10
     LTEXT           "Range &Set",IDC_STATIC,5,54,119,8
-    LISTBOX         IDC_lboRangeSet,6,67,280,94,LBS_OWNERDRAWFIXED | 
-                    LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
-                    WS_TABSTOP
+    LISTBOX         IDC_lboRangeSet,6,67,280,94,LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "&Delete",IDC_btnDelete,164,166,54,12
     PUSHBUTTON      "&Clear All",IDC_btnClear,224,166,54,12
-    CONTROL         "&Use Range Set",IDC_chkUseRangeSet,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,6,4,127,10
+    CONTROL         "&Use Range Set",IDC_chkUseRangeSet,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,4,127,10
 END
 
-IDD_LNG_OPTIONS_ADV DIALOG DISCARDABLE  0, 0, 215, 119
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_LNG_OPTIONS_ADV DIALOG 0, 0, 215, 119
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Advanced Language Options"
 FONT 8, "MS Sans Serif"
 BEGIN
-    CONTROL         "&Right to Left",IDC_LNG_RIGHTTOLEFT,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,6,21,110,10
+    CONTROL         "&Right to Left",IDC_LNG_RIGHTTOLEFT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,21,110,10
     GROUPBOX        "SDF Rendering",IDC_STATIC,6,39,138,74
     LTEXT           "&Dynamic Link Library",IDC_STATIC,15,52,120,8
     EDITTEXT        IDC_LNG_DLLNAME,15,63,120,12,ES_AUTOHSCROLL
@@ -1345,200 +1073,158 @@ BEGIN
     EDITTEXT        IDC_LNG_DLLTABLE,15,92,120,12,ES_AUTOHSCROLL
     DEFPUSHBUTTON   "OK",IDOK,155,6,54,14
     PUSHBUTTON      "Cancel",IDCANCEL,155,23,54,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,155,
-                    43,54,14
-    CONTROL         "&Unicode (UTF-8)",IDC_LNG_UNICODE,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,6,7,112,10
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,155,43,54,14
+    CONTROL         "&Unicode (UTF-8)",IDC_LNG_UNICODE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,7,112,10
 END
 
-IDD_Export DIALOG DISCARDABLE  0, 0, 226, 81
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_Export DIALOG 0, 0, 226, 81
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Export Process Type"
 FONT 8, "MS Sans Serif"
 BEGIN
     GROUPBOX        "File format or formatter",IDC_STATIC,6,6,152,69
-    CONTROL         "&Standard Format (SF)",IDC_Export_optSF,"Button",
-                    BS_AUTORADIOBUTTON | WS_GROUP,12,20,140,10
-    CONTROL         "&Rich Text Format (RTF)",IDC_Export_optRTF,"Button",
-                    BS_AUTORADIOBUTTON,12,33,140,10
+    CONTROL         "&Standard Format (SF)",IDC_Export_optSF,"Button",BS_AUTORADIOBUTTON | WS_GROUP,12,20,140,10
+    CONTROL         "&Rich Text Format (RTF)",IDC_Export_optRTF,"Button",BS_AUTORADIOBUTTON,12,33,140,10
     CONTROL         "E&xtensible Markup Language (XML)",IDC_Export_optXML,
                     "Button",BS_AUTORADIOBUTTON,12,46,144,10
     CONTROL         "&Multi-Dictionary Formatter (MDF)",IDC_Export_optMDF,
                     "Button",BS_AUTORADIOBUTTON,12,59,144,10
     DEFPUSHBUTTON   "OK",IDOK,164,6,54,14
     PUSHBUTTON      "Cancel",IDCANCEL,164,23,54,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,164,
-                    43,54,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,164,43,54,14
 END
 
-IDD_SelectFields DIALOG DISCARDABLE  0, 0, 331, 210
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_SelectFields DIALOG 0, 0, 331, 210
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Select Fields"
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "&Excluded:",IDC_STATIC,7,26,60,8
-    LISTBOX         IDC_mrfset_lboExcluded,6,37,90,151,LBS_USETABSTOPS | 
-                    LBS_NOINTEGRALHEIGHT | LBS_EXTENDEDSEL | WS_VSCROLL | 
-                    WS_TABSTOP
+    LISTBOX         IDC_mrfset_lboExcluded,6,37,90,151,LBS_USETABSTOPS | LBS_NOINTEGRALHEIGHT | LBS_EXTENDEDSEL | WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "&Add ->",IDC_mrfset_btnAdd,102,78,60,14
     PUSHBUTTON      "<- &Remove",IDC_mrfset_btnRemove,102,104,60,14
     PUSHBUTTON      "<- Remove Al&l",IDC_mrfset_btnRemoveAll,102,124,60,14
     LTEXT           "&Included:",IDC_STATIC,169,26,60,8
-    LISTBOX         IDC_mrfset_lboIncluded,168,37,90,151,LBS_USETABSTOPS | 
-                    LBS_NOINTEGRALHEIGHT | LBS_EXTENDEDSEL | WS_VSCROLL | 
-                    WS_TABSTOP
-    CONTROL         "Automatically include &new markers",
-                    IDC_mrfset_chkAutoInclude,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,150,195,180,10
+    LISTBOX         IDC_mrfset_lboIncluded,168,37,90,151,LBS_USETABSTOPS | LBS_NOINTEGRALHEIGHT | LBS_EXTENDEDSEL | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Automatically include &new markers",IDC_mrfset_chkAutoInclude,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,150,195,180,10
     DEFPUSHBUTTON   "OK",IDOK,269,6,54,14
     PUSHBUTTON      "Cancel",IDCANCEL,269,23,54,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,269,
-                    43,54,14
-    CONTROL         "Select the fields to be included",
-                    IDC_mrfset_lblInstructions,"Static",SS_LEFTNOWORDWRAP | 
-                    WS_GROUP,6,12,251,8
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,269,43,54,14
+    CONTROL         "Select the fields to be included",IDC_mrfset_lblInstructions,
+                    "Static",SS_LEFTNOWORDWRAP | WS_GROUP,6,12,251,8
 END
 
-IDD_LOOKFAIL DIALOG DISCARDABLE  0, 0, 235, 94
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_LOOKFAIL DIALOG 0, 0, 235, 94
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Lookup Failure"
 FONT 8, "MS Sans Serif"
 BEGIN
     PUSHBUTTON      "&Yes",IDYES,6,68,43,14
     PUSHBUTTON      "&No",IDNO,135,68,43,14
     PUSHBUTTON      "Cancel",IDCANCEL,185,68,43,14
-    CTEXT           "Lookup failure. Insert in lexicon?",IDC_STATIC,1,7,172,
-                    10
+    CTEXT           "Lookup failure. Insert in lexicon?",IDC_STATIC,1,7,172,10
     EDITTEXT        IDC_LookupFailureKey,6,21,221,36,ES_AUTOHSCROLL
     PUSHBUTTON      "&Whole Word",IDC_WholeWord,56,68,72,14
 END
 
-IDD_REARRANGE DIALOG DISCARDABLE  0, 0, 238, 109
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_REARRANGE DIALOG 0, 0, 238, 109
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Rearrange"
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "&From Marker",IDC_STATIC,6,4,74,8
-    COMBOBOX        IDC_FROM_MARKER,6,14,65,96,CBS_DROPDOWNLIST | CBS_SORT | 
-                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_FROM_MARKER,6,14,65,96,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     LTEXT           "&To Marker",IDC_STATIC,96,4,76,8
-    COMBOBOX        IDC_TO_MARKER,95,14,65,95,CBS_DROPDOWNLIST | CBS_SORT | 
-                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_TO_MARKER,95,14,65,95,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     LTEXT           "&Part of Speech Marker",IDC_STATIC,6,34,88,8
-    COMBOBOX        IDC_PS_MARKER,6,44,65,66,CBS_DROPDOWNLIST | CBS_SORT | 
-                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_PS_MARKER,6,44,65,66,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     LTEXT           "P&unctuation Marker",IDC_STATIC,96,34,84,8
-    COMBOBOX        IDC_PUNC_MARKER,96,44,65,65,CBS_DROPDOWNLIST | CBS_SORT | 
-                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_PUNC_MARKER,96,44,65,65,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     DEFPUSHBUTTON   "OK",IDOK,181,6,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,181,23,50,14
     LTEXT           "Rule file",IDC_STATIC,7,68,92,8
     LTEXT           "None",IDC_LBL_RULEFILE,7,78,217,9
     PUSHBUTTON      "&Browse...",IDC_BROWSE_RULEFILE,7,89,49,14
-    CONTROL         "Adaptation process",IDC_Adapt,"Button",BS_AUTOCHECKBOX | 
-                    NOT WS_VISIBLE | WS_DISABLED | WS_TABSTOP,93,91,128,10
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,181,
-                    43,50,14
+    CONTROL         "Adaptation process",IDC_Adapt,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_DISABLED | WS_TABSTOP,93,91,128,10
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,181,43,50,14
 END
 
-IDD_GIVENPROC DIALOG DISCARDABLE  0, 0, 147, 89
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_GIVENPROC DIALOG 0, 0, 147, 89
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Given Interlinear Marker"
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "&Marker",IDC_STATIC,7,4,47,8
-    COMBOBOX        IDC_FROM_MARKER,6,14,65,74,CBS_DROPDOWNLIST | CBS_SORT | 
-                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_FROM_MARKER,6,14,65,74,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     DEFPUSHBUTTON   "OK",IDOK,89,6,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,89,22,50,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,89,
-                    42,50,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,89,42,50,14
 END
 
-IDD_WORDLST DIALOG DISCARDABLE  0, 0, 278, 110
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_WORDLST DIALOG 0, 0, 278, 110
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Create Word List"
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "&Text Corpus",IDC_STATIC,6,6,45,16
-    COMBOBOX        IDC_WORDLST_CORPUS,58,6,104,74,CBS_DROPDOWNLIST | 
-                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_WORDLST_CORPUS,58,6,104,74,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "&Edit...",IDC_WORDLST_CORPUS_EDIT,165,6,35,14
     LTEXT           "Corpus Folder:",IDC_WORDLST_CURDIR,6,26,196,8
     LTEXT           "&Output File",IDC_STATIC,6,41,40,16
     EDITTEXT        IDC_WORDLST_OUTPUT,48,42,106,12,ES_AUTOHSCROLL
     PUSHBUTTON      "&Browse...",IDC_WORDLST_BROWSE,157,42,43,14
     GROUPBOX        "&Include",IDC_STATIC,8,56,131,39,NOT WS_VISIBLE
-    CONTROL         "Include &Word Counts",IDC_WORDLST_COUNT,"Button",
-                    BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,14,80,124,
-                    10
-    CONTROL         "Include &References",IDC_WORDLST_REFS,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,14,67,122,10
+    CONTROL         "Include &Word Counts",IDC_WORDLST_COUNT,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,14,80,124,10
+    CONTROL         "Include &References",IDC_WORDLST_REFS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,67,122,10
     GROUPBOX        "Number of refs. to &Display",IDC_STATIC,158,62,114,42
-    CONTROL         "&Unlimited",IDC_WORDLST_UNLIMITED,"Button",
-                    BS_AUTORADIOBUTTON | WS_GROUP,164,74,65,10
-    CONTROL         "&Limit To",IDC_WORDLST_LIMITED,"Button",
-                    BS_AUTORADIOBUTTON,164,88,53,10
-    EDITTEXT        IDC_WORDLST_REFCOUNT,218,86,25,12,ES_AUTOHSCROLL | 
-                    WS_GROUP | NOT WS_TABSTOP
+    CONTROL         "&Unlimited",IDC_WORDLST_UNLIMITED,"Button",BS_AUTORADIOBUTTON | WS_GROUP,164,74,65,10
+    CONTROL         "&Limit To",IDC_WORDLST_LIMITED,"Button",BS_AUTORADIOBUTTON,164,88,53,10
+    EDITTEXT        IDC_WORDLST_REFCOUNT,218,86,25,12,ES_AUTOHSCROLL | WS_GROUP | NOT WS_TABSTOP
     DEFPUSHBUTTON   "&Create",IDOK,217,6,54,14
     PUSHBUTTON      "Cancel",IDCANCEL,217,23,54,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,217,
-                    43,54,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,217,43,54,14
 END
 
-IDD_CONCORDANCE DIALOG DISCARDABLE  0, 0, 282, 190
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_CONCORDANCE DIALOG 0, 0, 282, 190
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Concordance Lookup"
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "&Text Corpus",IDC_STATIC,6,6,50,16
-    COMBOBOX        IDC_CONCORD_CORPUS,58,6,100,74,CBS_DROPDOWNLIST | 
-                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_CONCORD_CORPUS,58,6,100,74,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "Edit...",IDC_CONCORD_CORPUS_EDIT,161,6,35,14
     RTEXT           "&Search For",IDC_STATIC,8,27,50,8
     EDITTEXT        IDC_CONCORD_SEARCH,64,25,151,36,ES_AUTOHSCROLL
     GROUPBOX        "Match",IDC_STATIC,12,86,62,60
-    CONTROL         "&Middle",IDC_CONCORD_MIDDLE,"Button",BS_AUTORADIOBUTTON | 
-                    WS_GROUP,16,98,50,10
-    CONTROL         "&Begin",IDC_CONCORD_START,"Button",BS_AUTORADIOBUTTON,
-                    16,110,50,10
-    CONTROL         "&End",IDC_CONCORD_END,"Button",BS_AUTORADIOBUTTON,16,
-                    122,50,10
-    CONTROL         "&Whole",IDC_CONCORD_WHOLE,"Button",BS_AUTORADIOBUTTON,
-                    16,134,50,10
-    CONTROL         "Match &Case",IDC_CONCORD_MATCHCASE,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,86,88,153,10
-    GROUPBOX        "Number of matches to Display",IDC_STATIC,86,104,130,42,
-                    WS_GROUP
-    CONTROL         "&Unlimited",IDC_CONCORD_UNLIMITED,"Button",
-                    BS_AUTORADIOBUTTON | WS_GROUP,91,116,65,10
-    CONTROL         "&Limit To",IDC_CONCORD_LIMITED,"Button",
-                    BS_AUTORADIOBUTTON,91,130,43,10
-    EDITTEXT        IDC_CONCORD_MATCHCOUNT,135,129,30,12,ES_AUTOHSCROLL | 
-                    WS_GROUP
+    CONTROL         "&Middle",IDC_CONCORD_MIDDLE,"Button",BS_AUTORADIOBUTTON | WS_GROUP,16,98,50,10
+    CONTROL         "&Begin",IDC_CONCORD_START,"Button",BS_AUTORADIOBUTTON,16,110,50,10
+    CONTROL         "&End",IDC_CONCORD_END,"Button",BS_AUTORADIOBUTTON,16,122,50,10
+    CONTROL         "&Whole",IDC_CONCORD_WHOLE,"Button",BS_AUTORADIOBUTTON,16,134,50,10
+    CONTROL         "Match &Case",IDC_CONCORD_MATCHCASE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,86,88,153,10
+    GROUPBOX        "Number of matches to Display",IDC_STATIC,86,104,130,42,WS_GROUP
+    CONTROL         "&Unlimited",IDC_CONCORD_UNLIMITED,"Button",BS_AUTORADIOBUTTON | WS_GROUP,91,116,65,10
+    CONTROL         "&Limit To",IDC_CONCORD_LIMITED,"Button",BS_AUTORADIOBUTTON,91,130,43,10
+    EDITTEXT        IDC_CONCORD_MATCHCOUNT,135,129,30,12,ES_AUTOHSCROLL | WS_GROUP
     LTEXT           "Corpus Folder:",IDC_CONCORD_CURDIR,6,153,254,8
     LTEXT           "&Output File",IDC_STATIC,6,166,41,16
     EDITTEXT        IDC_CONCORD_OUTPUT,50,166,115,12,ES_AUTOHSCROLL
     PUSHBUTTON      "Browse...",IDC_CONCORD_BROWSE,169,166,44,14
     DEFPUSHBUTTON   "Loo&kup",IDOK,222,6,54,14
     PUSHBUTTON      "Cancel",IDCANCEL,222,23,54,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,222,
-                    43,54,14
-    CONTROL         "&Align Matched Strings",IDC_CONCORD_ALIGNMATCHED,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,86,73,152,10
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,222,43,54,14
+    CONTROL         "&Align Matched Strings",IDC_CONCORD_ALIGNMATCHED,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,86,73,152,10
 END
 
-IDD_CORPUS DIALOG DISCARDABLE  0, 0, 266, 150
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_CORPUS DIALOG 0, 0, 266, 150
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Text Corpus Properties"
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "Corpus &Name",IDC_STATIC,6,7,70,8
     EDITTEXT        IDC_CORPUS_NAME,78,6,115,12,ES_AUTOHSCROLL
     LTEXT           "&Language Encoding",IDC_STATIC,6,25,72,8
-    COMBOBOX        IDC_CORPUS_LANGENC,78,24,87,68,CBS_DROPDOWNLIST | 
-                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_CORPUS_LANGENC,78,24,87,68,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "&Edit...",IDC_CORPUS_EDITLANGENC,168,24,25,14
     LTEXT           "Files to Process",IDC_STATIC,6,43,67,8
     PUSHBUTTON      "Edit &Files List...",IDC_CORPUS_FILESLIST,78,41,87,14
@@ -1553,111 +1239,90 @@ BEGIN
     EDITTEXT        IDC_CORPUS_VERSE,101,124,35,12,ES_AUTOHSCROLL
     DEFPUSHBUTTON   "OK",IDOK,205,6,54,14
     PUSHBUTTON      "Cancel",IDCANCEL,205,23,54,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,205,
-                    43,54,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,205,43,54,14
 END
 
-IDD_FILESLIST DIALOG DISCARDABLE  0, 0, 533, 276
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_FILESLIST DIALOG 0, 0, 533, 276
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Select Files"
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "",IDC_FILESLIST_PATH,6,8,270,8
     LTEXT           "F&older",IDC_STATIC,6,22,37,8
-    LISTBOX         IDC_FILESLIST_LSTPATH,6,34,122,200,LBS_SORT | 
-                    LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | 
-                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_FILESLIST_LSTPATH,6,34,122,200,LBS_SORT | LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "&Up",IDC_FILESLIST_UPDIR,45,20,28,11
     LTEXT           "&Drive",IDC_STATIC,6,236,30,8
-    COMBOBOX        IDC_FILESLIST_DRIVE,6,247,107,50,CBS_DROPDOWNLIST | 
-                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_FILESLIST_DRIVE,6,247,107,50,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     LTEXT           "&Available Files",IDC_STATIC,137,22,67,10
-    LISTBOX         IDC_FILESLIST_LSTAVAILABLE,133,34,179,200,LBS_SORT | 
-                    LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | 
-                    LBS_NOINTEGRALHEIGHT | LBS_EXTENDEDSEL | WS_VSCROLL | 
-                    WS_TABSTOP
+    LISTBOX         IDC_FILESLIST_LSTAVAILABLE,133,34,179,200,LBS_SORT | LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | LBS_EXTENDEDSEL | WS_VSCROLL | WS_TABSTOP
     LTEXT           "&Selected Files",IDC_STATIC,363,22,64,10
-    LISTBOX         IDC_FILESLIST_LSTSELECTED,363,34,159,200,
-                    LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | 
-                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_FILESLIST_LSTSELECTED,363,34,159,200,LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "&First ->",IDC_FILESLIST_FIRSTTO,318,39,40,14
     PUSHBUTTON      "&Last ->",IDC_FILESLIST_LASTTO,318,59,40,14
     PUSHBUTTON      "&Insert ->",IDC_FILESLIST_MOVETO,318,79,40,14
     PUSHBUTTON      "<- &Remove",IDC_FILESLIST_MOVEFROM,318,99,40,14
     PUSHBUTTON      "<- &Clear",IDC_FILESLIST_CLEAR,318,119,40,14
-    CONTROL         "Show Full &Path",IDC_FILESLIST_SHOWPATH,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,351,239,98,10
+    CONTROL         "Show Full &Path",IDC_FILESLIST_SHOWPATH,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,351,239,98,10
     DEFPUSHBUTTON   "OK",IDOK,164,256,54,14
     PUSHBUTTON      "Cancel",IDCANCEL,221,256,54,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,281,
-                    256,54,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,281,256,54,14
 END
 
-IDD_RunBatchFile DIALOG DISCARDABLE  0, 0, 418, 115
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_RunBatchFile DIALOG 0, 0, 418, 115
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Run Command or Batch File"
 FONT 8, "MS Sans Serif"
 BEGIN
-    COMBOBOX        IDC_COMBO1,4,37,409,59,CBS_DROPDOWN | WS_VSCROLL | 
-                    WS_TABSTOP
+    COMBOBOX        IDC_COMBO1,4,37,409,59,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
     DEFPUSHBUTTON   "Run",ID_RUNDOS,361,56,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,361,73,50,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,361,
-                    93,50,14
-    LTEXT           "Type or select the command you would like to run.",
-                    IDC_STATIC,5,8,176,12
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,361,93,50,14
+    LTEXT           "Type or select the command you would like to run.",IDC_STATIC,5,8,176,12
     LTEXT           "Command:",IDC_STATIC_ADDITIONAL_FIELD,5,20,46,12
     LTEXT           "",IDC_STATUS,8,58,154,11
 END
 
-IDD_No_Project DIALOG DISCARDABLE  0, 0, 147, 111
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_No_Project DIALOG 0, 0, 147, 111
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "No Project Open"
 FONT 8, "MS Sans Serif"
 BEGIN
     CONTROL         "&Open an existing project",IDC_No_Project_Selection,
-                    "Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,23,
-                    28,103,14
-    CONTROL         "&Create a new project",IDC_RADIO2,"Button",
-                    BS_AUTORADIOBUTTON | WS_TABSTOP,23,42,102,15
-    CONTROL         "&Exit the Toolbox program",IDC_RADIO3,"Button",
-                    BS_AUTORADIOBUTTON | WS_TABSTOP,23,63,104,14
+                    "Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,23,28,103,14
+    CONTROL         "&Create a new project",IDC_RADIO2,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,23,42,102,15
+    CONTROL         "&Exit the Toolbox program",IDC_RADIO3,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,23,63,104,14
     DEFPUSHBUTTON   "OK",IDOK,18,89,50,14,WS_GROUP
-    CONTROL         "Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,78,89,
-                    50,14
+    CONTROL         "Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,78,89,50,14
     CTEXT           "No project is open.",IDC_STATIC,2,4,141,20
     GROUPBOX        "",IDC_STATIC,18,22,110,61
 END
 
-IDD_MDF_AudienceSetup DIALOG DISCARDABLE  0, 0, 305, 170
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_MDF_AudienceSetup DIALOG 0, 0, 305, 170
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Multi-Dictionary Formatter Audience Setup"
 FONT 8, "MS Sans Serif"
 BEGIN
     GROUPBOX        "English audience",IDC_STATIC,6,6,228,73
     LTEXT           "&Change table for labels:",IDC_STATIC,12,20,160,8
     EDITTEXT        IDC_MDF_edtEnglishLabelsCct,12,31,90,12,ES_AUTOHSCROLL
-    PUSHBUTTON      "&Browse...",IDC_MDF_btnBrowseEnglishLabelsCct,108,30,50,
-                    14
+    PUSHBUTTON      "&Browse...",IDC_MDF_btnBrowseEnglishLabelsCct,108,30,50,14
     LTEXT           "&Document template:",IDC_STATIC,12,49,100,8
     EDITTEXT        IDC_MDF_edtEnglishDot,12,60,160,12,ES_AUTOHSCROLL
     PUSHBUTTON      "B&rowse...",IDC_MDF_btnBrowseEnglishDot,178,59,50,14
     GROUPBOX        "National audience",IDC_STATIC,6,91,228,73
     LTEXT           "Change t&able for labels:",IDC_STATIC,12,105,160,8
     EDITTEXT        IDC_MDF_edtNationalLabelsCct,12,115,90,12,ES_AUTOHSCROLL
-    PUSHBUTTON      "Br&owse...",IDC_MDF_btnBrowseNationalLabelsCct,108,115,
-                    50,14
+    PUSHBUTTON      "Br&owse...",IDC_MDF_btnBrowseNationalLabelsCct,108,115,50,14
     LTEXT           "Document t&emplate:",IDC_STATIC,12,134,100,8
     EDITTEXT        IDC_MDF_edtNationalDot,12,145,160,12,ES_AUTOHSCROLL
     PUSHBUTTON      "Bro&wse...",IDC_MDF_btnBrowseNationalDot,178,144,50,14
     DEFPUSHBUTTON   "OK",IDOK,245,6,54,14
     PUSHBUTTON      "Cancel",IDCANCEL,245,23,54,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,245,
-                    43,54,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,245,43,54,14
 END
 
-IDD_RTF_DocumentPage DIALOG DISCARDABLE  0, 0, 250, 150
-STYLE WS_CHILD | WS_VISIBLE | WS_DISABLED | WS_CAPTION
+IDD_RTF_DocumentPage DIALOG 0, 0, 250, 150
+STYLE DS_SETFONT | WS_CHILD | WS_VISIBLE | WS_DISABLED | WS_CAPTION
 CAPTION "Document"
 FONT 8, "MS Sans Serif"
 BEGIN
@@ -1672,12 +1337,10 @@ BEGIN
     EDITTEXT        IDC_RTF_edtRightMargin,203,74,32,12,ES_AUTOHSCROLL
     LTEXT           "&Gutter:",IDC_STATIC,147,94,56,8
     EDITTEXT        IDC_RTF_edtGutter,203,92,32,12,ES_AUTOHSCROLL
-    CONTROL         "&Mirror margins",IDC_RTF_chkMirrorMargins,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,147,110,90,10
+    CONTROL         "&Mirror margins",IDC_RTF_chkMirrorMargins,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,147,110,90,10
     GROUPBOX        "Paper",IDC_STATIC,6,6,123,85
     LTEXT           "&Size:",IDC_STATIC,15,22,22,8
-    COMBOBOX        IDC_RTF_cboPaperSize,40,20,80,60,CBS_DROPDOWNLIST | 
-                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_RTF_cboPaperSize,40,20,80,60,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     LTEXT           "",IDC_RTF_lblMeasurementUnit,15,38,105,8
     LTEXT           "&Width:",IDC_STATIC,15,54,65,8
     EDITTEXT        IDC_RTF_edtPaperWidth,88,52,32,12,ES_AUTOHSCROLL
@@ -1685,8 +1348,8 @@ BEGIN
     EDITTEXT        IDC_RTF_edtPaperHeight,88,70,32,12,ES_AUTOHSCROLL
 END
 
-IDD_RTF_SectionPage DIALOG DISCARDABLE  0, 0, 250, 165
-STYLE WS_CHILD | WS_VISIBLE | WS_DISABLED | WS_CAPTION
+IDD_RTF_SectionPage DIALOG 0, 0, 250, 165
+STYLE DS_SETFONT | WS_CHILD | WS_VISIBLE | WS_DISABLED | WS_CAPTION
 CAPTION "Section"
 FONT 8, "MS Sans Serif"
 BEGIN
@@ -1695,10 +1358,8 @@ BEGIN
     EDITTEXT        IDC_RTF_edtHeaderToEdge,88,20,32,12,ES_AUTOHSCROLL
     LTEXT           "Foote&r to edge:",IDC_STATIC,12,40,76,8
     EDITTEXT        IDC_RTF_edtFooterToEdge,88,39,32,12,ES_AUTOHSCROLL
-    CONTROL         "Different &first page",IDC_RTF_chkFirstPage,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,15,56,105,10
-    CONTROL         "Different &odd and even",IDC_RTF_chkOddAndEven,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,15,69,105,10
+    CONTROL         "Different &first page",IDC_RTF_chkFirstPage,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,56,105,10
+    CONTROL         "Different &odd and even",IDC_RTF_chkOddAndEven,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,69,105,10
     GROUPBOX        "Columns",IDC_STATIC,139,6,105,69
     LTEXT           "&Number:",IDC_STATIC,145,22,50,8
     EDITTEXT        IDC_RTF_edtNumberOfColumns,217,20,16,12,ES_AUTOHSCROLL
@@ -1708,395 +1369,309 @@ BEGIN
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,145,56,97,10
 END
 
-IDD_ExportProcess DIALOG DISCARDABLE  0, 0, 404, 267
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_ExportProcess DIALOG 0, 0, 404, 267
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Create an exported copy of file"
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "&Export process",IDC_SET_NAME,7,19,82,8
     LTEXT           "Type",IDC_Export_lblType,273,19,28,8
-    LISTBOX         IDC_Export_lboExportProcesses,6,30,315,101,
-                    LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_USETABSTOPS | 
-                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_Export_lboExportProcesses,6,30,315,101,LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_USETABSTOPS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     GROUPBOX        "Records to include",IDC_STATIC,6,136,172,79
-    LTEXT           "Filtered using",IDC_Export_lblFiltering,22,177,148,8,
-                    NOT WS_GROUP
-    LTEXT           "Sorted by:",IDC_Export_lblSorting,22,188,148,8,NOT 
-                    WS_GROUP
-    CONTROL         "Entire &file:",IDC_Export_optEntireDatabase,"Button",
-                    BS_AUTORADIOBUTTON | WS_GROUP,12,151,160,10
+    LTEXT           "Filtered using",IDC_Export_lblFiltering,22,177,148,8,NOT WS_GROUP
+    LTEXT           "Sorted by:",IDC_Export_lblSorting,22,188,148,8,NOT WS_GROUP
+    CONTROL         "Entire &file:",IDC_Export_optEntireDatabase,"Button",BS_AUTORADIOBUTTON | WS_GROUP,12,151,160,10
     CONTROL         "Current &window's records:",IDC_Export_optCurrentWindow,
                     "Button",BS_AUTORADIOBUTTON,12,164,160,10
     CONTROL         "Current &record only",IDC_Export_optCurrentRecord,
                     "Button",BS_AUTORADIOBUTTON,12,199,160,10
-    CONTROL         "&Show Properties dialog box on Export",
-                    IDC_Export_chkShowProperties,"Button",BS_AUTOCHECKBOX | 
-                    WS_GROUP | WS_TABSTOP,6,219,240,10
-    CONTROL         "Automatically &open document in word processor",
-                    IDC_Export_chkAutoOpen,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,6,232,240,10
+    CONTROL         "&Show Properties dialog box on Export",IDC_Export_chkShowProperties,
+                    "Button",BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,6,219,240,10
+    CONTROL         "Automatically &open document in word processor",IDC_Export_chkAutoOpen,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,232,240,10
     DEFPUSHBUTTON   "OK",IDOK,5,246,120,14
     PUSHBUTTON      "Cancel",IDCANCEL,130,246,54,14
     PUSHBUTTON      "&Add...",IDC_ADD,335,31,54,12
     PUSHBUTTON      "&Copy...",IDC_COPY,335,46,54,12
     PUSHBUTTON      "&Modify...",IDC_MODIFY,335,61,54,12
     PUSHBUTTON      "&Delete",IDC_DELETE,335,76,54,12
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,190,
-                    246,54,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,190,246,54,14
     LTEXT           "Static",IDC_Export_lblEntireDatabase,22,166,148,8
     LTEXT           "Database Type",IDC_Export_lblDatabaseType,6,7,240,8
 END
 
-IDD_ExportRTF DIALOG DISCARDABLE  0, 0, 288, 274
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_ExportRTF DIALOG 0, 0, 288, 274
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "RTF Export Process Properties"
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "Process &Name:",IDC_STATIC,6,6,36,16
     EDITTEXT        IDC_Export_edtName,44,8,160,12,ES_AUTOHSCROLL
     GROUPBOX        "Fields to export",IDC_STATIC,20,28,184,33
-    CONTROL         "Al&l fields",IDC_Export_chkAllFields,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,26,43,84,10
-    PUSHBUTTON      "&Select Fields...",IDC_Export_btnSelectFields,115,40,83,
-                    14
+    CONTROL         "Al&l fields",IDC_Export_chkAllFields,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,26,43,84,10
+    PUSHBUTTON      "&Select Fields...",IDC_Export_btnSelectFields,115,40,83,14
     PUSHBUTTON      "&Page Setup...",IDC_Export_btnPageSetup,102,65,76,11
-    LTEXT           "&Consistent Changes Table  (optional)",IDC_STATIC,6,83,
-                    147,8
+    LTEXT           "&Consistent Changes Table  (optional)",IDC_STATIC,6,83,147,8
     EDITTEXT        IDC_Export_edtCCT,6,94,275,12,ES_AUTOHSCROLL
     PUSHBUTTON      "&Browse...",IDC_Export_btnBrowseCCT,171,80,54,12
     GROUPBOX        "Style formatting is defined by",IDC_STATIC,9,112,274,61
-    CONTROL         "&Document template (to be attached)",
-                    IDC_Export_optDocumentTemplate,"Button",
-                    BS_AUTORADIOBUTTON | WS_GROUP,15,126,142,10
+    CONTROL         "&Document template (to be attached)",IDC_Export_optDocumentTemplate,
+                    "Button",BS_AUTORADIOBUTTON | WS_GROUP,15,126,142,10
     EDITTEXT        IDC_Export_edtDOT,24,139,255,12,ES_AUTOHSCROLL
     PUSHBUTTON      "B&rowse...",IDC_Export_btnBrowseDOT,171,125,54,12
     CONTROL         "&Marker font properties",IDC_Export_optMarkerFont,
                     "Button",BS_AUTORADIOBUTTON,15,157,142,10
     GROUPBOX        "Interlinear",IDC_STATIC,6,179,225,31
-    CONTROL         "Align fields using &tabs",
-                    IDC_RTF_chkInterlinearTabAligned,"Button",
-                    BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,15,193,120,10
-    RTEXT           "Sp&acing:",IDC_RTF_lblInterlinearSpacing,150,194,50,8,
-                    NOT WS_VISIBLE
-    EDITTEXT        IDC_RTF_edtInterlinearSpacing,207,192,18,12,
-                    ES_AUTOHSCROLL | NOT WS_VISIBLE
-    CONTROL         "Check consistenc&y before exporting",
-                    IDC_Export_chkCheckConsistency,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,6,216,225,10
+    CONTROL         "Align fields using &tabs",IDC_RTF_chkInterlinearTabAligned,
+                    "Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,15,193,120,10
+    RTEXT           "Sp&acing:",IDC_RTF_lblInterlinearSpacing,150,194,50,8,NOT WS_VISIBLE
+    EDITTEXT        IDC_RTF_edtInterlinearSpacing,207,192,18,12,ES_AUTOHSCROLL | NOT WS_VISIBLE
+    CONTROL         "Check consistenc&y before exporting",IDC_Export_chkCheckConsistency,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,216,225,10
     DEFPUSHBUTTON   "OK",IDOK,226,6,54,14,WS_GROUP
     PUSHBUTTON      "Cancel",IDCANCEL,226,23,54,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,226,
-                    43,54,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,226,43,54,14
     LTEXT           "&Output File",IDC_STATIC,6,229,160,8
     EDITTEXT        IDC_Export_edtOutputFile,6,240,273,12,ES_AUTOHSCROLL
     CONTROL         "Overwrite file without asking",IDC_Export_chkOverwrite,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,258,160,10
-    PUSHBUTTON      "&Browse...",IDC_Export_btnBrowseOutputFile,175,226,54,
-                    12
+    PUSHBUTTON      "&Browse...",IDC_Export_btnBrowseOutputFile,175,226,54,12
     CONTROL         "Add alphabetic dividers",IDC_Export_chkAddAlphDiv,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,69,101,10
 END
 
-IDD_ExportSF DIALOG DISCARDABLE  0, 0, 288, 207
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_ExportSF DIALOG 0, 0, 288, 207
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "SF Export Process Properties"
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "Process &Name:",IDC_STATIC,6,6,36,16
     EDITTEXT        IDC_Export_edtName,44,8,160,12,ES_AUTOHSCROLL
     GROUPBOX        "Fields to export",IDC_STATIC,20,28,184,33
-    CONTROL         "Al&l fields",IDC_Export_chkAllFields,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,26,43,84,10
-    PUSHBUTTON      "&Select Fields...",IDC_Export_btnSelectFields,115,40,83,
-                    14
-    LTEXT           "&Consistent Changes Table  (optional)",IDC_STATIC,6,67,
-                    160,8
+    CONTROL         "Al&l fields",IDC_Export_chkAllFields,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,26,43,84,10
+    PUSHBUTTON      "&Select Fields...",IDC_Export_btnSelectFields,115,40,83,14
+    LTEXT           "&Consistent Changes Table  (optional)",IDC_STATIC,6,67,160,8
     EDITTEXT        IDC_Export_edtCCT,6,78,275,12,ES_AUTOHSCROLL
-    CONTROL         "Check consistenc&y before exporting",
-                    IDC_Export_chkCheckConsistency,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,6,96,160,10
+    CONTROL         "Check consistenc&y before exporting",IDC_Export_chkCheckConsistency,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,96,160,10
     PUSHBUTTON      "&Browse...",IDC_Export_btnBrowseCCT,171,64,54,12
     DEFPUSHBUTTON   "OK",IDOK,226,6,54,14
     PUSHBUTTON      "Cancel",IDCANCEL,226,23,54,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,226,
-                    43,54,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,226,43,54,14
     LTEXT           "&Output File",IDC_STATIC,6,110,160,8
     EDITTEXT        IDC_Export_edtOutputFile,6,121,275,12,ES_AUTOHSCROLL
     CONTROL         "Overwrite file without asking",IDC_Export_chkOverwrite,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,139,160,10
-    PUSHBUTTON      "&Browse...",IDC_Export_btnBrowseOutputFile,172,107,54,
-                    12
-    CONTROL         "Automatically open exported file",
-                    IDC_Export_chkAutoOpen,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,6,151,160,10
-    LTEXT           "Next process in chain (optional)",IDC_STATIC,6,165,160,
-                    8
+    PUSHBUTTON      "&Browse...",IDC_Export_btnBrowseOutputFile,172,107,54,12
+    CONTROL         "Automatically open exported file",IDC_Export_chkAutoOpen,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,151,160,10
+    LTEXT           "Next process in chain (optional)",IDC_STATIC,6,165,160,8
     EDITTEXT        IDC_Export_edtChainProcess,6,176,204,12,ES_AUTOHSCROLL
     CONTROL         "Add alphabetic dividers",IDC_Export_chkAddAlphDiv,
-                    "Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,6,
-                    193,101,10
+                    "Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,6,193,101,10
 END
 
-IDD_GENERATE DIALOG DISCARDABLE  0, 0, 225, 114
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_GENERATE DIALOG 0, 0, 225, 114
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Generate"
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "&From Marker",IDC_STATIC,7,4,72,8
-    COMBOBOX        IDC_FROM_MARKER,7,14,65,77,CBS_DROPDOWNLIST | CBS_SORT | 
-                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_FROM_MARKER,7,14,65,77,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     LTEXT           "&To Marker",IDC_STATIC,88,4,69,8
-    COMBOBOX        IDC_TO_MARKER,87,14,65,75,CBS_DROPDOWNLIST | CBS_SORT | 
-                    WS_VSCROLL | WS_TABSTOP
-    COMBOBOX        IDC_PUNC_MARKER,7,44,65,79,CBS_DROPDOWNLIST | CBS_SORT | 
-                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_TO_MARKER,87,14,65,75,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_PUNC_MARKER,7,44,65,79,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     LTEXT           "Rule file",IDC_STATIC,7,68,120,8
     LTEXT           "None",IDC_LBL_RULEFILE,7,78,208,9
     PUSHBUTTON      "&Browse...",IDC_BROWSE_RULEFILE,7,89,49,14
     DEFPUSHBUTTON   "OK",IDOK,164,6,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,164,23,50,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,164,
-                    43,50,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,164,43,50,14
     LTEXT           "P&unctuation Marker",IDC_STATIC,7,34,108,8
-    CONTROL         "Keep Morpheme Breaks",IDC_KeepMBrks,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,88,92,133,10
+    CONTROL         "Keep Morpheme Breaks",IDC_KeepMBrks,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,88,92,133,10
 END
 
-IDD_MDF_Reminder DIALOG DISCARDABLE  0, 0, 190, 125
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_MDF_Reminder DIALOG 0, 0, 190, 125
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "MDF Reminder"
 FONT 8, "MS Sans Serif"
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,34,104,54,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,99,
-                    104,54,14
-    LTEXT           "The file has now been exported as Rich Text Format, but the formatting is not yet complete.",
-                    IDC_STATIC,6,6,177,16
-    LTEXT           "To complete the formatting process in Word, choose Finish MDF Export.",
-                    IDC_MDF_lblToPrint,6,30,177,24
-    LTEXT           "After formatting is complete, you can view and print the document normally.",
-                    IDC_STATIC,6,62,177,16
-    CONTROL         "&Don't show me this reminder again",
-                    IDC_MDF_chkNoMDFReminder,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,6,86,177,10
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,99,104,54,14
+    LTEXT           "The file has now been exported as Rich Text Format, but the formatting is not yet complete.",IDC_STATIC,6,6,177,16
+    LTEXT           "To complete the formatting process in Word, choose Finish MDF Export.",IDC_MDF_lblToPrint,6,30,177,24
+    LTEXT           "After formatting is complete, you can view and print the document normally.",IDC_STATIC,6,62,177,16
+    CONTROL         "&Don't show me this reminder again",IDC_MDF_chkNoMDFReminder,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,86,177,10
 END
 
-IDD_DBTypeNotFound DIALOG DISCARDABLE  0, 0, 310, 118
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_DBTypeNotFound DIALOG 0, 0, 310, 118
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Database Type Not Found"
 FONT 8, "MS Sans Serif"
 BEGIN
     DEFPUSHBUTTON   "Cancel File-Open",IDCANCEL,19,98,75,14
     PUSHBUTTON      "&Import as a Different Type",IDOK,110,98,110,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,236,
-                    98,55,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,236,98,55,14
     LTEXT           "Settings file is missing :",IDC_STATIC,33,6,252,8
     LTEXT           "",IDC_DBTypeNF_FileAndType,40,20,270,24
-    LTEXT           "Be sure that the current Toolbox project ( .prj on the status bar) is the correct one for your task.  If not, cancel now, then open the correct project.",
-                    IDC_STATIC,33,50,269,16
-    LTEXT           "The needed type file ( .typ) must be in the same folder as the project ( .prj) - before the project is opened.",
-                    IDC_STATIC,33,70,268,16
+    LTEXT           "Be sure that the current Toolbox project ( .prj on the status bar) is the correct one for your task.  If not, cancel now, then open the correct project.",IDC_STATIC,33,50,269,16
+    LTEXT           "The needed type file ( .typ) must be in the same folder as the project ( .prj) - before the project is opened.",IDC_STATIC,33,70,268,16
     ICON            IDI_Exclamation,IDC_STATIC,6,21,20,20
 END
 
-IDD_ExportCurrentWindow DIALOG DISCARDABLE  0, 0, 225, 162
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_ExportCurrentWindow DIALOG 0, 0, 225, 162
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Export Current Window"
 FONT 8, "MS Sans Serif"
 BEGIN
-    LTEXT           "The current window's primary sorting marker is",
-                    IDC_STATIC,6,6,213,8
+    LTEXT           "The current window's primary sorting marker is",IDC_STATIC,6,6,213,8
     LTEXT           "",IDC_Export_lblPriKeyMarker,16,17,203,8
-    LTEXT           "Since this isn't the record marker, you can choose to export the window's records in either of two ways:",
-                    IDC_STATIC,6,31,216,16
-    CONTROL         "&Without reordering fields",
-                    IDC_Export_optWithoutReordering,"Button",
-                    BS_AUTORADIOBUTTON | WS_GROUP,6,53,213,10
-    CONTROL         "&Moving the relevant sorting field to the top of the record",
-                    IDC_RADIO2,"Button",BS_AUTORADIOBUTTON,6,80,213,10
+    LTEXT           "Since this isn't the record marker, you can choose to export the window's records in either of two ways:",IDC_STATIC,6,31,216,16
+    CONTROL         "&Without reordering fields",IDC_Export_optWithoutReordering,
+                    "Button",BS_AUTORADIOBUTTON | WS_GROUP,6,53,213,10
+    CONTROL         "&Moving the relevant sorting field to the top of the record",IDC_RADIO2,
+                    "Button",BS_AUTORADIOBUTTON,6,80,213,10
     DEFPUSHBUTTON   "OK",IDOK,6,142,54,14,WS_GROUP
     PUSHBUTTON      "Cancel",IDCANCEL,85,142,54,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,165,
-                    142,54,14
-    LTEXT           "Just like the current window (in Record View).",
-                    IDC_STATIC,22,66,197,8
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,165,142,54,14
+    LTEXT           "Just like the current window (in Record View).",IDC_STATIC,22,66,197,8
     LTEXT           "",IDC_Export_lblOtherFields,22,93,197,8
-    LTEXT           "Records with multiple occurrences of this field are exported multiple times.",
-                    IDC_STATIC,22,104,197,16
-    LTEXT           "Records without this field aren't exported.",IDC_STATIC,
-                    22,123,197,16
+    LTEXT           "Records with multiple occurrences of this field are exported multiple times.",IDC_STATIC,22,104,197,16
+    LTEXT           "Records without this field aren't exported.",IDC_STATIC,22,123,197,16
 END
 
-IDD_ConvertNewer DIALOG DISCARDABLE  0, 0, 225, 218
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_ConvertNewer DIALOG 0, 0, 225, 218
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Convert Newer Settings Files"
 FONT 8, "MS Sans Serif"
 BEGIN
     DEFPUSHBUTTON   "&No",IDCANCEL,85,198,54,14
     PUSHBUTTON      "&Help",ID_HELP,164,198,54,14
-    LTEXT           "This project's settings folder contains one or more files made by a newer version of the Toolbox program.",
-                    IDC_STATIC,6,6,213,16
+    LTEXT           "This project's settings folder contains one or more files made by a newer version of the Toolbox program.",IDC_STATIC,6,6,213,16
     LTEXT           "&File name",IDC_prj_lblFileName,7,28,78,8
     LTEXT           "Name",IDC_prj_lblName,90,28,74,8
     LTEXT           "Version",IDC_prj_lblVersion,180,28,39,8
-    LISTBOX         IDC_prj_lboSettingsFiles,6,38,213,60,LBS_OWNERDRAWFIXED | 
-                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_prj_lboSettingsFiles,6,38,213,60,LBS_OWNERDRAWFIXED | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     LTEXT           "",IDC_prj_lblSettingsFolder,6,104,218,8
     LTEXT           "",IDC_prj_lblProjectFile,6,115,213,8
     LTEXT           "",IDC_prj_lblShoeboxVersion,6,126,213,8
-    LTEXT           "WARNING: You may lose valuable information if you let this older version of Toolbox open these settings files. For best results, upgrade to a newer version of Toolbox that is completely compatible with this project.",
-                    IDC_STATIC,6,140,213,40
+    LTEXT           "WARNING: You may lose valuable information if you let this older version of Toolbox open these settings files. For best results, upgrade to a newer version of Toolbox that is completely compatible with this project.",IDC_STATIC,6,140,213,40
     LTEXT           "Do you want to continue?",IDC_STATIC,6,184,213,8
     PUSHBUTTON      "&Yes",IDOK,6,198,54,14
 END
 
-IDD_ConvertOlder DIALOG DISCARDABLE  0, 0, 227, 234
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_ConvertOlder DIALOG 0, 0, 227, 234
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Convert Older Settings Files"
 FONT 8, "MS Sans Serif"
 BEGIN
     DEFPUSHBUTTON   "&Yes",IDOK,6,214,54,14
     PUSHBUTTON      "&No",IDCANCEL,85,214,54,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,164,
-                    214,54,14
-    LTEXT           "This project's settings folder contains files made by Shoebox or an older version of Toolbox.",
-                    IDC_STATIC,6,5,213,16
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,164,214,54,14
+    LTEXT           "This project's settings folder contains files made by Shoebox or an older version of Toolbox.",IDC_STATIC,6,5,213,16
     LTEXT           "&File name",IDC_prj_lblFileName,7,26,77,8
     LTEXT           "Name",IDC_prj_lblName,90,26,68,8
     LTEXT           "Version",IDC_prj_lblVersion,180,26,40,8
-    LISTBOX         IDC_prj_lboSettingsFiles,6,36,213,60,LBS_OWNERDRAWFIXED | 
-                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_prj_lboSettingsFiles,6,36,213,60,LBS_OWNERDRAWFIXED | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     LTEXT           "",IDC_prj_lblSettingsFolder,6,101,218,8
     LTEXT           "",IDC_prj_lblProjectFile,6,112,213,8
     LTEXT           "",IDC_prj_lblShoeboxVersion,6,123,213,8
-    LTEXT           "Toolbox will convert your settings files automatically.",
-                    IDC_STATIC,6,136,213,40
-    LTEXT           "Do you want to open this project and let Toolbox convert the settings files?",
-                    IDC_STATIC,6,176,213,16
-    LTEXT           "If you've upgraded to a new version of Toolbox, choose Yes.",
-                    IDC_STATIC,6,195,213,16
+    LTEXT           "Toolbox will convert your settings files automatically.",IDC_STATIC,6,136,213,40
+    LTEXT           "Do you want to open this project and let Toolbox convert the settings files?",IDC_STATIC,6,176,213,16
+    LTEXT           "If you've upgraded to a new version of Toolbox, choose Yes.",IDC_STATIC,6,195,213,16
 END
 
-IDD_DBTYP_NUMBERING_PAGE DIALOG DISCARDABLE  0, 0, 250, 150
-STYLE WS_CHILD | WS_VISIBLE | WS_DISABLED | WS_CAPTION | WS_SYSMENU
+IDD_DBTYP_NUMBERING_PAGE DIALOG 0, 0, 250, 150
+STYLE DS_SETFONT | WS_CHILD | WS_VISIBLE | WS_DISABLED | WS_CAPTION | WS_SYSMENU
 CAPTION "Numbering"
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "Type Name:",IDC_STATIC,7,6,58,9,NOT WS_GROUP
     LTEXT           "Interlinear Text",IDC_TYP_NAME,66,6,177,8,NOT WS_GROUP
-    CONTROL         "&Disable the Text Numbering feature",
-                    IDC_TYP_chkDisableNumbering,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,7,21,239,10
-    LTEXT           "Numbering is for text databases. Lexicons should not allow numbering.",
-                    IDC_STATIC,16,32,221,41
+    CONTROL         "&Disable the Text Numbering feature",IDC_TYP_chkDisableNumbering,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,21,239,10
+    LTEXT           "Numbering is for text databases. Lexicons should not allow numbering.",IDC_STATIC,16,32,221,41
     LTEXT           "Record Marker:",IDC_STATIC,7,77,58,8,NOT WS_GROUP
     LTEXT           "\\name",IDC_TYP_RECORDMARKER,105,77,68,8,NOT WS_GROUP
     LTEXT           "&Reference Marker:",IDC_TYP_lblMkrRef,7,96,90,10
-    COMBOBOX        IDC_TYP_cboMkrRef,105,91,96,48,CBS_DROPDOWNLIST | 
-                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_TYP_cboMkrRef,105,91,96,48,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     LTEXT           "&Text Marker:",IDC_TYP_lblMkrTxt,7,116,90,10
-    COMBOBOX        IDC_TYP_cboMkrTxt,105,112,96,48,CBS_DROPDOWNLIST | 
-                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_TYP_cboMkrTxt,105,112,96,48,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
 END
 
-IDD_RENUMBER DIALOG DISCARDABLE  0, 0, 305, 111
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_RENUMBER DIALOG 0, 0, 305, 111
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Re-number Text"
 FONT 8, "MS Sans Serif"
 BEGIN
     GROUPBOX        "Apply to:",IDC_STATIC_ADDITIONAL_FIELD,6,6,230,48
-    CONTROL         "&Starting Number:",IDC_NBRPROC_lblStartRef,"Static",
-                    SS_LEFTNOWORDWRAP | WS_GROUP,24,66,100,8
+    CONTROL         "&Starting Number:",IDC_NBRPROC_lblStartRef,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,24,66,100,8
     EDITTEXT        IDC_NBRPROC_edtStartRef,129,61,40,12,ES_AUTOHSCROLL
-    CONTROL         "Reference Marker:",IDC_STATIC,"Static",
-                    SS_LEFTNOWORDWRAP,24,81,100,8
-    CONTROL         "Text Marker:",IDC_STATIC,"Static",SS_LEFTNOWORDWRAP,24,
-                    96,100,8
+    CONTROL         "Reference Marker:",IDC_STATIC,"Static",SS_LEFTNOWORDWRAP,24,81,100,8
+    CONTROL         "Text Marker:",IDC_STATIC,"Static",SS_LEFTNOWORDWRAP,24,96,100,8
     DEFPUSHBUTTON   "OK",IDOK,245,6,54,14
     PUSHBUTTON      "Cancel",IDCANCEL,245,23,54,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,245,
-                    43,54,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,245,43,54,14
     LTEXT           "\\ref",IDC_NBRPROC_lblMkrRef,129,81,40,8,NOT WS_GROUP
     LTEXT           "\\t",IDC_NBRPROC_lblMkrTxt,129,96,40,8
-    CONTROL         "&Whole Database",IDC_NBRPROC_optWholeDB,"Button",
-                    BS_AUTORADIOBUTTON,15,38,74,10
-    CONTROL         "Current &Record",IDC_NBRPROC_optCurRecord,"Button",
-                    BS_AUTORADIOBUTTON,15,21,90,11
-    EDITTEXT        IDC_NBRPROC_edtCurRecord,106,20,124,21,ES_AUTOHSCROLL | 
-                    ES_READONLY | NOT WS_BORDER | NOT WS_TABSTOP
-    CONTROL         "",IDC_NBRPROC_lblDBName,"Static",SS_LEFTNOWORDWRAP | 
-                    WS_GROUP,93,38,137,10
+    CONTROL         "&Whole Database",IDC_NBRPROC_optWholeDB,"Button",BS_AUTORADIOBUTTON,15,38,74,10
+    CONTROL         "Current &Record",IDC_NBRPROC_optCurRecord,"Button",BS_AUTORADIOBUTTON,15,21,90,11
+    EDITTEXT        IDC_NBRPROC_edtCurRecord,106,20,124,21,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER | NOT WS_TABSTOP
+    CONTROL         "",IDC_NBRPROC_lblDBName,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,93,38,137,10
 END
 
-IDD_NUMBER DIALOG DISCARDABLE  0, 0, 305, 250
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_NUMBER DIALOG 0, 0, 305, 250
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Break and Number Text"
 FONT 8, "MS Sans Serif"
 BEGIN
     GROUPBOX        "Apply to:",IDC_STATIC,6,6,230,48
-    CONTROL         "Current &Record:",IDC_NBRPROC_optCurRecord,"Button",
-                    BS_AUTORADIOBUTTON,15,21,90,11
-    CONTROL         "&Whole Database",IDC_NBRPROC_optWholeDB,"Button",
-                    BS_AUTORADIOBUTTON,15,37,74,10
-    EDITTEXT        IDC_NBRPROC_edtCurRecord,106,19,124,21,ES_AUTOHSCROLL | 
-                    ES_READONLY | NOT WS_BORDER | NOT WS_TABSTOP
-    CONTROL         "",IDC_NBRPROC_lblDBName,"Static",SS_LEFTNOWORDWRAP | 
-                    WS_GROUP,93,37,137,10
+    CONTROL         "Current &Record:",IDC_NBRPROC_optCurRecord,"Button",BS_AUTORADIOBUTTON,15,21,90,11
+    CONTROL         "&Whole Database",IDC_NBRPROC_optWholeDB,"Button",BS_AUTORADIOBUTTON,15,37,74,10
+    EDITTEXT        IDC_NBRPROC_edtCurRecord,106,19,124,21,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER | NOT WS_TABSTOP
+    CONTROL         "",IDC_NBRPROC_lblDBName,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,93,37,137,10
     GROUPBOX        "Options:",IDC_STATIC,5,58,231,91
     LTEXT           "Text-break &Punctuation:",IDC_STATIC,23,69,84,16
     EDITTEXT        IDC_NBRPROC_edtPunctuation,109,71,90,12,ES_AUTOHSCROLL
-    LTEXT           "Fields to be included when breaking text:",IDC_STATIC,
-                    23,89,207,8
-    LISTBOX         IDC_NBRPROC_lboTextBreakMkrs,23,102,112,40,
-                    LBS_USETABSTOPS | LBS_NOINTEGRALHEIGHT | LBS_EXTENDEDSEL | 
-                    WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Fields to be included when breaking text:",IDC_STATIC,23,89,207,8
+    LISTBOX         IDC_NBRPROC_lboTextBreakMkrs,23,102,112,40,LBS_USETABSTOPS | LBS_NOINTEGRALHEIGHT | LBS_EXTENDEDSEL | WS_DISABLED | WS_VSCROLL | WS_TABSTOP
     GROUPBOX        "Name of Text:",IDC_STATIC,5,154,230,45
     CONTROL         "Use &Contents of Field:",IDC_NBRPROC_optUseContents,
                     "Button",BS_AUTORADIOBUTTON,15,167,108,10
-    COMBOBOX        IDC_NBRPROC_cboUseContents,125,166,96,60,
-                    CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-    CONTROL         "Use this &Name:",IDC_NBRPROC_optUseText,"Button",
-                    BS_AUTORADIOBUTTON,15,182,105,10
+    COMBOBOX        IDC_NBRPROC_cboUseContents,125,166,96,60,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Use this &Name:",IDC_NBRPROC_optUseText,"Button",BS_AUTORADIOBUTTON,15,182,105,10
     EDITTEXT        IDC_NBRPROC_edtUseText,125,181,96,12,ES_AUTOHSCROLL
-    CONTROL         "&Starting Number:",IDC_STATIC,"Static",
-                    SS_LEFTNOWORDWRAP | WS_GROUP,24,208,96,8
+    CONTROL         "&Starting Number:",IDC_STATIC,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,24,208,96,8
     EDITTEXT        IDC_NBRPROC_edtStartRef,125,206,40,12,ES_AUTOHSCROLL
-    CONTROL         "Reference Marker:",IDC_STATIC,"Static",
-                    SS_LEFTNOWORDWRAP,24,223,96,8
+    CONTROL         "Reference Marker:",IDC_STATIC,"Static",SS_LEFTNOWORDWRAP,24,223,96,8
     LTEXT           "\\ref",IDC_NBRPROC_lblMkrRef,125,223,40,8,NOT WS_GROUP
-    CONTROL         "Text Marker:",IDC_STATIC,"Static",SS_LEFTNOWORDWRAP,24,
-                    237,96,8
+    CONTROL         "Text Marker:",IDC_STATIC,"Static",SS_LEFTNOWORDWRAP,24,237,96,8
     LTEXT           "\\t",IDC_NBRPROC_lblMkrTxt,125,237,40,8,NOT WS_GROUP
     DEFPUSHBUTTON   "OK",IDOK,245,5,54,14
     PUSHBUTTON      "Cancel",IDCANCEL,245,21,54,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,245,
-                    40,54,14
-    PUSHBUTTON      "Select &Fields...",IDC_nbrproc_btnSelectFields,146,113,
-                    72,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,245,40,54,14
+    PUSHBUTTON      "Select &Fields...",IDC_nbrproc_btnSelectFields,146,113,72,14
 END
 
-IDD_Set_Up_Numbering DIALOG DISCARDABLE  0, 0, 187, 106
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_Set_Up_Numbering DIALOG 0, 0, 187, 106
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Set Up Numbering"
 FONT 8, "MS Sans Serif"
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,68,85,50,14
     LTEXT           "Database type:",IDC_STATIC,8,5,58,11
-    LTEXT           "Numbering has not yet been set up for this type of database. You will now be given the opportunity to do this.",
-                    IDC_STATIC,8,17,169,34
-    LTEXT           "If you have gotten here unintentionally, you will be given the opportunity to turn off numbering for this type of database.",
-                    IDC_STATIC,9,53,169,27
-    CONTROL         "",IDC_NBRPROC_lblDBType,"Static",SS_LEFTNOWORDWRAP | 
-                    WS_GROUP,71,5,106,11
+    LTEXT           "Numbering has not yet been set up for this type of database. You will now be given the opportunity to do this.",IDC_STATIC,8,17,169,34
+    LTEXT           "If you have gotten here unintentionally, you will be given the opportunity to turn off numbering for this type of database.",IDC_STATIC,9,53,169,27
+    CONTROL         "",IDC_NBRPROC_lblDBType,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,71,5,106,11
 END
 
-IDD_MDF_UpdateOlder DIALOG DISCARDABLE  0, 0, 299, 130
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_MDF_UpdateOlder DIALOG 0, 0, 299, 130
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Update Older MDF Files"
 FONT 8, "MS Sans Serif"
 BEGIN
-    LTEXT           "Before exporting, you need to update older MDF settings files.",
-                    IDC_STATIC,6,6,287,24
+    LTEXT           "Before exporting, you need to update older MDF settings files.",IDC_STATIC,6,6,287,24
     LTEXT           "",IDC_MDF_lblShoeboxVersion,6,36,287,8
     GROUPBOX        "Folders",IDC_STATIC,6,50,287,53
     LTEXT           "This project's settings:",IDC_STATIC,12,64,87,8
@@ -2105,222 +1680,171 @@ BEGIN
     LTEXT           "",IDC_MDF_lblDefaultSettings,100,75,185,8
     LTEXT           "Newer MDF files:",IDC_STATIC,12,86,87,8
     LTEXT           "",IDC_MDF_lblNewerMDF,100,86,185,8
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,90,
-                    109,54,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,90,109,54,14
     PUSHBUTTON      "&Close",IDCANCEL,156,109,54,14
 END
 
-IDD_Jump_Path DIALOG DISCARDABLE  0, 0, 327, 242
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_Jump_Path DIALOG 0, 0, 327, 242
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Jump Path Properties"
 FONT 8, "MS Sans Serif"
 BEGIN
     RTEXT           "Jump Path &Name:",IDC_jumppath_lblTarget,2,8,73,8
     EDITTEXT        IDC_jumppath_edtName,77,5,100,14,ES_AUTOHSCROLL
-    CONTROL         "Defa&ult Path",IDC_jumppath_chkDefault,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,186,7,76,10
+    CONTROL         "Defa&ult Path",IDC_jumppath_chkDefault,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,186,7,76,10
     GROUPBOX        "Source",IDC_jumppath_grpSource,2,22,257,79
-    LTEXT           "A&vailable Fields",IDC_jumppath_lblAvailableFields,9,34,
-                    112,8
-    LISTBOX         IDC_jumppath_lboAvailableFields,9,45,111,51,
-                    LBS_USETABSTOPS | LBS_NOINTEGRALHEIGHT | LBS_EXTENDEDSEL | 
-                    WS_VSCROLL | WS_TABSTOP
-    LTEXT           "Fields to &Jump from",IDC_jumppath_lblSourceFields,162,
-                    34,90,8
-    LISTBOX         IDC_jumppath_lboSourceFields,162,45,90,51,
-                    LBS_USETABSTOPS | LBS_NOINTEGRALHEIGHT | LBS_EXTENDEDSEL | 
-                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "A&vailable Fields",IDC_jumppath_lblAvailableFields,9,34,112,8
+    LISTBOX         IDC_jumppath_lboAvailableFields,9,45,111,51,LBS_USETABSTOPS | LBS_NOINTEGRALHEIGHT | LBS_EXTENDEDSEL | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Fields to &Jump from",IDC_jumppath_lblSourceFields,162,34,90,8
+    LISTBOX         IDC_jumppath_lboSourceFields,162,45,90,51,LBS_USETABSTOPS | LBS_NOINTEGRALHEIGHT | LBS_EXTENDEDSEL | WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "&Add ->",IDC_jumppath_btnAddField,123,45,36,14
     PUSHBUTTON      "<- Re&move",IDC_jumppath_btnRemoveField,123,63,36,14
     PUSHBUTTON      "<- C&lear",IDC_jumppath_btnClearFields,123,81,36,14
     GROUPBOX        "Destination",IDC_jumppath_grpTarget,2,104,319,123
-    LTEXT           "Available &Databases",IDC_jumppath_lblAvailable,9,115,
-                    112,9
-    LISTBOX         IDC_jumppath_lboDBsAvailable,9,125,111,60,LBS_SORT | 
-                    LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | 
-                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | 
-                    WS_TABSTOP
-    LTEXT           "Field to &Search",IDC_jumppath_lblTargetFields,9,188,
-                    100,9
-    COMBOBOX        IDC_jumppath_cboTargetFields,9,198,111,64,
-                    CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-    LTEXT           "Databases In &Path",IDC_jumppath_lblDBsInPath,163,115,
-                    89,9
-    LTEXT           "Field to Search",IDC_jumppath_lblFieldToSearch,259,115,
-                    61,9
-    LISTBOX         IDC_jumppath_lboPaths,162,125,152,87,LBS_OWNERDRAWFIXED | 
-                    LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
-                    WS_TABSTOP
+    LTEXT           "Available &Databases",IDC_jumppath_lblAvailable,9,115,112,9
+    LISTBOX         IDC_jumppath_lboDBsAvailable,9,125,111,60,LBS_SORT | LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP
+    LTEXT           "Field to &Search",IDC_jumppath_lblTargetFields,9,188,100,9
+    COMBOBOX        IDC_jumppath_cboTargetFields,9,198,111,64,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Databases In &Path",IDC_jumppath_lblDBsInPath,163,115,89,9
+    LTEXT           "Field to Search",IDC_jumppath_lblFieldToSearch,259,115,61,9
+    LISTBOX         IDC_jumppath_lboPaths,162,125,152,87,LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "&First ->",IDC_jumppath_btnFirst,123,125,36,14
     PUSHBUTTON      "Las&t ->",IDC_jumppath_btnLast,123,143,36,14
     PUSHBUTTON      "&Insert ->",IDC_jumppath_btnInsert,123,161,36,14
     PUSHBUTTON      "<- &Remove",IDC_jumppath_btnRemovePath,123,179,36,14
     PUSHBUTTON      "<- &Clear",IDC_jumppath_btnClearPaths,123,197,36,14
-    CONTROL         "Show &Whole Path",IDC_jumppath_chkShowPath,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,9,215,120,10
-    CONTROL         "&Establish Data Link (cross-referenced data must exist)",
-                    IDC_jumpath_chkRefIntegrity,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,9,230,312,10
+    CONTROL         "Show &Whole Path",IDC_jumppath_chkShowPath,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,9,215,120,10
+    CONTROL         "&Establish Data Link (cross-referenced data must exist)",IDC_jumpath_chkRefIntegrity,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,9,230,312,10
     DEFPUSHBUTTON   "OK",IDOK,266,6,54,14
     PUSHBUTTON      "Cancel",IDCANCEL,266,23,54,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,266,
-                    43,54,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,266,43,54,14
     PUSHBUTTON      "Matchin&g...",IDC_jumppath_Matching,266,87,54,14
 END
 
-IDD_JUMPPATH_PAGE DIALOG DISCARDABLE  0, 0, 250, 150
-STYLE WS_CHILD | WS_VISIBLE | WS_DISABLED | WS_CAPTION
+IDD_JUMPPATH_PAGE DIALOG 0, 0, 250, 150
+STYLE DS_SETFONT | WS_CHILD | WS_VISIBLE | WS_DISABLED | WS_CAPTION
 CAPTION "Jump Paths"
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "Jump Path Name",IDC_SET_NAME,7,6,100,8,NOT WS_VISIBLE
-    LISTBOX         IDC_jump_lboPaths,6,17,178,116,LBS_OWNERDRAWFIXED | 
-                    LBS_HASSTRINGS | LBS_USETABSTOPS | LBS_NOINTEGRALHEIGHT | 
-                    WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_jump_lboPaths,6,17,178,116,LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_USETABSTOPS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "&Add...",IDC_ADD,190,17,54,14
     PUSHBUTTON      "&Copy...",IDC_COPY,190,34,54,14
     PUSHBUTTON      "&Modify...",IDC_MODIFY,190,51,54,14
     PUSHBUTTON      "&Delete",IDC_DELETE,190,68,54,14
-    LTEXT           "Note: Cancel doesn't undo Add, Copy, Modify, or Delete.",
-                    -1,190,93,56,40
-    CONTROL         "N&otify before closing a database referenced by a jump path",
-                    IDC_jumppath_chkWarnDocClose,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,6,135,241,11
+    LTEXT           "Note: Cancel doesn't undo Add, Copy, Modify, or Delete.",-1,190,93,56,40
+    CONTROL         "N&otify before closing a database referenced by a jump path",IDC_jumppath_chkWarnDocClose,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,135,241,11
 END
 
-IDD_ExportXML DIALOG DISCARDABLE  0, 0, 288, 194
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_ExportXML DIALOG 0, 0, 288, 194
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "XML Export Process Properties"
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "Process &Name:",IDC_STATIC,6,6,36,16
     EDITTEXT        IDC_Export_edtName,44,8,160,12,ES_AUTOHSCROLL
     GROUPBOX        "Fields to export",IDC_STATIC,20,28,184,33
-    CONTROL         "Al&l fields",IDC_Export_chkAllFields,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,26,43,84,10
-    PUSHBUTTON      "&Select Fields...",IDC_Export_btnSelectFields,115,40,83,
-                    14
-    LTEXT           "&CC Table applied to XML output (optional)",IDC_STATIC,
-                    6,67,160,8
+    CONTROL         "Al&l fields",IDC_Export_chkAllFields,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,26,43,84,10
+    PUSHBUTTON      "&Select Fields...",IDC_Export_btnSelectFields,115,40,83,14
+    LTEXT           "&CC Table applied to XML output (optional)",IDC_STATIC,6,67,160,8
     EDITTEXT        IDC_Export_edtCCT,6,78,275,12,ES_AUTOHSCROLL
     PUSHBUTTON      "&Browse...",IDC_Export_btnBrowseCCT,171,64,54,12
     DEFPUSHBUTTON   "OK",IDOK,226,6,54,14
     PUSHBUTTON      "Cancel",IDCANCEL,226,23,54,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,226,
-                    43,54,14
-    LTEXT           "XSL or CSS Styleshee&t  (optional)",IDC_STATIC,6,96,160,
-                    8
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,226,43,54,14
+    LTEXT           "XSL or CSS Styleshee&t  (optional)",IDC_STATIC,6,96,160,8
     EDITTEXT        IDC_Export_edtStylesheet,6,107,275,12,ES_AUTOHSCROLL
     PUSHBUTTON      "B&rowse...",IDC_Export_btnBrowseStylesheet,171,93,54,12
-    CONTROL         "Check consistenc&y before exporting",
-                    IDC_Export_chkCheckConsistency,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,6,125,160,10
+    CONTROL         "Check consistenc&y before exporting",IDC_Export_chkCheckConsistency,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,125,160,10
     LTEXT           "&Output File",IDC_STATIC,6,138,160,8
     EDITTEXT        IDC_Export_edtOutputFile2,6,149,275,12,ES_AUTOHSCROLL
     CONTROL         "Overwrite file without asking",IDC_Export_chkOverwrite,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,167,160,10
-    PUSHBUTTON      "&Browse...",IDC_Export_btnBrowseOutputFile2,171,135,54,
-                    12
+    PUSHBUTTON      "&Browse...",IDC_Export_btnBrowseOutputFile2,171,135,54,12
     CONTROL         "Add alphabetic dividers",IDC_Export_chkAddAlphDiv,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,179,101,10
 END
 
-IDD_cck_RangeSet DIALOG DISCARDABLE  0, 0, 349, 211
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_cck_RangeSet DIALOG 0, 0, 349, 211
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Range Set Consistency Check"
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "Replacemen&t:",IDC_STATIC,6,55,56,8
     EDITTEXT        IDC_cck_edtReplacement,6,67,280,21,ES_AUTOHSCROLL
     LTEXT           "Range S&et:",IDC_STATIC,6,91,60,8
-    LISTBOX         IDC_cck_lboRangeSet,6,103,280,82,LBS_OWNERDRAWFIXED | 
-                    LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
-                    WS_TABSTOP
+    LISTBOX         IDC_cck_lboRangeSet,6,103,280,82,LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "&Skip",IDC_cck_btnSkip,290,30,54,14
     PUSHBUTTON      "S&kip All",IDC_cck_btnSkipAll,290,47,54,14
     PUSHBUTTON      "&Replace",IDC_cck_btnReplace,290,64,54,14
     PUSHBUTTON      "Replace Al&l",IDC_cck_btnReplaceAll,290,81,54,14
     DEFPUSHBUTTON   "&Add to Range Set",IDC_cck_btnAdd,5,192,106,14
-    PUSHBUTTON      "&Modify Range Set...",IDC_cck_btnModify,116,192,114,14,
-                    NOT WS_VISIBLE
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,234,
-                    192,54,14
+    PUSHBUTTON      "&Modify Range Set...",IDC_cck_btnModify,116,192,114,14,NOT WS_VISIBLE
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,234,192,54,14
     PUSHBUTTON      "Cancel",IDCANCEL,291,192,54,14
     LTEXT           "Field marker:",IDC_STATIC,6,3,56,8
     LTEXT           "",IDC_cck_lblMarker,68,3,84,8
     LTEXT           "Inconsistency:",IDC_STATIC,6,12,56,8
-    EDITTEXT        IDC_cck_edtFailedData,6,32,280,21,ES_AUTOHSCROLL | 
-                    ES_READONLY | NOT WS_BORDER
-    LTEXT           "Data item not found in range set.",
-                    IDC_cck_lblInconsistency,68,13,205,18
+    EDITTEXT        IDC_cck_edtFailedData,6,32,280,21,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER
+    LTEXT           "Data item not found in range set.",IDC_cck_lblInconsistency,68,13,205,18
     LTEXT           "Failed Data:",IDC_STATIC,6,21,56,8
 END
 
-IDD_DB_DIFF_PATH DIALOG DISCARDABLE  0, 0, 238, 124
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_DB_DIFF_PATH DIALOG 0, 0, 238, 124
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Database Location Changed?"
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "The Jump Path named:",IDC_STATIC,11,2,215,8
-    CONTROL         "",IDC_lblJumpPath,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,
-                    18,13,207,8
+    CONTROL         "",IDC_lblJumpPath,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,18,13,207,8
     LTEXT           "refers to a closed database:",IDC_STATIC,11,24,215,8
-    CONTROL         "",IDC_lblClosedDB,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,
-                    18,35,207,8
-    LTEXT           "This database cannot be searched. There is an open database with the same name:",
-                    IDC_STATIC,11,46,215,18
-    CONTROL         "",IDC_lblOpenDB,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,
-                    18,67,207,8
+    CONTROL         "",IDC_lblClosedDB,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,18,35,207,8
+    LTEXT           "This database cannot be searched. There is an open database with the same name:",IDC_STATIC,11,46,215,18
+    CONTROL         "",IDC_lblOpenDB,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,18,67,207,8
     LTEXT           "",IDC_STATIC,11,78,215,18
     DEFPUSHBUTTON   "&Fix It",ID_FIX_IT,11,102,50,14
     PUSHBUTTON      "&Skip",ID_SKIP,66,102,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,121,102,50,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,176,
-                    102,50,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,176,102,50,14
 END
 
-IDD_DB_NOT_OPEN DIALOG DISCARDABLE  0, 0, 183, 98
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_DB_NOT_OPEN DIALOG 0, 0, 183, 98
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Database Not Open"
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "The Jump Path named:",-1,11,2,160,8
-    CONTROL         "",IDC_lblJumpPath,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,
-                    18,13,153,8
+    CONTROL         "",IDC_lblJumpPath,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,18,13,153,8
     LTEXT           "refers to a closed database:",-1,11,24,160,8
-    CONTROL         "",IDC_lblClosedDB,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,
-                    18,35,153,8
+    CONTROL         "",IDC_lblClosedDB,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,18,35,153,8
     LTEXT           "This database cannot be searched.",-1,11,46,160,25
     PUSHBUTTON      "&Skip",ID_SKIP,11,77,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,66,77,50,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,121,
-                    77,50,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,121,77,50,14
 END
 
-IDD_FIELD_NOT_DEFINED DIALOG DISCARDABLE  0, 0, 215, 132
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_FIELD_NOT_DEFINED DIALOG 0, 0, 215, 132
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Field Not Defined"
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "The Jump Path named:",IDC_STATIC,11,2,193,8
-    CONTROL         "",IDC_lblJumpPath,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,
-                    19,15,185,8
+    CONTROL         "",IDC_lblJumpPath,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,19,15,185,8
     LTEXT           "cannot search field named:",IDC_STATIC,11,28,193,8
-    CONTROL         "",IDC_lblMkr,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,19,
-                    41,185,8
+    CONTROL         "",IDC_lblMkr,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,19,41,185,8
     LTEXT           "in database:",IDC_STATIC,11,54,193,8
-    CONTROL         "",IDC_lblDB,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,19,67,
-                    185,8
-    LTEXT           "because this field is not defined.",IDC_STATIC,11,78,
-                    193,25
+    CONTROL         "",IDC_lblDB,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,19,67,185,8
+    LTEXT           "because this field is not defined.",IDC_STATIC,11,78,193,25
     PUSHBUTTON      "&Skip",ID_SKIP,27,110,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,82,110,50,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,137,
-                    110,50,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,137,110,50,14
 END
 
-IDD_cck DIALOG DISCARDABLE  0, 0, 233, 178
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_cck DIALOG 0, 0, 233, 178
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Consistency Check"
 FONT 8, "MS Sans Serif"
 BEGIN
@@ -2331,30 +1855,22 @@ BEGIN
     LTEXT           "Database Type:",IDC_STATIC,6,28,64,8
     LTEXT           "",IDC_cck_lblDatabaseType,76,28,90,8
     GROUPBOX        "Fields to Check",IDC_STATIC,6,42,160,64
-    CONTROL         "&All Fields",IDC_cck_optAllFields,"Button",
-                    BS_AUTORADIOBUTTON | WS_GROUP,12,54,58,10
-    CONTROL         "S&ingle Field:",IDC_cck_optSingleField,"Button",
-                    BS_AUTORADIOBUTTON,12,70,58,10
-    CONTROL         "S&elected Fields:",IDC_cck_optSelectedFields,"Button",
-                    BS_AUTORADIOBUTTON,12,86,70,10
-    COMBOBOX        IDC_cck_cboSingleField,74,68,86,48,CBS_DROPDOWNLIST | 
-                    WS_VSCROLL | WS_GROUP | WS_TABSTOP
+    CONTROL         "&All Fields",IDC_cck_optAllFields,"Button",BS_AUTORADIOBUTTON | WS_GROUP,12,54,58,10
+    CONTROL         "S&ingle Field:",IDC_cck_optSingleField,"Button",BS_AUTORADIOBUTTON,12,70,58,10
+    CONTROL         "S&elected Fields:",IDC_cck_optSelectedFields,"Button",BS_AUTORADIOBUTTON,12,86,70,10
+    COMBOBOX        IDC_cck_cboSingleField,74,68,86,48,CBS_DROPDOWNLIST | WS_VSCROLL | WS_GROUP | WS_TABSTOP
     PUSHBUTTON      "&Select Fields...",IDC_cck_btnSelectFields,85,86,76,14
     GROUPBOX        "Check",IDC_STATIC,6,112,160,60
-    CONTROL         "&Data Properties",IDC_cck_chkCheckDataDefn,"Button",
-                    BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,12,124,148,10
-    CONTROL         "&Range Sets",IDC_cck_chkCheckRangeSets,"Button",
-                    BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,12,140,148,10
-    CONTROL         "Data &Links",IDC_cck_chkCheckJumpPaths,"Button",
-                    BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,12,156,148,10
+    CONTROL         "&Data Properties",IDC_cck_chkCheckDataDefn,"Button",BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,12,124,148,10
+    CONTROL         "&Range Sets",IDC_cck_chkCheckRangeSets,"Button",BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,12,140,148,10
+    CONTROL         "Data &Links",IDC_cck_chkCheckJumpPaths,"Button",BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,12,156,148,10
     DEFPUSHBUTTON   "OK",IDOK,172,6,54,14
     PUSHBUTTON      "Cancel",IDCANCEL,172,23,54,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,172,
-                    43,54,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,172,43,54,14
 END
 
-IDD_cck_Referential DIALOG DISCARDABLE  0, 0, 278, 151
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_cck_Referential DIALOG 0, 0, 278, 151
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Data Link Consistency Check"
 FONT 8, "MS Sans Serif"
 BEGIN
@@ -2365,23 +1881,19 @@ BEGIN
     PUSHBUTTON      "&Replace",IDC_cck_btnReplace,158,67,54,14
     PUSHBUTTON      "Replace Al&l",IDC_cck_btnReplaceAll,218,67,54,14
     DEFPUSHBUTTON   "&Insert...",IDC_cck_btnInsert,98,92,54,14
-    PUSHBUTTON      "&Modify Jump Path...",IDC_cck_btnModify,158,92,114,14,
-                    NOT WS_VISIBLE
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,218,
-                    112,54,14
+    PUSHBUTTON      "&Modify Jump Path...",IDC_cck_btnModify,158,92,114,14,NOT WS_VISIBLE
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,218,112,54,14
     PUSHBUTTON      "Cancel",IDCANCEL,218,129,54,14
     LTEXT           "Field marker:",IDC_STATIC,6,6,56,8
     LTEXT           "",IDC_cck_lblMarker,68,6,84,8
     LTEXT           "Inconsistency:",IDC_STATIC,6,16,56,8
-    EDITTEXT        IDC_cck_edtFailedData,68,40,84,21,ES_AUTOHSCROLL | 
-                    ES_READONLY | NOT WS_BORDER
-    LTEXT           "Data referenced by jump path does not exist.",
-                    IDC_cck_lblInconsistency,68,17,205,18
+    EDITTEXT        IDC_cck_edtFailedData,68,40,84,21,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER
+    LTEXT           "Data referenced by jump path does not exist.",IDC_cck_lblInconsistency,68,17,205,18
     LTEXT           "Failed Data:",IDC_STATIC,6,39,56,8
 END
 
-IDD_cck_DataDefn DIALOG DISCARDABLE  0, 0, 278, 151
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_cck_DataDefn DIALOG 0, 0, 278, 151
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Data Property Consistency Check"
 FONT 8, "MS Sans Serif"
 BEGIN
@@ -2391,37 +1903,29 @@ BEGIN
     PUSHBUTTON      "S&kip All",IDC_cck_btnSkipAll,218,40,54,14
     DEFPUSHBUTTON   "&Replace",IDC_cck_btnReplace,158,67,54,14
     PUSHBUTTON      "Replace Al&l",IDC_cck_btnReplaceAll,218,67,54,14
-    PUSHBUTTON      "&Modify Data Properties...",IDC_cck_btnModify,158,92,
-                    114,14,NOT WS_VISIBLE
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,218,
-                    112,54,14
+    PUSHBUTTON      "&Modify Data Properties...",IDC_cck_btnModify,158,92,114,14,NOT WS_VISIBLE
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,218,112,54,14
     PUSHBUTTON      "Cancel",IDCANCEL,218,129,54,14
     LTEXT           "Field marker:",IDC_STATIC,6,6,56,8
     LTEXT           "",IDC_cck_lblMarker,68,6,84,8
     LTEXT           "Inconsistency:",IDC_STATIC,6,16,56,8
-    EDITTEXT        IDC_cck_edtFailedData,68,40,84,21,ES_AUTOHSCROLL | 
-                    ES_READONLY | NOT WS_BORDER
+    EDITTEXT        IDC_cck_edtFailedData,68,40,84,21,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER
     LTEXT           "",IDC_cck_lblInconsistency,68,17,205,18
     LTEXT           "Failed Data:",IDC_STATIC,6,39,56,8
 END
 
-IDD_WordFormulas DIALOG DISCARDABLE  0, 0, 299, 199
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_WordFormulas DIALOG 0, 0, 299, 199
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Word Formulas"
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "&Symbol",IDC_wdf_lblSymbol,19,6,40,8,NOT WS_VISIBLE
     LTEXT           "Patterns",IDC_wdf_lblPatterns,66,6,80,8,NOT WS_VISIBLE
     LTEXT           "",IDC_wdf_lblEtc,197,6,30,8
-    LISTBOX         IDC_SET_LIST,6,17,223,146,LBS_OWNERDRAWVARIABLE | 
-                    LBS_USETABSTOPS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
-                    WS_TABSTOP
-    LTEXT           "&Language Encoding for Patterns:",IDC_STATIC,6,169,124,
-                    8
-    COMBOBOX        IDC_wdf_cboLangEncPatterns,133,167,96,84,CBS_DROPDOWN | 
-                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
-    CONTROL         "Show e&xpanded list",IDC_wdf_chkShowExpandedList,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,6,183,221,10
+    LISTBOX         IDC_SET_LIST,6,17,223,146,LBS_OWNERDRAWVARIABLE | LBS_USETABSTOPS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "&Language Encoding for Patterns:",IDC_STATIC,6,169,124,8
+    COMBOBOX        IDC_wdf_cboLangEncPatterns,133,167,96,84,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Show e&xpanded list",IDC_wdf_chkShowExpandedList,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,183,221,10
     DEFPUSHBUTTON   "OK",IDOK,239,6,54,14
     PUSHBUTTON      "Cancel",IDCANCEL,239,23,54,14
     PUSHBUTTON      "&Add...",IDC_ADD,239,43,54,14
@@ -2430,91 +1934,74 @@ BEGIN
     PUSHBUTTON      "&Primary",IDC_wdf_btnPrimary,239,97,54,14
     PUSHBUTTON      "&Delete",IDC_DELETE,239,117,54,14
     PUSHBUTTON      "Clea&r",IDC_CLEAR,239,134,54,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,239,
-                    154,54,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,239,154,54,14
     LTEXT           "Not used",IDC_SET_LABEL,239,185,54,8,NOT WS_VISIBLE
 END
 
-IDD_WordFormula DIALOG DISCARDABLE  0, 0, 263, 183
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_WordFormula DIALOG 0, 0, 263, 183
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Word Formula Properties"
 FONT 8, "MS Sans Serif"
 BEGIN
     LTEXT           "&Symbol:",IDC_STATIC,6,8,34,8
     EDITTEXT        IDC_wdf_edtSymbol,41,6,60,12,ES_AUTOHSCROLL
     LTEXT           "&Patterns (one pattern per line)",IDC_STATIC,6,24,184,8
-    EDITTEXT        IDC_wdf_edtPatterns,6,35,184,142,ES_MULTILINE | 
-                    ES_WANTRETURN | WS_VSCROLL | WS_HSCROLL
+    EDITTEXT        IDC_wdf_edtPatterns,6,35,184,142,ES_MULTILINE | ES_WANTRETURN | WS_VSCROLL | WS_HSCROLL
     DEFPUSHBUTTON   "OK",IDOK,202,6,54,14
     PUSHBUTTON      "Cancel",IDCANCEL,202,23,54,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,202,
-                    43,54,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,202,43,54,14
 END
 
-IDD_lngset DIALOG DISCARDABLE  0, 0, 251, 166
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_lngset DIALOG 0, 0, 251, 166
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 FONT 8, "MS Sans Serif"
 BEGIN
-    LISTBOX         IDC_SET_LIST,6,17,172,113,LBS_OWNERDRAWFIXED | 
-                    LBS_HASSTRINGS | LBS_USETABSTOPS | LBS_NOINTEGRALHEIGHT | 
-                    WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_SET_LIST,6,17,172,113,LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_USETABSTOPS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     CONTROL         "A&utomatic keyboard switching",IDC_kbd_chkAutoSwitching,
-                    "Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_DISABLED | 
-                    WS_TABSTOP,6,150,172,10
+                    "Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_DISABLED | WS_TABSTOP,6,150,172,10
     LTEXT           "",IDC_SET_LABEL,6,136,241,8
     DEFPUSHBUTTON   "Cl&ose",IDC_CLOSE,190,6,54,14
     PUSHBUTTON      "&Add...",IDC_ADD,190,26,54,14
     PUSHBUTTON      "&Copy...",IDC_COPY,190,43,54,14
     PUSHBUTTON      "&Modify...",IDC_MODIFY,190,60,54,14
     PUSHBUTTON      "&Delete",IDC_DELETE,190,77,54,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,190,
-                    97,54,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,190,97,54,14
     LTEXT           "&Name",IDC_SET_NAME,7,6,40,8,NOT WS_VISIBLE
     LTEXT           "File Name",IDC_SET_FILE_NAME,110,6,67,8,NOT WS_VISIBLE
 END
 
-IDD_MKR_DataProperties_Page DIALOG DISCARDABLE  0, 0, 290, 181
-STYLE WS_CHILD | WS_VISIBLE | WS_DISABLED | WS_CAPTION
+IDD_MKR_DataProperties_Page DIALOG 0, 0, 290, 181
+STYLE DS_SETFONT | WS_CHILD | WS_VISIBLE | WS_DISABLED | WS_CAPTION
 CAPTION "Data Properties"
 FONT 8, "MS Sans Serif"
 BEGIN
     GROUPBOX        "Field data consists of",IDC_STATIC,6,16,251,47
-    CONTROL         "a &single word (i.e., no embedded spaces)",
-                    IDC_optSingleWord,"Button",BS_AUTORADIOBUTTON | WS_GROUP,
-                    12,26,236,10
-    CONTROL         "multiple one-word items",IDC_optMultipleWords,"Button",
-                    BS_AUTORADIOBUTTON,12,37,236,10
-    CONTROL         "a single item (possibly consisting of multiple words)",
-                    IDC_optSingleItem,"Button",BS_AUTORADIOBUTTON,12,48,236,
-                    10
+    CONTROL         "a &single word (i.e., no embedded spaces)",IDC_optSingleWord,
+                    "Button",BS_AUTORADIOBUTTON | WS_GROUP,12,26,236,10
+    CONTROL         "multiple one-word items",IDC_optMultipleWords,"Button",BS_AUTORADIOBUTTON,12,37,236,10
+    CONTROL         "a single item (possibly consisting of multiple words)",IDC_optSingleItem,
+                    "Button",BS_AUTORADIOBUTTON,12,48,236,10
     CONTROL         "&Allow empty field contents",IDC_chkAllowEmptyContents,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,68,163,10
-    CONTROL         "No &Word Wrap",IDC_chkNoWordWrap,"Button",
-                    BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,12,82,163,10
+    CONTROL         "No &Word Wrap",IDC_chkNoWordWrap,"Button",BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,12,82,163,10
 END
 
-IDD_SELECT_MERGE_DB DIALOG DISCARDABLE  0, 0, 545, 169
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_SELECT_MERGE_DB DIALOG 0, 0, 545, 169
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Select Database"
 FONT 8, "MS Sans Serif"
 BEGIN
-    LTEXT           "&Database from which to merge records and fields:",
-                    IDC_lblSelectDB,8,18,220,9
-    LISTBOX         IDC_SELECTDB_LISTBOX,6,30,482,112,LBS_SORT | 
-                    LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | 
-                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "&Database from which to merge records and fields:",IDC_lblSelectDB,8,18,220,9
+    LISTBOX         IDC_SELECTDB_LISTBOX,6,30,482,112,LBS_SORT | LBS_OWNERDRAWFIXED | LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     DEFPUSHBUTTON   "OK",IDOK,493,32,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,493,49,50,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,493,
-                    69,50,14
-    CONTROL         "&Show Path",IDC_SELECTDB_SHOWPATH,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,446,153,90,10
-    LTEXT           "Merges records and fields from another database into the active one.",
-                    IDC_STATIC,7,6,278,9
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,493,69,50,14
+    CONTROL         "&Show Path",IDC_SELECTDB_SHOWPATH,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,446,153,90,10
+    LTEXT           "Merges records and fields from another database into the active one.",IDC_STATIC,7,6,278,9
 END
 
-IDD_CIRCULAR_REPLACEMENT DIALOG DISCARDABLE  0, 0, 229, 100
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_CIRCULAR_REPLACEMENT DIALOG 0, 0, 229, 100
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Replace All - Circular Replacement"
 FONT 8, "MS Sans Serif"
 BEGIN
@@ -2522,48 +2009,37 @@ BEGIN
     LTEXT           "Toolbox is already replacing",IDC_STATIC,6,6,217,8
     CTEXT           "with",IDC_STATIC,100,23,29,8
     LTEXT           "Therefore, it cannot replace",IDC_STATIC,6,41,217,8
-    EDITTEXT        IDC_edtFrom1,6,17,88,21,ES_AUTOHSCROLL | ES_READONLY | 
-                    NOT WS_BORDER
-    EDITTEXT        IDC_edtTo1,135,17,88,21,ES_AUTOHSCROLL | ES_READONLY | 
-                    NOT WS_BORDER
+    EDITTEXT        IDC_edtFrom1,6,17,88,21,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER
+    EDITTEXT        IDC_edtTo1,135,17,88,21,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER
     CTEXT           "with",IDC_STATIC,100,57,29,8
-    EDITTEXT        IDC_edtFrom2,6,52,88,21,ES_AUTOHSCROLL | ES_READONLY | 
-                    NOT WS_BORDER
-    EDITTEXT        IDC_edtTo2,135,52,88,21,ES_AUTOHSCROLL | ES_READONLY | 
-                    NOT WS_BORDER
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,118,
-                    79,50,14
+    EDITTEXT        IDC_edtFrom2,6,52,88,21,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER
+    EDITTEXT        IDC_edtTo2,135,52,88,21,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,118,79,50,14
 END
 
-IDD_JumpPathMatchingCriteria DIALOG DISCARDABLE  0, 0, 207, 134
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+IDD_JumpPathMatchingCriteria DIALOG 0, 0, 207, 134
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Jump Path Matching Criteria"
 FONT 8, "MS Sans Serif"
 BEGIN
-    LTEXT           "Choose the matching criteria that should be used on the initial attempt when jumping and when checking a data link.",
-                    IDC_STATIC,6,6,135,32
-    CONTROL         "Match &whole field",IDC_JUMP_WHOLE_KEY,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,7,44,120,10
+    LTEXT           "Choose the matching criteria that should be used on the initial attempt when jumping and when checking a data link.",IDC_STATIC,6,6,135,32
+    CONTROL         "Match &whole field",IDC_JUMP_WHOLE_KEY,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,44,120,10
     GROUPBOX        "&Match characters",IDC_STATIC,7,60,144,68
-    CONTROL         "By &primary grouping only (loosest)",
-                    IDC_JUMP_MATCH_SAME_PRIMARY,"Button",BS_AUTORADIOBUTTON | 
-                    WS_GROUP,14,76,130,10
-    CONTROL         "By secondary ordering, disregarding &case",
-                    IDC_JUMP_MATCH_EXACT_DISREGARD_CASE,"Button",
-                    BS_AUTORADIOBUTTON,14,88,130,10
+    CONTROL         "By &primary grouping only (loosest)",IDC_JUMP_MATCH_SAME_PRIMARY,
+                    "Button",BS_AUTORADIOBUTTON | WS_GROUP,14,76,130,10
+    CONTROL         "By secondary ordering, disregarding &case",IDC_JUMP_MATCH_EXACT_DISREGARD_CASE,
+                    "Button",BS_AUTORADIOBUTTON,14,88,130,10
     CONTROL         "&Exactly by secondary ordering",IDC_JUMP_MATCH_EXACT,
                     "Button",BS_AUTORADIOBUTTON,14,100,130,10
-    CONTROL         "Even those normally &ignored (strictest)",
-                    IDC_JUMP_MATCH_EVEN_IGNORE,"Button",BS_AUTORADIOBUTTON,
-                    14,112,136,10
+    CONTROL         "Even those normally &ignored (strictest)",IDC_JUMP_MATCH_EVEN_IGNORE,
+                    "Button",BS_AUTORADIOBUTTON,14,112,136,10
     DEFPUSHBUTTON   "OK",IDOK,148,6,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,148,23,50,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,148,
-                    43,50,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,148,43,50,14
 END
 
-IDD_Version DIALOG DISCARDABLE  0, 0, 385, 241
-STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_Version DIALOG 0, 0, 385, 241
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Version Information"
 FONT 8, "MS Sans Serif"
 BEGIN
@@ -2571,8 +2047,8 @@ BEGIN
     EDITTEXT        IDC_Version,7,7,371,207,ES_MULTILINE | WS_VSCROLL
 END
 
-IDD_AlanTestDlg DIALOG DISCARDABLE  0, 0, 186, 93
-STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_AlanTestDlg DIALOG 0, 0, 186, 93
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Alan Test"
 FONT 8, "MS Sans Serif"
 BEGIN
@@ -2581,18 +2057,16 @@ BEGIN
     PUSHBUTTON      "Cancel",IDCANCEL,129,24,50,14
 END
 
-IDD_AlanAdaptIt DIALOG DISCARDABLE  0, 0, 241, 130
-STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_AlanAdaptIt DIALOG 0, 0, 241, 130
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Alan AdaptIt Algorithm Test"
 FONT 8, "MS Sans Serif"
 BEGIN
     EDITTEXT        IDC_EDIT_iSuccPercent,98,33,35,12,ES_AUTOHSCROLL
     EDITTEXT        IDC_EDIT_iTestSequenceNumber,98,81,36,12,ES_AUTOHSCROLL
     EDITTEXT        IDC_EDIT_Name,7,17,166,12,ES_AUTOHSCROLL
-    CONTROL         "C&alculate correspondences",IDC_CalcCorr,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,7,100,134,10
-    CONTROL         "C&ollect correspondences",IDC_CollectCorr,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,8,113,122,10
+    CONTROL         "C&alculate correspondences",IDC_CalcCorr,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,100,134,10
+    CONTROL         "C&ollect correspondences",IDC_CollectCorr,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,8,113,122,10
     DEFPUSHBUTTON   "OK",IDOK,184,7,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,184,24,50,14
     LTEXT           "Knowledge base name",IDC_STATIC,7,7,84,8
@@ -2602,30 +2076,26 @@ BEGIN
     LTEXT           "Comment",IDC_STATIC,7,47,86,10
 END
 
-IDD_HIDEFIELDS DIALOG DISCARDABLE  0, 0, 254, 191
-STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_HIDEFIELDS DIALOG 0, 0, 254, 191
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Hide Fields"
 FONT 8, "MS Sans Serif"
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,197,7,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,197,24,50,14
     GROUPBOX        "Fields to Hide",IDC_HIDEFIELDS_GRP,7,7,171,148
-    LTEXT           "&Available Fields",IDC_HIDEFIELDS_LBLAVAILABLE,14,21,48,
-                    15
-    LISTBOX         IDC_HIDEFIELDS_LSTFLDSAVAILABLE,14,40,50,105,
-                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "&Available Fields",IDC_HIDEFIELDS_LBLAVAILABLE,14,21,48,15
+    LISTBOX         IDC_HIDEFIELDS_LSTFLDSAVAILABLE,14,40,50,105,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     LTEXT           "&Hide     Fields",IDC_HIDEFIELDS_LBLTOHIDE,117,21,42,15
-    LISTBOX         IDC_HIDEFIELDS_LSTFLDSTOHIDE,117,40,50,106,
-                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_HIDEFIELDS_LSTFLDSTOHIDE,117,40,50,106,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "&Insert ->",IDC_HIDEFIELDS_MOVETO,71,63,40,14
     PUSHBUTTON      "<- &Remove",IDC_HIDEFIELDS_MOVEFROM,71,83,40,14
     PUSHBUTTON      "<- &Clear",IDC_HIDEFIELDS_CLEARHIDE,71,103,40,14
-    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,197,
-                    44,50,14
+    CONTROL         "&Help",ID_HELP,"Button",BS_OWNERDRAW | WS_DISABLED,197,44,50,14
 END
 
-IDD_CrashFixFilePathEdit DIALOG DISCARDABLE  0, 0, 390, 84
-STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_CrashFixFilePathEdit DIALOG 0, 0, 390, 84
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Select File"
 FONT 8, "MS Sans Serif"
 BEGIN
@@ -2633,12 +2103,11 @@ BEGIN
     DEFPUSHBUTTON   "OK",IDOK,17,36,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,75,36,50,14
     LTEXT           "File name",-1,7,7,84,8
-    LTEXT           "Enter a file name or the full path to a file.",-1,7,58,
-                    376,19
+    LTEXT           "Enter a file name or the full path to a file.",-1,7,58,376,19
 END
 
-IDD_ImportFileDBTyp DIALOG DISCARDABLE  0, 0, 186, 78
-STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_ImportFileDBTyp DIALOG 0, 0, 186, 78
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Database Type for Imported File"
 FONT 8, "MS Sans Serif"
 BEGIN
@@ -2655,9 +2124,12 @@ END
 // Cursor
 //
 
-IDC_RIGHTARROW          CURSOR  DISCARDABLE     "RES\\RIGHTARR.CUR"
-IDC_RIGHTARROW_MAC      CURSOR  DISCARDABLE     "RES\\RIGHTMAC.CUR"
-IDC_CURSOR2             CURSOR  DISCARDABLE     "res\\cursor2.cur"
+IDC_RIGHTARROW          CURSOR                  "RES\\RIGHTARR.CUR"
+
+IDC_RIGHTARROW_MAC      CURSOR                  "RES\\RIGHTMAC.CUR"
+
+IDC_CURSOR2             CURSOR                  "res\\cursor2.cur"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -2711,8 +2183,12 @@ END
 //
 
 #ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO DISCARDABLE 
+GUIDELINES DESIGNINFO
 BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+    END
+
     IDD_RECORD_INSERT, DIALOG
     BEGIN
         BOTTOMMARGIN, 44
@@ -2850,34 +2326,45 @@ END
 
 /////////////////////////////////////////////////////////////////////////////
 //
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_ABOUTBOX AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
 // String Table
 //
 
-STRINGTABLE PRELOAD DISCARDABLE 
+STRINGTABLE
 BEGIN
     IDR_MAINFRAME           "Toolbox"
     IDR_SHWTYPE             "not used\nnot used\nnot used\nAll Files (*.*)\n\nToolbox.Document\nToolbox Document\nTEXT\nText Only"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     IDS_VARSET_TITLE        "Variables"
     IDS_SRTSET_TITLE        "Sort Orders"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     IDS_FILSET_TITLE        "Filters"
     IDS_MKRSET_TITLE        "Markers"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     IDS_JMPSET_TITLE        "Jump Path"
     IDS_DELETE_INTERLIN_PROC "Delete interlinear process?"
 END
 
-#endif    // English (U.S.) resources
+#endif    // English (United States) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
