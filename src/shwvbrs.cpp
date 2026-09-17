@@ -1,5 +1,4 @@
-// shwvbrs.cpp : implementation of window display parts of the
-// CShwView class
+// shwvbrs.cpp : implementation of browse parts of the CShwView class
 //
 
 #include "stdafx.h"

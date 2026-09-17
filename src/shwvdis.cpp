@@ -1,5 +1,4 @@
-// shwvdis.cpp : implementation of window display parts of the
-// CShwView class
+// shwvdis.cpp : implementation of window display parts of the CShwView class
 //
 
 #ifdef _MAC

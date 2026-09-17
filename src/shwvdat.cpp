@@ -1,3 +1,6 @@
+// shwvdat.cpp : implementation of database parts of the CShwView class
+//
+
 #include "stdafx.h"
 #include "toolbox.h"
 #include "shw.h"

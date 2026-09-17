@@ -1,4 +1,5 @@
-// shwvfind.cpp : implementation of CShwView's find and replace 
+// shwvfind.cpp : implementation of find and replace parts of the CShwView class 
+//
 
 #include "stdafx.h"
 #include "toolbox.h"

@@ -3823,15 +3823,17 @@ BOOL CRecPos::bAlignWholeBundle() // 1.4kb Correct interlinear alignment of whol
 //------------------------------------------------------
 BOOL CShwView::bInterlinearize( BOOL bAdapt, BOOL bCont ) // Interlinearize text
 {
-	CShwView* pviewFrom = Shw_papp()->pviewJumpedFrom(); // Get last view jumped from
-	if ( !pdoc()->pintprclst()->bWordParse() ) // 1.6.4zn Fix bug reinterlinearize word parse moving to wrong place
-		{
-	    if ( !bValidate() ) // validate current view first
-		    return FALSE;
-		if ( !pviewFrom ) // 1.6.4zn Fix bug of return from jump finding cursor at top of text window
-			if ( !Shw_papp()->bValidateAllViews() ) // then validate everyone
-				return FALSE;
-		}
+    if (!pdoc()->pintprclst()->bWordParse()) // 1.6.4zn Fix bug reinterlinearize word parse moving to wrong place
+    {
+        if (!bValidate()) // Validate current view first
+            return FALSE;
+        CRecPos rpsBeforeValidateAll = m_rpsCur; // Save caret pos
+        if (!Shw_papp()->bValidateAllViews()) // Always validate all views, even when returning from a jump
+            return FALSE;
+        m_rpsCur = rpsBeforeValidateAll; // Restore caret pos in case bValidateAllViews moved it
+        pntPosToPnt(m_rpsCur); // Redisplay caret at restored position
+        SetCaretPosAdj(); // Scroll restored caret pos into view
+    }
     if ( bSelecting( eAnyText ) ) // If selecting text, start interlinearize at beginning of selection
         m_rpsCur = rpsSelBeg();
     ClearSelection(); // Prevent odd selection results

@@ -1,4 +1,4 @@
-// shwvundo.cpp : implementation of the undo feature
+// shwvundo.cpp : implementation of the undo parts of the CShwView class
 //
 
 #include "stdafx.h"

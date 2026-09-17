@@ -1,3 +1,6 @@
+// shwvwrap.cpp : implementation of wrapping parts of the CShwView class
+//
+
 #include "stdafx.h"
 #include "toolbox.h"
 #include "shwdoc.h"

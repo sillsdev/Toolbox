@@ -1,5 +1,4 @@
-// shwvprnt.cpp : implementation of printing parts of the
-// CShwView class
+// shwvprnt.cpp : implementation of printing parts of the CShwView class
 //
 
 #include "stdafx.h"
