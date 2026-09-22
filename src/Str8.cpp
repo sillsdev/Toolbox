@@ -201,17 +201,21 @@ int Str8::Find(const char* psz, int iStart) const
 
 char* Str8::GetBuffer(int iSize) // Write access to buffer
 {
-    _data.resize(iSize);  // ensures buffer has at least iSize chars
+    if (static_cast<size_t>(iSize) > _data.size())
+        _data.resize(iSize);  // grow to requested size
     AssertValid();
     return _data.data();  // writable buffer
 }
 
-void Str8::ReleaseBuffer(int iLen) // Release buffer after writing
+void Str8::ReleaseBuffer(int iLen)
 {
-    if (iLen >= 0 && iLen < static_cast<int>(_data.size()))
-        _data.resize(iLen);
+    if (iLen >= 0)
+    {
+        assert(iLen <= static_cast<int>(_data.size()));
+        _data.resize(std::min(iLen, static_cast<int>(_data.size())));
+    }
     else
-        _data.resize(std::strlen(_data.c_str()));  // recalc if unknown length
+        _data.resize(std::strlen(_data.c_str())); // recalc if unknown length
     AssertValid();
 }
 
