@@ -31,63 +31,34 @@ static BOOL bSpace( const char c ) // 1.4qzjh Fix U problem of jump not includin
 	return ( c == ' ' || c == '\n' );
 	}
 
-static int iMallocSize( int iSize )
-	{
-	int iMallocUnits = iSize / iStr8_Malloc_Increment + 1;
-	return iMallocUnits * iStr8_Malloc_Increment;
-	}
-
 void Str8::Init()
 	{
-#ifdef UseCharStar
-    int iMallocSiz = iMallocSize(0);
-    m_psz = (char*)malloc( iMallocSiz ); // Allocate string buffer
-    m_iAlloc = iMallocSiz; // Init allocated size
-    m_iLen = 0; // Init length
-    *m_psz = '\0'; // Terminate string
-#else
     _data.clear();       // empty the string
     _data.shrink_to_fit(); // optional: release any extra capacity
-#endif
 	}
 
-void Str8::MakeSpace( int iSize ) // Make room for possibly larger size
-	{
-#ifdef UseCharStar
-	if ( iSize + 1 > m_iAlloc ) // If new size larger than allocated, move to bigger space
-		{
-		char* pszOld = m_psz; // Remember old place
-		int iMallocSiz = iMallocSize( iSize * 2 ); // 1.4ytb Double to make Str8 grow faster for higher speed
-		m_psz = (char*)malloc( iMallocSiz ); // Allocate string buffer
-		m_iAlloc = iMallocSiz; // Init allocated size
-		strcpy_s( m_psz, iMallocSiz, pszOld ); // Copy old to new place
-		free( pszOld ); // Free old place
-		}
-#else
-        // Ensure there's enough capacity for iSize characters (+1 for null terminator)
-        if (static_cast<size_t>(iSize + 1) > _data.capacity())
-        {
-            // Grow roughly twice as large (to preserve the original intent)
-            _data.reserve(iSize * 2);
-        }
-#endif
-	}
-
-#ifndef UseCharStar
 Str8::Str8()
     : _data()  // default construct empty string
 {
 }
 
-Str8::Str8(const char* pszInit, int iCount)
+Str8::Str8(const char* pszInit, int iCount) // copy at most iCount chars from pszInit, or all if iCount < 0
+    : _data()
 {
-    if (!pszInit)
-        pszInit = "";
+    if (!pszInit) // _data defaults to ""
+        return;
 
-    _data = pszInit;   // handles allocation automatically
-
-    if (iCount >= 0 && static_cast<size_t>(iCount) < _data.size())
-        _data.resize(iCount);  // truncate if needed
+    if (iCount >= 0)
+    {
+        // Safely find string length up to iCount bytes max
+        // Prevents scanning un-terminated buffers past iCount
+        size_t len = strnlen(pszInit, static_cast<size_t>(iCount));
+        _data.assign(pszInit, len);
+    }
+    else
+    {
+        _data.assign(pszInit);
+    }
 }
 
 Str8::Str8(const Str8& other)
@@ -140,7 +111,6 @@ Str8 Str8::Mid(int iStart, int iCount) const
 Str8& Str8::operator+=(const char c) // 1.4qzkb Add Str8 += char to prevent crash from default behaviour
 {
     _data.push_back(c);
-    return *this;
     AssertValid();
     return *this;
 }
@@ -162,12 +132,10 @@ Str8& Str8::operator+=(const char* pszSource)
     return *this;
 }
 
-Str8& Str8::operator+=(int iAdd) // 1.4tec Add a number, if numeric
+Str8& Str8::operator+=(int iAdd) // Append rather than adding numerically
 {
-    int i = std::atoi(_data.c_str());
-    i += iAdd;
-
-    _data += std::to_string(i);  // convert and append
+    _data += std::to_string(iAdd);
+    AssertValid();
     return *this;
 }
 
@@ -199,15 +167,15 @@ int Str8::Find(const char* psz, int iStart) const
     return (pos == std::string::npos) ? -1 : static_cast<int>(pos);
 }
 
-char* Str8::GetBuffer(int iSize) // Write access to buffer
+char* Str8::GetBuffer(int iSize) // Get writable buffer of at least iSize chars, including null terminator
 {
     if (static_cast<size_t>(iSize) > _data.size())
-        _data.resize(iSize);  // grow to requested size
+        _data.resize(iSize);
     AssertValid();
     return _data.data();  // writable buffer
 }
 
-void Str8::ReleaseBuffer(int iLen)
+void Str8::ReleaseBuffer(int iLen) // Re-sync internal string length after modifying buffer; pass iLen if known, or -1 to find \0
 {
     if (iLen >= 0)
     {
@@ -215,7 +183,11 @@ void Str8::ReleaseBuffer(int iLen)
         _data.resize(std::min(iLen, static_cast<int>(_data.size())));
     }
     else
-        _data.resize(std::strlen(_data.c_str())); // recalc if unknown length
+    {
+        // Recalculate up to allocated capacity to prevent running off memory
+        size_t newLen = ::strnlen(_data.data(), _data.capacity());
+        _data.resize(newLen);
+    }
     AssertValid();
 }
 
@@ -335,311 +307,30 @@ int Str8::FindAtEndOfWord(const char* psz, int iStart) const // 1.4ytc Add find 
     else
         return iFindNl;
 }
-#else
-Str8::Str8() // Default constructor // 1.4qzfv Start Str8
-	{
-	Init();
-	AssertValid();
-	}
-
-Str8::Str8( const char* pszInit, int iCount ) // Constructor with initializing string
-	{
-	if ( !pszInit ) // 1.4qzpf Don't crash if null passed in as empty string
-		pszInit = "";
-	Init();
-	int iLen = strlen( pszInit );
-	MakeSpace( iLen ); // Init to large enough size (= m_iAlloc)
-	strcpy_s( m_psz, m_iAlloc, pszInit ); // Copy initializing string to buffer
-	m_iLen = iLen;
-	if ( iCount >= 0 ) // If limited count, then shorten to that length
-		Truncate( iCount );
-	AssertValid();
-	}
-
-Str8::Str8( const Str8& s ) // Copy constructor
-	{
-	Init();
-	MakeSpace( s.GetLength() );
-	strcpy_s( m_psz, m_iAlloc, (const char*)s ); // Copy initializing string to buffer (= m_iAlloc)
-	m_iLen = s.GetLength();
-	AssertValid();
-	}
-
-Str8::Str8(const char c) // Constructor from char
-{
-    Init(); // Init to large enough size
-    MakeSpace(1);
-    *m_psz = c;
-    *(m_psz + 1) = '\0';
-    m_iLen = 1;
-    AssertValid();
-}
-
-Str8::~Str8() // Destructor
-	{
-	AssertValid();
-	free( m_psz ); // Free the string buffer
-	}
-
-void Str8::AssertValid() const // Assert that all is well
-{
-    ASSERT(m_iLen >= 0); // Length greater than zero
-    ASSERT(m_iLen < m_iAlloc); // Length less than alloc size (allows for terminating null)
-    ASSERT(*(m_psz + m_iLen) == '\0'); // Terminating null at length
-}
-
-int Str8::GetLength() const // Length
-{
-    AssertValid();
-    return m_iLen;
-}
-
-Str8::operator const char* () const  // Read access to buffer
-{
-    AssertValid();
-    return m_psz;
-}
-
-Str8& Str8::operator=(const char* pszSource)
-{
-    if (!pszSource) // 1.4qzpf Don't crash if null passed in as empty string
-        pszSource = "";
-    int iNewLen = strlen(pszSource);
-    MakeSpace(iNewLen);
-    m_iLen = iNewLen;
-    strcpy_s(m_psz, m_iAlloc, pszSource);
-    AssertValid();
-    return *this;
-}
-
-Str8& Str8::operator=(const Str8& sSource)
-{
-    MakeSpace(sSource.GetLength());
-    m_iLen = sSource.GetLength();
-    strcpy_s(m_psz, m_iAlloc, (const char*)sSource);
-    AssertValid();
-    return *this;
-}
-
-Str8& Str8::operator+=(const char* pszSource)
-{
-    if (!pszSource) // 1.4qzpf Don't crash if null passed in as empty string
-        pszSource = "";
-    Append(pszSource);
-    AssertValid();
-    return *this;
-}
-
-Str8& Str8::operator+=(const char c) // 1.4qzkb Add Str8 += char to prevent crash from default behaviour
-{
-    Str8 s(c);
-    Append(s);
-    AssertValid();
-    return *this;
-}
-
-Str8& Str8::operator+=(int iAdd) // 1.4tec Add a number, if numeric
-{
-    int i = atoi(*this);
-    i += iAdd;
-    char buffer[20];
-    _itoa_s(i, buffer, (int)sizeof(buffer), 10);
-    //	this->Empty(); // 1.6.1ck Fix bug of bad write of settings
-    this->Append(buffer);
-    return *this;
-}
-
-Str8& Str8::Append(const char* psz) // Append string
-{
-    if (!psz) // 1.4qzpf Don't crash if null passed in as empty string
-        psz = "";
-    int iNewSize = m_iLen + strlen(psz); // Calculate new length
-    MakeSpace(iNewSize); // Make enough space (= m_iAlloc)
-    strcpy_s(m_psz + m_iLen, m_iAlloc, psz); // Copy onto end
-    m_iLen = iNewSize; // Set new length
-    AssertValid();
-    return *this;
-}
-
-Str8& Str8::Prepend(const char* psz) // Prepend string
-{
-    if (!psz) // 1.4qzpf Don't crash if null passed in as empty string
-        psz = "";
-    *this = psz + *this;
-    AssertValid();
-    return *this;
-}
-
-int Str8::FindAtEndOfWord(const char* psz, int iStart) const // 1.4ytc Add find at end of word (followed by sp or nl)
-{
-    Str8 sFind = psz;
-    Str8 sSp = sFind + " ";
-    Str8 sNl = sFind + "\n";
-    int iFindSp = Find(sSp, iStart); // Find first with space
-    int iFindNl = Find(sNl, iStart); // Find first with nl
-    if (iFindSp < 0) // If none found with space, return find with nl (maybe no find of either)
-        return iFindNl;
-    if (iFindNl < 0) // If none found with nl, return find with sp
-        return iFindSp;
-    if (iFindSp < iFindNl) // If both found, return earliest
-        return iFindSp;
-    else
-        return iFindNl;
-}
-
-int Str8::ReverseFind(const char c) const
-{
-    const char* pszFound = strrchr(m_psz, c);
-    if (!pszFound)
-        return -1;
-    else
-        return pszFound - m_psz;
-}
-
-Str8 Str8::Mid(int iStart, int iCount) const
-{
-    if (iStart < 0) // Protect against negative
-        iStart = 0;
-    if (iStart > m_iLen) // If start beyond end, start at end // ab 01
-        iStart = m_iLen;
-    if (iCount < 0 || iCount > m_iLen - iStart) // If count too many, do end
-        iCount = m_iLen - iStart;
-    Str8 s;
-    char* psz = s.GetBuffer(iCount);
-    memcpy(psz, m_psz + iStart, iCount);
-    *(psz + iCount) = '\0';
-    s.ReleaseBuffer();
-    return s;
-}
-
-void Str8::SetAt(int iPos, const char c)
-{
-    if (iPos < 0 || iPos > m_iLen)
-        return;
-    *(m_psz + iPos) = c;
-    AssertValid();
-}
-
-void Str8::Truncate(int iCount) // Cut off end at iCount
-{
-    if (iCount < m_iLen) // 1.4qzhx Fix U crash on jump (from Truncate)
-    {
-        m_iLen = iCount;
-        *(m_psz + iCount) = '\0';
-    }
-}
-
-void Str8::Replace(const char* pszFrom, const char* pszTo, BOOL bFeed) // 1.4vyt 
-{
-    int iFromLen = strlen(pszFrom);
-    int iToLen = strlen(pszTo);
-    if (iFromLen == 0)
-        return;
-    int iStart = 0;
-    while (TRUE)
-    {
-        int iFind = Find(pszFrom, iStart);
-        if (iFind == -1)
-            break;
-        *this = Mid(0, iFind) + pszTo + Mid(iFind + iFromLen);
-        iStart = iFind; // 1.4vyt 
-        if (!bFeed) // 1.4vyt 
-            iStart += iToLen; // 1.4vyt 
-    }
-    AssertValid();
-}
-
-int Str8::ReverseFind(const char c) const
-{
-    const char* pszFound = strrchr(m_psz, c);
-    if (!pszFound)
-        return -1;
-    else
-        return pszFound - m_psz;
-}
-
-void Str8::TrimLeft()
-{
-    while (bSpace(*m_psz)) // 1.4qzjh
-        *this = Mid(1);
-    AssertValid();
-}
-
-void Str8::TrimRight()
-{
-    while (m_iLen > 0 && bSpace(*(m_psz + m_iLen - 1))) // 1.4qzjh
-        Truncate(m_iLen - 1);
-    AssertValid();
-}
-
-void Str8::Insert(int iPos, const char* psz)
-{
-    if (iPos < 0)
-        iPos = 0;
-    if (iPos > m_iLen)
-        iPos = m_iLen;
-    *this = Left(iPos) + psz + Mid(iPos);
-    AssertValid();
-}
-
-void Str8::Delete(int iPos, int iCount)
-{
-    if (iPos < 0)
-        iPos = 0;
-    if (iCount > m_iLen)
-        iCount = m_iLen;
-    if (iPos + iCount > m_iLen)
-        iCount = m_iLen - iPos;
-    *this = Left(iPos) + Mid(iPos + iCount);
-    AssertValid();
-}
-
-int Str8::Find(const char* psz, int iStart) const
-{
-    if (!psz) // 1.4qzpf Don't crash if null passed in as empty string
-        psz = "";
-    if (iStart >= m_iLen)
-        return -1;
-    const char* pszFound = strstr(m_psz + iStart, psz);
-    if (!pszFound)
-        return -1;
-    else
-        return pszFound - m_psz;
-}
-
-Str8& Str8::operator+=(const Str8& sSource)
-{
-    Append(sSource);
-    AssertValid();
-    return *this;
-}
-
-char* Str8::GetBuffer(int iSize) // Write access to buffer
-{
-    MakeSpace(iSize); // Make sure enough space
-    AssertValid();
-    return m_psz;
-}
-
-void Str8::ReleaseBuffer(int iLen) // Release buffer after writing
-{
-    ASSERT(iLen < m_iAlloc); // Should have made large enough space at GetBuffer call
-    if (iLen >= 0) // If iLen given, null terminate string in case it was not terminated
-        *(m_psz + iLen) = '\0';
-    m_iLen = strlen(m_psz); // Set correct length of string
-    AssertValid();
-}
-#endif
 
 void Str8::Format(const char* pszFormat, ...)
-	{
-	char* psz = GetBuffer( 5000 ); // Get plenty of space, no loss because this is probably a temp string	
-    va_list argptr;
-    va_start( argptr, pszFormat );
-	vsprintf_s( psz, 5000, pszFormat, argptr );
-    va_end(argptr);
-	ReleaseBuffer();
-	}
+{
+    va_list args;
+    va_start(args, pszFormat);
+
+    // Determine required length
+    va_list argsCopy;
+    va_copy(argsCopy, args);
+    int len = vsnprintf(nullptr, 0, pszFormat, argsCopy);
+    va_end(argsCopy);
+
+    if (len > 0)
+    {
+        char* psz = GetBuffer(len + 1);
+        vsnprintf(psz, static_cast<size_t>(len + 1), pszFormat, args);
+        ReleaseBuffer(len);
+    }
+    else
+    {
+        Empty();
+    }
+    va_end(args);
+}
 
 BOOL Str8::bNextWord( Str8& sWord, int& iPos ) // Find next space delimited word, return in sWord, return end of word in iPos
 	{

@@ -8,24 +8,14 @@
 class Str8
 	{
 private:
-#ifndef UseCharStar
     std::string _data;
-#else
-    char* m_psz; // Pointer to allocated string data
-    int m_iLen; // Length of string data
-    int m_iAlloc; // Amount of space allocated
-#endif
 private:
 	void Init(); // Initialize
-	void MakeSpace( int iSize ); // Make room for possibly larger size
 public:
 	Str8();	// Default constructor // 1.4qzfv Start Str8
     Str8( const char* pszInit, int iCount = -1 ); // Constructor with initializing string
 	Str8( const char c ); // Constructor from char
 	Str8( const Str8& s ); // Copy constructor
-#ifdef UseCharStar
-    ~Str8(); // Destructor
-#endif
 	void AssertValid() const noexcept; // Assert that all is well
 
     operator const char* () const { return _data.c_str(); } // Read access to buffer
@@ -34,11 +24,10 @@ public:
 	Str8& operator+=( const Str8& sSource ); // Append sSource
 	Str8& operator+=( const char* pszSource ); // Append pszSource
 	Str8& operator+=( const char c ); // Append c // 1.4qzkb
-    Str8& Str8::operator +=( int iAdd ); // 1.4tec Add a number, if numeric
+    Str8& operator+=(int iAdd); // Append rather than adding numerically
 	char* GetBuffer( int iSize = 0 ); // Write access to buffer
 	void ReleaseBuffer( int iLen = -1 ); // Release buffer after writing
 	Str8& Append( const char* psz ); // Append psz
-	Str8& Prepend( const char* psz ); // Prepend psz
 	int GetLength() const; // Length of string in chars
 	int Find( const char* psz, int iStart = 0 ) const; // Find next psz after iStart
 	int Find( const char c, int iStart = 0 ) const; // Find next char c after iStart
@@ -47,13 +36,8 @@ public:
 	Str8 Mid( int iStart, int iCount = -1 ) const; // Next iCount chars starting at iStart, default is rest of string
 	Str8 Left( int iCount ) const { return Mid( 0, iCount ); } // Leftmost iCount chars
 	Str8 Right( int iCount ) const { return Mid( GetLength() - iCount, iCount ); } // Rightmost iCount chars
-#ifdef UseCharStar
-    char GetChar(int iPos) const { return *(m_psz + iPos); } // Get char at iPos
-    BOOL IsEmpty() const { return m_iLen == 0; } // True if empty
-#else
     char GetChar( int iPos ) const { return _data.at(iPos); } // Get char at iPos
     BOOL IsEmpty() const { return _data.empty(); }
-#endif
 	void SetAt( int iPos, const char c ); // Set char at iPos to c
 	void Empty() { Truncate( 0 ); } // Make empty
 	void Truncate( int iCount ); // Cut off end at iCount
