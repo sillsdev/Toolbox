@@ -260,7 +260,10 @@ CShwView::CShwView()
 //    m_keyJump.SetKey("", TRUE, CMCharOrder::matsetSamePrimaryGroup); // jump defaults to matching whole word
 //    m_keyJumpInsert.SetKey("", TRUE, CMCharOrder::matsetSamePrimaryGroup); // jump insert defaults to matching whole word
     m_bDontCallSetCaretPosAdj = FALSE;
+    m_iInterlinCharWd = 0;
 	m_bRecalculatePixelDisplayStarts = TRUE;
+    m_rpsPixelDisplayStarts.SetPos(0, NULL, NULL);
+    memset(m_iPixelDisplayStarts, 0, sizeof(m_iPixelDisplayStarts));
     m_iCaretHt = 0;  // 1998-01-26 MRP: Initialize
     m_bCaretHidden = FALSE;
     m_bHaveFocus = FALSE;
@@ -277,7 +280,11 @@ CShwView::CShwView()
     m_cpIM = CP_ACP; // 1.4qzhm // 1.4zam 
 #endif  // 1.4zam 
 	m_bUnicodeValidityCheckInProcess = FALSE; // 1.4hr
-	m_pdocDefaultForMove = NULL; // 1.5.3c 
+	m_pdocDefaultForMove = NULL; // 1.5.3c
+    m_hWavDevice = 0;
+    m_ppat = NULL;
+    m_prcplst = NULL;
+    m_prcpCur = NULL;
 }
 
 CShwView* CShwView::s_pViewToDuplicate = NULL;

@@ -705,6 +705,7 @@ BOOL CShwView::OnScroll(UINT nScrollCode, UINT nPos, BOOL bDoScroll) // handle s
         GetClientRect( &rect );
         lScrolled = lVScroll( max( 0, rect.bottom - iLineHt( m_rpsUpperLeft.pfld ) * 2 ) );
         break;
+    case SB_THUMBPOSITION: // Fall through to SB_THUMBTRACK
     case SB_THUMBTRACK:
         long lPos = (long)((float)nPos * m_lTotalHt / fYScrollHt );
         CRecPos rps = m_rpsUpperLeft;

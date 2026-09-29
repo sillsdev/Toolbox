@@ -39,11 +39,12 @@ END_MESSAGE_MAP()
 
 CShwScrollView::CShwScrollView()
 {
-	// Init everything to zero
-	// no longer needed:
-    //  AFX_ZERO_INIT_OBJECT(CView);
-
 	m_nMapMode = MM_NONE;
+	m_totalLog = CSize(0, 0);
+	m_totalDev = CSize(0, 0);
+	m_pageDev = CSize(0, 0);
+	m_lineDev = CSize(0, 0);
+	m_bInsideUpdate = FALSE;
 }
 
 CShwScrollView::~CShwScrollView()
