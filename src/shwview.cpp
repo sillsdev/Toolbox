@@ -1273,9 +1273,10 @@ void CShwView::OnUpdateDatabaseLastRecord(CCmdUI* pCmdUI)
 }
 void CShwView::OnUpdateEditInsertField(CCmdUI* pCmdUI)
 {   // Disable Insert Field if document is read-only
-    pCmdUI->Enable(!pdoc()->bReadOnly());
+    BOOL bEnable = !pdoc()->bReadOnly();
 	if ( Shw_papp()->pProject()->iLockProject() >= 10 ) // 1.2ca At project lock level 10, disable anything that can modify a file
-		pCmdUI->Enable( FALSE );
+        bEnable = FALSE;
+    pCmdUI->Enable(bEnable);
 }
 void CShwView::OnUpdateEditReturnFromJump(CCmdUI* pCmdUI)
 {  // Disable Return from Jump if no valid jump available
@@ -1284,42 +1285,46 @@ void CShwView::OnUpdateEditReturnFromJump(CCmdUI* pCmdUI)
 }
 void CShwView::OnUpdateDatabaseInsertRecord(CCmdUI* pCmdUI)
 {   // Disable Insert Record if document is read-only
-    pCmdUI->Enable(!pdoc()->bReadOnly());
+    BOOL bEnable = !pdoc()->bReadOnly();
 	if ( Shw_papp()->pProject()->iLockProject() >= 10 ) // 1.2ca At project lock level 10, disable anything that can modify a file
-		pCmdUI->Enable( FALSE );
+        bEnable = FALSE;
+    pCmdUI->Enable(bEnable);
 }
 void CShwView::OnUpdateDatabaseDeleteRecord(CCmdUI* pCmdUI)
 {  // Disable Delete if no current record or if document is read-only
     // 1998-12-02 MRP: cast
-    pCmdUI->Enable((CRecLookEl*)m_prelCur!=NULL && !pdoc()->bReadOnly());
+    BOOL bEnable = ( (CRecLookEl*)m_prelCur!=NULL && !pdoc()->bReadOnly() );
 	if ( Shw_papp()->pProject()->iLockProject() >= 10 ) // 1.2ca At project lock level 10, disable anything that can modify a file
-		pCmdUI->Enable( FALSE );
+        bEnable = FALSE;
+    pCmdUI->Enable(bEnable);
 }
 void CShwView::OnUpdateDatabaseCopyRecord(CCmdUI* pCmdUI)
 {   // Disable Copy if no current record
-    pCmdUI->Enable((CRecLookEl*)m_prelCur!=NULL);  // 1998-12-02 MRP
+    BOOL bEnable = ( (CRecLookEl*)m_prelCur != NULL );  // 1998-12-02 MRP
 	if ( Shw_papp()->pProject()->iLockProject() >= 10 ) // 1.2ca At project lock level 10, disable anything that can modify a file
-		pCmdUI->Enable( FALSE );
+        bEnable = FALSE;
+    pCmdUI->Enable(bEnable);
 }
 void CShwView::OnUpdateDatabaseMoveRecord(CCmdUI* pCmdUI)
 {   // Disable Move if no current record or if no other DB of same type is open or if
     // current DB is read-only
+    BOOL bEnable = FALSE;
     if ( (CRecLookEl*)m_prelCur != NULL )
         {
         CTypedDocList doclst(GetDocument()->ptyp());
-        pCmdUI->Enable(doclst.pdocFirst(GetDocument())!=NULL && !pdoc()->bReadOnly());
+        bEnable = ( doclst.pdocFirst(GetDocument())!=NULL && !pdoc()->bReadOnly() );
         }
-    else
-        pCmdUI->Enable(FALSE);
 	if ( Shw_papp()->pProject()->iLockProject() >= 10 ) // 1.2ca At project lock level 10, disable anything that can modify a file
-		pCmdUI->Enable( FALSE );
+        bEnable = FALSE;
+    pCmdUI->Enable(bEnable);
 }
 void CShwView::OnUpdateDatabaseMergeDb(CCmdUI* pCmdUI)
 {   // Disable Merge Database command if no valid sources or if current DB is read-only
     CTypedDocList doclst(GetDocument()->ptyp());
-    pCmdUI->Enable(doclst.pdocFirst(GetDocument())!=NULL && !pdoc()->bReadOnly());
+    BOOL bEnable = ( doclst.pdocFirst(GetDocument())!=NULL && !pdoc()->bReadOnly() );
 	if ( Shw_papp()->pProject()->iLockProject() >= 10 ) // 1.2ca At project lock level 10, disable anything that can modify a file
-		pCmdUI->Enable( FALSE );
+        bEnable = FALSE;
+    pCmdUI->Enable(bEnable);
 }
 
 
@@ -1939,27 +1944,30 @@ void CShwView::OnUpdateFileExport(CCmdUI* pCmdUI)
 
 void CShwView::OnUpdateFileSave(CCmdUI* pCmdUI)
 {
-    pCmdUI->Enable( !pdoc()->bReadOnly() );
+    BOOL bEnable = !pdoc()->bReadOnly();
 	if ( Shw_papp()->pProject()->iLockProject() >= 10 ) // 1.2ca At project lock level 10, disable anything that can modify a file
-		pCmdUI->Enable( FALSE );
+        bEnable = FALSE;
 	if ( Shw_papp()->pProject()->bExerciseNoSave() ) // 1.3av Disable File Save and Save All in exercise project
-		pCmdUI->Enable( FALSE );
+        bEnable = FALSE;
+    pCmdUI->Enable(bEnable);
 }
 
 void CShwView::OnUpdateFileSaveAs(CCmdUI* pCmdUI) // 1.4wb 
 {
-    pCmdUI->Enable( !pdoc()->bReadOnly() );
+    BOOL bEnable = !pdoc()->bReadOnly();
 	if ( Shw_papp()->pProject()->iLockProject() >= 10 ) // 1.2ca At project lock level 10, disable anything that can modify a file
-		pCmdUI->Enable( FALSE );
+        bEnable = FALSE;
 	if ( Shw_papp()->pProject()->bExerciseNoSave() ) // 1.3av Disable File Save and Save All in exercise project
-		pCmdUI->Enable( FALSE );
+        bEnable = FALSE;
+    pCmdUI->Enable(bEnable);
 }
 
 void CShwView::OnUpdateFileSaveAll(CCmdUI* pCmdUI)
 {
-    pCmdUI->Enable( !( Shw_papp()->pProject()->iLockProject() >= 10 ) );
+    BOOL bEnable = !(Shw_papp()->pProject()->iLockProject() >= 10);
 	if ( Shw_papp()->pProject()->bExerciseNoSave() ) // 1.3av Disable File Save and Save All in exercise project
-		pCmdUI->Enable( FALSE );
+        bEnable = FALSE;
+    pCmdUI->Enable(bEnable);
 }
 
 void CShwView::OnUpdateFileClose(CCmdUI* pCmdUI)
@@ -2278,14 +2286,15 @@ void CShwView::OnEditCut()
 
 void CShwView::OnUpdateEditCut(CCmdUI* pCmdUI)
 {
-    pCmdUI->Enable( ( m_prelCur && !m_bBrowsing && !pdoc()->bReadOnly() &&
+    BOOL bEnable = ( ( m_prelCur && !m_bBrowsing && !pdoc()->bReadOnly() &&
                             bSelecting( eAnyText ) && !bTracking( eAnyText ) )
 #ifdef ToolbarFindCombo // 1.4yq
 							|| Shw_pcboFind()->bHasFocus() 
 #endif // ToolbarFindCombo // 1.4yq
 						);
 	if ( Shw_papp()->pProject()->iLockProject() >= 10 ) // 1.2ca At project lock level 10, disable anything that can modify a file
-		pCmdUI->Enable( FALSE );
+		bEnable = FALSE ;
+    pCmdUI->Enable(bEnable);
 }
 
 void CShwView::OnEditPaste()
@@ -2306,14 +2315,15 @@ void CShwView::OnEditPaste()
 
 void CShwView::OnUpdateEditPaste(CCmdUI* pCmdUI)
 {
-    pCmdUI->Enable( ::IsClipboardFormatAvailable( CF_TEXT ) &&
+    BOOL bEnable = ( ::IsClipboardFormatAvailable(CF_TEXT) &&
                     ( ( m_prelCur && !m_bBrowsing && !pdoc()->bReadOnly() )
 #ifdef ToolbarFindCombo // 1.4yq
                     || Shw_pcboFind()->bHasFocus() 
 #endif // ToolbarFindCombo // 1.4yq
 					) );
 	if ( Shw_papp()->pProject()->iLockProject() >= 10 ) // 1.2ca At project lock level 10, disable anything that can modify a file
-		pCmdUI->Enable( FALSE );
+        bEnable = FALSE;
+    pCmdUI->Enable(bEnable);
 }
 
 void CShwView::OnEditUndoAll()
@@ -3425,51 +3435,57 @@ void CShwView::OnUpdateViewReapplyFilter(CCmdUI* pCmdUI)
 
 void CShwView::OnUpdateEditInsertFromRangeSet(CCmdUI* pCmdUI)
 {
-    pCmdUI->Enable(!m_bBrowsing && m_prelCur && !pdoc()->bReadOnly() &&
+    BOOL bEnable = ( !m_bBrowsing && m_prelCur && !pdoc()->bReadOnly() &&
         m_rpsCur.pfld->pmkr()->bRangeSetEnabled() );  // 1999-06-07 MRP
     
 	if ( Shw_papp()->pProject()->iLockProject() >= 10 ) // 1.2ca At project lock level 10, disable anything that can modify a file
-		pCmdUI->Enable( FALSE );
+        bEnable = FALSE;
+    pCmdUI->Enable(bEnable);
 }
 
 void CShwView::OnUpdateEditInterlinearize(CCmdUI* pCmdUI)
 {
-    pCmdUI->Enable( !m_bBrowsing && m_prelCur && !pdoc()->bReadOnly() &&
+    BOOL bEnable = ( !m_bBrowsing && m_prelCur && !pdoc()->bReadOnly() &&
         !pdoc()->pintprclst()->bIsEmpty() );
 	if ( Shw_papp()->pProject()->iLockProject() >= 10 ) // 1.2ca At project lock level 10, disable anything that can modify a file
-		pCmdUI->Enable( FALSE );
+        bEnable = FALSE;
+    pCmdUI->Enable(bEnable);
 }
 
 void CShwView::OnUpdateEditInterlinShowFail(CCmdUI* pCmdUI)
 {
-    pCmdUI->Enable( !m_bBrowsing && m_prelCur && !pdoc()->bReadOnly() &&
+    BOOL bEnable = ( !m_bBrowsing && m_prelCur && !pdoc()->bReadOnly() &&
         !pdoc()->pintprclst()->bIsEmpty() );
 	if ( Shw_papp()->pProject()->iLockProject() >= 10 ) // 1.2ca At project lock level 10, disable anything that can modify a file
-		pCmdUI->Enable( FALSE );
+        bEnable = FALSE;
+    pCmdUI->Enable(bEnable);
 }
 
 void CShwView::OnUpdateEditInterlinearizeWord(CCmdUI* pCmdUI)
 {
-    pCmdUI->Enable( !m_bBrowsing && m_prelCur && !pdoc()->bReadOnly() &&
+    BOOL bEnable = ( !m_bBrowsing && m_prelCur && !pdoc()->bReadOnly() &&
         !pdoc()->pintprclst()->bIsEmpty() );
 	if ( Shw_papp()->pProject()->iLockProject() >= 10 ) // 1.2ca At project lock level 10, disable anything that can modify a file
-		pCmdUI->Enable( FALSE );
+        bEnable = FALSE;
+    pCmdUI->Enable(bEnable);
 }
 
 void CShwView::OnUpdateEditAdapt(CCmdUI* pCmdUI)
 {
-    pCmdUI->Enable( !m_bBrowsing && m_prelCur && !pdoc()->bReadOnly() &&
+    BOOL bEnable = ( !m_bBrowsing && m_prelCur && !pdoc()->bReadOnly() &&
         !pdoc()->pintprclst()->bIsEmpty() ); // 1.3df Reenable adapt prevent greying of interlinearize button // && pdoc()->pintprclst()->bAdapt() ); // 1.3au Disable Adapt if no adapt processes
 	if ( Shw_papp()->pProject()->iLockProject() >= 10 ) // 1.2ca At project lock level 10, disable anything that can modify a file
-		pCmdUI->Enable( FALSE );
+        bEnable = FALSE;
+    pCmdUI->Enable(bEnable);
 }
 
 void CShwView::OnUpdateEditAdaptCont(CCmdUI* pCmdUI)
 {
-    pCmdUI->Enable( !m_bBrowsing && m_prelCur && !pdoc()->bReadOnly() &&
+    BOOL bEnable = ( !m_bBrowsing && m_prelCur && !pdoc()->bReadOnly() &&
         !pdoc()->pintprclst()->bIsEmpty() && pdoc()->pintprclst()->bAdapt() ); // 1.3au Disable Adapt All if no adapt processes
 	if ( Shw_papp()->pProject()->iLockProject() >= 10 ) // 1.2ca At project lock level 10, disable anything that can modify a file
-		pCmdUI->Enable( FALSE );
+        bEnable = FALSE;
+    pCmdUI->Enable(bEnable);
 }
 
 void CShwView::OnUpdateEditSpellCheck(CCmdUI* pCmdUI)
@@ -3916,9 +3932,10 @@ void CShwView::OnEditReplace()
 void CShwView::OnUpdateEditReplace(CCmdUI* pCmdUI)
 {
     // 1998-12-02 MRP: cast
-    pCmdUI->Enable((CRecLookEl*)m_prelCur != NULL && !pdoc()->bReadOnly());
+    BOOL bEnable = ( (CRecLookEl*)m_prelCur != NULL && !pdoc()->bReadOnly() );
 	if ( Shw_papp()->pProject()->iLockProject() >= 10 ) // 1.2ca At project lock level 10, disable anything that can modify a file
-		pCmdUI->Enable( FALSE );
+        bEnable = FALSE;
+    pCmdUI->Enable(bEnable);
 }
 
 void CShwView::OnEditSelectAll()
