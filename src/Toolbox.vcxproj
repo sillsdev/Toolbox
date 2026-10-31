@@ -141,10 +141,6 @@
       <SubSystem>Windows</SubSystem>
       <ModuleDefinitionFile>.\Shw32.def</ModuleDefinitionFile>
     </Link>
-    <PostBuildEvent>
-      <Command>xcopy $(SolutionDir)..\redist\32-bit\*.* $(TargetDir) /d /y</Command>
-      <Message>copy dependency DLLs, etc., to the build folder</Message>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MacWine Release|Win32'">
     <ClCompile>
@@ -241,12 +237,6 @@
       </IgnoreAllDefaultLibraries>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
-    <PostBuildEvent>
-      <Command>xcopy $(SolutionDir)..\redist\32-bit\*.* $(TargetDir) /d /y</Command>
-    </PostBuildEvent>
-    <PostBuildEvent>
-      <Message>copy dependency DLLs, etc., to the build folder</Message>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='TestLib|Win32'">
     <ClCompile>
@@ -297,12 +287,6 @@
       </IgnoreAllDefaultLibraries>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
-    <PostBuildEvent>
-      <Command>xcopy $(SolutionDir)..\redist\32-bit\*.* $(TargetDir) /d /y</Command>
-    </PostBuildEvent>
-    <PostBuildEvent>
-      <Message>copy dependency DLLs, etc., to the build folder</Message>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Alan.cpp" />

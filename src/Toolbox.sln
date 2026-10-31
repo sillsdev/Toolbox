@@ -32,6 +32,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tests", "..\tests\Tests.vcx
 		{DA4C386E-B0CF-D270-B199-588BEB284909} = {DA4C386E-B0CF-D270-B199-588BEB284909}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CCEngine", "..\CCEngine\CCEngine.vcxproj", "{9659D786-F18A-4972-8C32-0976C44619D5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,21 @@ Global
 		{4A03B6F1-DA8F-413A-9541-C51A6B8884E3}.Tests|Any CPU.Build.0 = Debug|Win32
 		{4A03B6F1-DA8F-413A-9541-C51A6B8884E3}.Tests|Win32.ActiveCfg = Debug|Win32
 		{4A03B6F1-DA8F-413A-9541-C51A6B8884E3}.Tests|Win32.Build.0 = Debug|Win32
+		{9659D786-F18A-4972-8C32-0976C44619D5}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{9659D786-F18A-4972-8C32-0976C44619D5}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9659D786-F18A-4972-8C32-0976C44619D5}.Debug|Win32.Build.0 = Debug|Win32
+		{9659D786-F18A-4972-8C32-0976C44619D5}.MacWine Release|Any CPU.ActiveCfg = Release|Win32
+		{9659D786-F18A-4972-8C32-0976C44619D5}.MacWine Release|Any CPU.Build.0 = Release|Win32
+		{9659D786-F18A-4972-8C32-0976C44619D5}.MacWine Release|Win32.ActiveCfg = Release|Win32
+		{9659D786-F18A-4972-8C32-0976C44619D5}.MacWine Release|Win32.Build.0 = Release|Win32
+		{9659D786-F18A-4972-8C32-0976C44619D5}.Release|Any CPU.ActiveCfg = Release|Win32
+		{9659D786-F18A-4972-8C32-0976C44619D5}.Release|Any CPU.Build.0 = Release|Win32
+		{9659D786-F18A-4972-8C32-0976C44619D5}.Release|Win32.ActiveCfg = Release|Win32
+		{9659D786-F18A-4972-8C32-0976C44619D5}.Release|Win32.Build.0 = Release|Win32
+		{9659D786-F18A-4972-8C32-0976C44619D5}.Tests|Any CPU.ActiveCfg = Debug|Win32
+		{9659D786-F18A-4972-8C32-0976C44619D5}.Tests|Any CPU.Build.0 = Debug|Win32
+		{9659D786-F18A-4972-8C32-0976C44619D5}.Tests|Win32.ActiveCfg = Debug|Win32
+		{9659D786-F18A-4972-8C32-0976C44619D5}.Tests|Win32.Build.0 = Debug|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
