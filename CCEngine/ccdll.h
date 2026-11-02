@@ -66,7 +66,7 @@ extern "C"
 #define CC_CALL_AGAIN_FOR_MORE_DATA  2
 #define CC_SYNTAX_ERROR             -2
 
-#if (!defined(_WINDLL) && !defined(UNIXSHAREDLIB)) || defined(_WindowsExe)
+#if (!defined(_WINDLL) && !defined(UNIXSHAREDLIB) && !defined(_LIB)) || defined(_WindowsExe)
     // The following typedefs define the callback routines that
     // are used by some of the CC DLL interfaces.
     typedef int WINAPI CCInputProc(char * lpInputBuffer, int nInputBufferSize, long * lpUserData);
