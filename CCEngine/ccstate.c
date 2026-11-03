@@ -243,7 +243,10 @@
 #include <malloc.h>
 #endif
 
-#if defined(WIN32)
+#if defined(_LIB)
+    #define DLLExport
+    #define EXPDECL __stdcall
+#elif defined(WIN32)
 	#if defined(__BORLANDC__)
 		#define DLLExport
 		#define EXPDECL __stdcall _export

@@ -1,6 +1,11 @@
 /* cc.h	 MS/CC Externals and Constants	 30-Jan-86	  SMc */
-#if defined(UNIXSHAREDLIB)
+#if defined(_LIB) || defined(UNIXSHAREDLIB)
+#ifndef _WINDLL
 #define _WINDLL
+#endif
+#ifndef STATICLINK
+#define STATICLINK
+#endif
 #endif
 
 #ifdef _WINDLL

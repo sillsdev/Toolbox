@@ -135,6 +135,7 @@
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>libc;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
       <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
       <AdditionalDependencies>winmm.lib;usp10.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <StackReserveSize>10240</StackReserveSize>
