@@ -1,54 +1,109 @@
 #include "Change_ostream.h"
-#include <cstring>
+#include <string>
+
+namespace
+{
+    const size_t kOutBuf = 4096;
+}
 
 Change_ostreambuf::Change_ostreambuf(const char* pszChangeTablePath, std::ostream& iosOutput)
     : m_iosOutput(iosOutput),
-    m_buflen(512)
+    m_buf(kOutBuf + 1),
+    m_bFinished(false),
+    m_bFailed(false)
 {
-    m_pszBuffer = new char[m_buflen + 1];
-    setp(m_pszBuffer, m_pszBuffer + m_buflen);
+    // The extra byte lets overflow() store the character it was handed.
+    setp(m_buf.data(), m_buf.data() + kOutBuf);
 
-    m_cct.bLoadFromFile(pszChangeTablePath);
+    m_cct.bLoadFromFile(pszChangeTablePath);    // if it fails: pass through
 }
 
 Change_ostreambuf::~Change_ostreambuf()
 {
-    sync();
-    delete[] m_pszBuffer;
+    finish();
+}
+
+void Change_ostreambuf::finish()
+{
+    if (m_bFinished)
+        return;
+    try
+    {
+        bPushPending(true);
+        m_iosOutput.flush();
+    }
+    catch (...)
+    {
+        // never throw from a destructor path
+    }
+}
+
+// Hand whatever is in the put area to CC and write what comes back.
+bool Change_ostreambuf::bPushPending(bool bLast)
+{
+    const char* p = pbase();
+    const int len = static_cast<int>(pptr() - pbase());
+    bool ok = true;
+
+    if (len == 0 && !bLast)
+        return !m_iosOutput.fail();
+
+    if (m_bFinished)
+    {
+        ok = (len == 0);                // data after finish() is an error
+    }
+    else if (!m_cct.bLoaded() || m_bFailed)
+    {
+        if (len > 0)
+            m_iosOutput.write(p, len);
+        if (bLast)
+            m_bFinished = true;
+    }
+    else
+    {
+        std::string out;
+        if (m_cct.bStreamChunk(p, len, bLast, out))
+        {
+            if (!out.empty())
+                m_iosOutput.write(out.data(), static_cast<std::streamsize>(out.size()));
+            if (bLast)
+                m_bFinished = true;
+        }
+        else
+        {
+            // CC failed: do not lose the data, pass the rest through
+            // untransformed and report the error to the stream.
+            m_bFailed = true;
+            ok = false;
+            if (len > 0)
+                m_iosOutput.write(p, len);
+        }
+    }
+
+    pbump(-len);
+    return ok && !m_iosOutput.fail();
 }
 
 int Change_ostreambuf::sync()
 {
-    int len = (int)(pptr() - pbase());
-    if (len > 0)
-    {
-        static char outBuf[1024];
-        int outLen = sizeof(outBuf);
-
-        if (m_cct.bLoaded() && m_cct.bMakeChanges(pbase(), len, outBuf, &outLen))
-        {
-            m_iosOutput.write(outBuf, outLen);
-        }
-        else
-        {
-            m_iosOutput.write(pbase(), len);
-        }
-
-        pbump(-len);
-    }
+    if (!bPushPending(false))
+        return -1;
     m_iosOutput.flush();
-    return 0;
+    return m_iosOutput.fail() ? -1 : 0;
 }
 
 int Change_ostreambuf::overflow(int ch)
 {
-    if (ch != std::char_traits<char>::eof())
+    typedef std::char_traits<char> traits;
+
+    if (ch != traits::eof())
     {
-        *pptr() = (char)ch;
+        *pptr() = static_cast<char>(ch);    // uses the spare byte
         pbump(1);
     }
-    // sync returns 0 on success, EOF (traits::eof()) on failure.
-    if (sync() == std::char_traits<char>::eof())
-        return std::char_traits<char>::eof();
-    return ch;
+
+    if (!bPushPending(false))
+        return traits::eof();
+
+    return traits::not_eof(ch);
 }

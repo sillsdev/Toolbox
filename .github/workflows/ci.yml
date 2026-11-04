@@ -11,22 +11,20 @@ jobs:
   build:
     runs-on: windows-2022
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v2
-      - name: Build main exe
-        run: msbuild src/Toolbox.vcxproj /p:Configuration="Release" /p:Platform="Win32"
+        uses: microsoft/setup-msbuild@v3
+      - name: Build Release solution
+        run: msbuild src/Toolbox.sln /m /p:Configuration="Release" /p:Platform="Win32"
 
   test:
     runs-on: windows-2022
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v2
-      - name: Build main library
-        run: msbuild src/Toolbox.vcxproj /p:Configuration="TestLib" /p:Platform="Win32"
-      - name: Build tests
-        run: msbuild tests/Tests.vcxproj /p:Configuration="Debug" /p:Platform="Win32"
+        uses: microsoft/setup-msbuild@v3
+      - name: Build Tests solution
+        run: msbuild src/Toolbox.sln /m /p:Configuration="Tests" /p:Platform="Win32"
       - name: Run tests
         shell: pwsh
         run: |

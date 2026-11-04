@@ -1033,9 +1033,6 @@ BOOL bReadFileIntoString( Str8 sPath, Str8& sIn ) // 1.5.9pd Read file into stri
 		return FALSE;
 	}
 	Str8 sLine; // Str8 form of line for searching and processing
-	int fh = _fileno( pf ); // 1.5.9pd Get file handle
-	int iFileLen = _filelength( fh ); // 1.5.9pd Get length of file
-	char* pszInBuff = sIn.GetBuffer( iFileLen + 1000 ); // 1.5.9pd Enlarge buffer so it won't have to expand on read
 	const char* pszSucc = fgets( pszBigBuffer, BIGBUFMAX, pf ); // 1.5.9pd Read a line
 	sLine = pszBigBuffer; // 1.5.9pd Get first line
 	Str8 sBOM = "﻿"; // 1.5.9pd UTF8 Byte Order Mark

@@ -14,7 +14,7 @@
 #include "tools.h"  // sPath
 #include <fstream>  // ifstream
 #include <wingdi.h> // ExtTextOutW
-#include "usp10.h" // Uniscribe ScriptString functions
+#include <usp10.h> // Uniscribe ScriptString functions
 
 // 11-08-1997
 #include "nlstream.h"

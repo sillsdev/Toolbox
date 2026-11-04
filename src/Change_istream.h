@@ -2,25 +2,29 @@
 #include "stdafx.h"
 #include <streambuf>
 #include <istream>
+#include <string>
+#include <vector>
 #include "ChangeTable.h"
 
 class Change_istreambuf : public std::streambuf
 {
 public:
     Change_istreambuf(const char* pszChangeTablePath, std::istream& iosInput);
-    virtual ~Change_istreambuf();
+    ~Change_istreambuf() override = default;
 
 protected:
-    virtual int underflow() override;
+    int underflow() override;
 
 private:
-    ChangeTable   m_cct;
+    ChangeTable       m_cct;
     std::istream& m_iosInput;
-    bool          m_bAtEOF;
-    char* m_pszBuffer;
-    const int     m_buflen;
+    std::vector<char> m_in;          // raw input chunk read from m_iosInput
+    std::string       m_out;         // transformed data currently being served
+    bool              m_bFinished;   // no more data will ever be produced
 };
 
+// Reads from iosInput and presents the data with the change table applied.
+// If the table cannot be loaded the stream is simply empty (as before).
 class Change_istream : public std::istream
 {
 public:
