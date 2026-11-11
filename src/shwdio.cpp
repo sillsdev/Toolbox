@@ -638,9 +638,9 @@ BOOL CShwDoc::bImport(const char* pszPath, const int nMode, const Str8& sMissing
 		_close( fh );
 		sFileText.ReleaseBuffer(bytesread);
 		}
-	if ( sFileText.Find( "\\+ShProjectSettings" ) == 0 ) // 1.2mk If File, Open of project file, give warning // 1.5.0fh Fix problem of thinking message file is project file
+	if ( sFileText.Find( "\\+ShProjectSettings" ) == 0 && CProject::s_bIsProjectFile( pszPath ) )
         {
-		sMessage = _("This file is a Toolbox project file. It must be opened using Project, Open."); // 1.5.0fg 
+		sMessage = _("This file is a Toolbox project file. Use File, Open to switch projects.");
         return FALSE;
         }
 

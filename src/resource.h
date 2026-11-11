@@ -925,12 +925,13 @@
 #define IDS_JMPSET_TITLE                62342
 #define IDS_DELETE_INTERLIN_PROC        62343
 #define IDC_jumppath_grpTarget          -1
+#define IDD_NEW_PROJECT                 496
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        496
+#define _APS_NEXT_RESOURCE_VALUE        497
 #define _APS_NEXT_COMMAND_VALUE         32854
 #define _APS_NEXT_CONTROL_VALUE         1973
 #define _APS_NEXT_SYMED_VALUE           125

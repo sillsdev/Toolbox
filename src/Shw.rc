@@ -100,6 +100,17 @@ BEGIN
     ICON            IDR_MAINFRAME,IDC_STATIC,208,75,20,20
 END
 
+IDD_NEW_PROJECT DIALOGEX 0, 0, 276, 78
+STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Start a New Toolbox Project"
+FONT 9, "Segoe UI", 0, 0, 0x1
+BEGIN
+    LTEXT "For a ready-to-use project, open the downloads page and look for Toolbox New Project Package (recommended). To set up a project yourself, create an empty project file.",IDC_STATIC,10,10,256,34
+    DEFPUSHBUTTON "Open &Downloads Page",IDYES,10,54,99,14
+    PUSHBUTTON "Create &Empty Project",IDOK,115,54,92,14
+    PUSHBUTTON "Cancel",IDCANCEL,213,54,53,14
+END
+
 IDD_RECORD_INSERT DIALOG 0, 0, 242, 61
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "Record Insert"

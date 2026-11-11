@@ -114,6 +114,7 @@ protected:
 // Generated message map functions
     //{{AFX_MSG(CMainFrame)
     afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+    afx_msg void OnDropFiles(HDROP hDrop);
     afx_msg void OnDebugAlan();
     afx_msg void OnDebugMark();
     afx_msg void OnExerciseToggle();

@@ -21,6 +21,10 @@
 
 #include <afxpriv.h>    // For WM_COMMANDHELP, WM_SETMESSAGESTRING
 #include <afxwin.h>
+#include <shellapi.h>
+#include <memory>
+#include <type_traits>
+#include <vector>
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -43,6 +47,7 @@ static UINT NEAR WM_REFRESH_ALL = RegisterWindowMessage( swUTF16( "ShbxRefreshAl
 BEGIN_MESSAGE_MAP(CMainFrame, CMDIFrameWnd)
     //{{AFX_MSG_MAP(CMainFrame)
     ON_WM_CREATE()
+    ON_WM_DROPFILES()
     ON_COMMAND(ID_DEBUG_ALAN, OnDebugAlan)
     ON_COMMAND(ID_LOCK_LEVEL, OnDebugMark)
     ON_COMMAND(ID_DEBUG_TOM, OnExerciseToggle)
@@ -301,7 +306,42 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
         return -1;      // fail to create
         }
 	
+    DragAcceptFiles();
     return 0;
+}
+
+void CMainFrame::OnDropFiles(HDROP hDrop)
+{
+    std::unique_ptr<std::remove_pointer_t<HDROP>, decltype(&::DragFinish)> drop(hDrop, ::DragFinish);
+    CShwApp* pApp = Shw_papp();
+    if ( !pApp->bProjectOpen() || pApp->bOpeningProject() || pApp->bClosing() )
+        return;
+
+    std::vector<CString> paths;
+    const UINT count = ::DragQueryFileW(hDrop, 0xFFFFFFFF, NULL, 0);
+    for ( UINT i = 0; i < count; ++i )
+        {
+        const UINT length = ::DragQueryFileW(hDrop, i, NULL, 0);
+        if ( length == 0 )
+            continue;
+        CString path;
+        wchar_t* buffer = path.GetBuffer(length + 1);
+        const UINT copied = ::DragQueryFileW(hDrop, i, buffer, length + 1);
+        path.ReleaseBuffer(copied);
+        if ( copied == length )
+            paths.push_back(path);
+        }
+    drop.reset();
+
+    for ( const CString& path : paths )
+        {
+        if ( !pApp->bProjectOpen() )
+            break;
+        const DWORD attributes = ::GetFileAttributesW(path);
+        if ( attributes != INVALID_FILE_ATTRIBUTES && (attributes & FILE_ATTRIBUTE_DIRECTORY) )
+            continue;
+        pApp->OpenFilePath(sUTF8(path));
+        }
 }
 
 // 2000/04/28 TLB Function where we handle hiding/showing Reapply Filter menu item, and removing menus for reduced menu set

@@ -61,8 +61,7 @@ BEGIN
     POPUP "Pr&oject"
     BEGIN
         MENUITEM "&New...",                     ID_PROJECT_NEW
-        MENUITEM "&Open...",                    ID_PROJECT_OPEN
-        MENUITEM "&Close",                      ID_PROJECT_CLOSE
+        MENUITEM "&Close Without Saving",       ID_PROJECT_CLOSE
         MENUITEM "&Save",                       ID_PROJECT_SAVE
         MENUITEM "Save &As...",                 ID_PROJECT_SAVEAS
         MENUITEM SEPARATOR
@@ -151,8 +150,7 @@ BEGIN
     POPUP "Pr&oject"
     BEGIN
         MENUITEM "&New...",                     ID_PROJECT_NEW
-        MENUITEM "&Open...",                    ID_PROJECT_OPEN
-        MENUITEM "&Close",                      ID_PROJECT_CLOSE
+        MENUITEM "&Close Without Saving",       ID_PROJECT_CLOSE
         MENUITEM "Save &As...",                 ID_PROJECT_SAVEAS
         MENUITEM "A&uto Save",                  ID_Project_AutoSave, CHECKED
         MENUITEM "Loc&k Project",               ID_Project_LockProject

@@ -36,6 +36,7 @@
 #include <shlobj.h>
 #endif
 
+#include <shellapi.h>
 #include <direct.h> // _mkdir
 #include <sstream>
 
@@ -66,7 +67,6 @@ BEGIN_MESSAGE_MAP(CShwApp, CWinApp)
     ON_UPDATE_COMMAND_UI(ID_PROJECT_DATABASE_TYPES, OnUpdateFileDatabaseTypes)
     ON_UPDATE_COMMAND_UI(ID_PROJECT_TEXT_CORPUS, OnUpdateFileTextCorpus)
     ON_COMMAND(ID_PROJECT_NEW, OnProjectNew)
-    ON_COMMAND(ID_PROJECT_OPEN, OnProjectOpen)
     ON_COMMAND(ID_PROJECT_CLOSE, OnProjectClose)
     ON_UPDATE_COMMAND_UI(ID_PROJECT_CLOSE, OnUpdateProjectClose)
     ON_COMMAND(ID_PROJECT_SAVE, OnProjectSave)
@@ -382,7 +382,7 @@ void CShwApp::OnFileNew() // Set default folder
 void CShwApp::OnFileOpen() // Set default folder
 {
 	Str8 sPath; // 1.4hed Use CStrg to pass in to MFC function
-	CString swPath; // 1.5.8h 
+	CString swPath;
     CShwView* pView = Shw_papp()->pviewActive();
     if ( pView ) // get folder of active window if present
         {
@@ -406,17 +406,41 @@ void CShwApp::OnFileOpen() // Set default folder
 		if ( dlg.DoModal() != IDOK)
 			return; // 1.5.8h 
 		sPath =  dlg.m_sName; // 1.5.8h 
-		swPath = swUTF16( sPath ); // 1.5.8h 
 		}
-//	if ( !bAllASCIIComplain( sPath ) ) // 1.4vze  // 1.5.9ka Allow Unicode file names
-//		return; // 1.4vze  // 1.5.9ka Allow Unicode file names
-    OpenDocumentFile( swPath ); // 1.1ec Default to path of current directory, from Bob // 1.4qzd // 1.4qze
-#ifdef DoesntWork // 1.1ec _chdir doesn't do any good, different approach required
-        sPath = s_sChangeDirPath(sPath);  // 1998-08-04 MRP
-        int i = _chdir( sPath ); // Set current working directory
+    OpenFilePath( sPath );
+}
+
+void CShwApp::OpenFilePath( const Str8& sPath )
+{
+    if ( !CProject::s_bIsProjectFile( sPath ) )
+        {
+        CWinApp::OpenDocumentFile( swUTF16( sPath ) );
+        return;
         }
-    CWinApp::OnFileOpen();
-#endif // DoesntWork
+
+    if ( !bAllASCIIComplain( sPath ) )
+        return;
+    if ( swUTF16( sPath ).CompareNoCase( swUTF16( pProject()->pszPath() ) ) == 0 )
+        return;
+    if ( pProject()->iLockProject() >= 2 )
+        {
+        AfxMessageBox( _("The current project is locked.") );
+        return;
+        }
+    if ( AfxMessageBox( _("Do you mean to close this project and open a different one?"),
+            MB_YESNO | MB_ICONQUESTION | MB_DEFBUTTON2 ) != IDYES )
+        return;
+    if ( !bCloseProject() )
+        return;
+
+    m_bClosing = FALSE;
+    m_bClosingProjectOrMainFrame = FALSE;
+    if ( !bOpenProject( sPath, TRUE, s_pszSettingsVersion ) )
+        {
+        m_bOpeningProject = FALSE;
+        if ( !bOpenOrNewProject() )
+            CloseShoebox();
+        }
 }
 
 void CShwApp::WriteToIni_Title( const char* pszTitle )
@@ -1047,20 +1071,54 @@ void CShwApp::OnUpdateFileTextCorpus(CCmdUI* pCmdUI)
     pCmdUI->Enable( bProjectOpen() );
 }
 
+class CNewProjectDlg : public CDialog
+{
+public:
+    explicit CNewProjectDlg(CWnd* pParent) : CDialog(IDD_NEW_PROJECT, pParent) {}
+
+protected:
+    BOOL OnInitDialog() override
+    {
+        CDialog::OnInitDialog();
+        CenterWindow(GetParent());
+        return TRUE;
+    }
+
+    BOOL OnCommand(WPARAM wParam, LPARAM lParam) override
+    {
+        if ( LOWORD(wParam) == IDYES && HIWORD(wParam) == BN_CLICKED )
+            {
+            EndDialog(IDYES);
+            return TRUE;
+            }
+        return CDialog::OnCommand(wParam, lParam);
+    }
+};
+
 void CShwApp::OnProjectNew()
 {
-	Str8 sMessage = _("To start a new project, you need to install the required files. Do you want to do that?"); // 1.4vna Make Project, New recommend install project files // 1.4ywe 
-    if ( AfxMessageBox(sMessage, MB_YESNO | MB_ICONQUESTION) == IDYES ) // 1.4vna 
-		{
-		AfxMessageBox( _("After Toolbox exits, install the New Project package.") ); // 1.5.8ya Update wording of new project message
-		CloseShoebox(); // 1.4vna Close Toolbox so user can open new project
-		}
-	else
-		{
-		NewProject();
-		if ( !m_pProject && !bOpenOrNewProject() )
-			CloseShoebox();  // 1998-03-16 MRP
-		}
+    const char* url = "https://software.sil.org/toolbox/download/";
+    CNewProjectDlg dlg(m_pMainWnd);
+    switch (dlg.DoModal())
+    {
+        case IDYES:
+        {
+            HINSTANCE result = ::ShellExecuteA(m_pMainWnd->GetSafeHwnd(), "open",
+                url, NULL, NULL, SW_SHOWNORMAL);
+            if (reinterpret_cast<INT_PTR>(result) <= 32)
+            {
+                Str8 sMsg = _("Could not open the downloads page. Visit");
+                sMsg = sMsg + " " + url + " in your browser.";
+                AfxMessageBox(sMsg);
+            }
+            break;
+        }
+        case IDOK:
+            NewProject();
+            if ( !m_pProject && !bOpenOrNewProject() )
+                CloseShoebox();
+            break;
+        }
 }
 
 // 1999-02-27 MRP: Used to be a static function in shw.cpp,
@@ -1113,26 +1171,16 @@ void CShwApp::NewProject()
     if ( bProjectOpen() && !bCloseProject() ) // try to close currently open project
         return;
 
-    BOOL b = bOpenProject( sPath, FALSE, s_pszSettingsVersion );
-}
-
-void CShwApp::OnProjectOpen()
-{
-    OpenProject();
-    if ( !m_pProject && !bOpenOrNewProject() )
-        CloseShoebox();  // 1998-03-16 MRP
-    m_bClosingProjectOrMainFrame = FALSE;  // rde 52tb fix bug of not resetting this
+    m_bClosing = FALSE;
+    m_bClosingProjectOrMainFrame = FALSE;
+    bOpenProject( sPath, FALSE, s_pszSettingsVersion );
 }
 
 void CShwApp::OpenProject()
 {
     long lFlags = (OFN_HIDEREADONLY | OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR);
     Str8 sFilter;
-    Str8 sPath;
-    if ( bProjectOpen() )
-        sPath = Shw_pProject()->sSettingsDirPath();
-    else
-        sPath = sGetDefaultSettingsFolder();
+    Str8 sPath = sGetDefaultSettingsFolder();
     sFilter = _("Project files");
 	sFilter = sFilter + " (*.prj)|*.prj|" + _("All files") + " (*.*)|*.*||";
 	if ( !Shw_papp()->bUseCrashFixFileEditDlg() ) // 1.5.8h 
@@ -1156,10 +1204,7 @@ void CShwApp::OpenProject()
         return;
         }
 
-    if ( bProjectOpen() && !bCloseProject() ) // try to close currently open project
-        return;
-
-    BOOL b = bOpenProject( sPath, TRUE, s_pszSettingsVersion );
+    bOpenProject( sPath, TRUE, s_pszSettingsVersion );
 }
 
 extern BOOL bAnotherInstanceFound();
@@ -1254,35 +1299,17 @@ BOOL CShwApp::bOpenProject( const char* pszProjectPath, BOOL bOpening,
     return TRUE;
 }
 
-void CShwApp::OnProjectClose() // 1.4vzf Put Project, Close back on menu to allow close without saving
-{	
-	int iReply = AfxMessageBox( _("Save changes to project?"), MB_YESNO ); // 1.4vyp Add Ctrl+Alt+Shift+Q as quit without saving
-	if ( iReply != IDYES )
-		{
-		pProject()->SetExerciseNoSave( TRUE ); // 1.1tu Set exercise no save so nothing will be saved
-		CDocList doclst; // list of currently open docs
-		for ( CShwDoc* pdoc = doclst.pdocFirst(); pdoc; pdoc = doclst.pdocNext() )
-			{
-			UnWriteProtect( sUTF8( pdoc->GetPathName() ) ); // 1.4qzhj Unwrite protect files on close project without saving
-			pdoc->SetModifiedFlag( FALSE ); // 1.4qzhj Clear modified flag so the framework won't ask about saving
-			}
-		UnWriteProtect( m_pProject->pszPath() ); // Turn off write protect of project to say no longer in use // 1.4qzhj
-		CloseShoebox(); // 1.4qzha On close project without saving, exit immediately if desired
-		return; // 1.4qzhe Fix problem (1.4qzha) in close project
-		}
-
-    (void) bSaveAllFiles(); // 1.4qzmf On project close and save, don't ask about saving files
-
-    m_bClosingProjectOrMainFrame = TRUE;   //08-27-1997
-    BOOL bClosed = bCloseProject();
-    m_bClosingProjectOrMainFrame = FALSE;  //08-27-1997
-
-    // 1998-03-14 MRP: When a database has unsaved changes, the user gets
-    // a Yes/No/Cancel choice. If they choose Cancel, don't close.
-    if ( !bClosed )
-        return;
-    Shw_pbarStatus()->OnUpdateCmdUI(Shw_pmainframe()->GetActiveFrame(), FALSE);
-	CloseShoebox();
+void CShwApp::OnProjectClose()
+{
+    pProject()->SetExerciseNoSave( TRUE );
+    CDocList doclst;
+    for ( CShwDoc* pdoc = doclst.pdocFirst(); pdoc; pdoc = doclst.pdocNext() )
+        {
+        UnWriteProtect( sUTF8( pdoc->GetPathName() ) );
+        pdoc->SetModifiedFlag( FALSE );
+        }
+    UnWriteProtect( m_pProject->pszPath() );
+    CloseShoebox();
 }
 
 BOOL CShwApp::bCloseProject()
@@ -1588,7 +1615,7 @@ BOOL CShwApp::bOpenOrNewProject()
 {
     // 1998-03-14 MRP: Need a loop because the user can choose Cancel.
     // 1998-03-16 MRP: To avoid recursive calls to this function, use
-    // OpenProject and NewProject instead of OnProjectOpen and OnProjectNew.
+    // the project picker and NewProject directly.
     ASSERT( !m_pProject );
     do
         {
