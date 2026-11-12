@@ -180,11 +180,79 @@ CField* CRecord::pfldFirstInSubRecord(const CMarker* pmkr,
     return NULL;
 }
 
-// insert template or clipboard contents into record at specified position
+// Normalize a field or the portion inserted by a paste. The surrounding text
+// supplies context for spacing and remains outside the replacement range.
+static int iNormalizeLineBreaks( CField* pfld, int iStart, int iEnd, BOOL bKeepBundleSeparator )
+{
+    const char* psz = pfld->sContents();
+    int iLength = pfld->GetLength();
+    int iBreak = iStart + strcspn( psz + iStart, "\r\n" );
+    if ( iBreak >= iEnd )
+        return iEnd;
+
+    // If the field starts with a blank line, take its indentation from the
+    // first line of text.
+    BOOL bLeadingBlank = iStart == 0 && (int)strspn( psz, " \t" ) == iBreak;
+    Str8 sNormalized( psz + iStart, bLeadingBlank ? 0 : iBreak - iStart );
+    int iText = iBreak;
+    while ( iBreak < iEnd )
+        {
+        iText = iBreak + 1;
+        int iIndent = iText;
+        while ( iText < iEnd && strchr( " \t\r\n", psz[iText] ) )
+            {
+            if ( psz[iText] == '\r' || psz[iText] == '\n' )
+                iIndent = iText + 1;
+            ++iText;
+            }
+
+        if ( iText == iLength )
+            {
+            if ( bKeepBundleSeparator )
+                sNormalized += '\n';
+            break;
+            }
+
+        if ( bLeadingBlank )
+            sNormalized += Str8( psz + iIndent, iText - iIndent );
+        else if ( iBreak > 0 && !strchr( " \t\r\n", psz[iBreak - 1] )
+                && !strchr( " \t\r\n", psz[iText] ) )
+            sNormalized += ' ';
+        bLeadingBlank = FALSE;
+
+        iBreak = min( iEnd, iText + (int)strcspn( psz + iText, "\r\n" ) );
+        sNormalized += Str8( psz + iText, iBreak - iText );
+        }
+
+    int iNewEnd = iStart + sNormalized.GetLength();
+    pfld->SetContent( pfld->Left( iStart ) + sNormalized + pfld->Mid( iEnd ) );
+    return iNewEnd;
+}
+
+BOOL CRecord::bNormalizeInterlinearLineBreaks()
+{
+    BOOL bChanged = FALSE;
+    for ( CField* pfld = pfldFirst(); pfld; pfld = pfldNext( pfld ) )
+        {
+        CRecPos rps( 0, pfld, this );
+        if ( !rps.bInterlinear() || !strpbrk( pfld->sContents(), "\r\n" ) )
+            continue;
+
+        int iLength = pfld->GetLength();
+        Str8 sBefore = pfld->sContents();
+        iNormalizeLineBreaks( pfld, 0, iLength, rps.bLastInBundle() );
+        if ( sBefore != pfld->sContents() )
+            bChanged = TRUE;
+        }
+    return bChanged;
+}
+
+// Insert template or clipboard contents into record at specified position.
 //------------------------------------------------------
-void CRecord::Paste( CRecPos* prps, Str8 sStr, CMarkerSet* pmkrset )
+void CRecord::Paste( CRecPos* prps, Str8 sStr, CMarkerSet* pmkrset, BOOL bNormalizeInterlinear )
 {
     CField* pfld = prps->pfld;
+    CRecPos rpsStart = *prps;
     Str8 sTail = pfld->Mid( prps->iChar ); // Save tail part
     pfld->ReleaseBuffer( prps->iChar ); // Cut off tail part
     BOOL bAddedNewMkr = FALSE;
@@ -254,6 +322,24 @@ void CRecord::Paste( CRecPos* prps, Str8 sStr, CMarkerSet* pmkrset )
     prps->SetPos( (*pfld).GetLength(), pfld );
     if ( bValidFldLen( pfld->GetLength() + sTail.GetLength() ) ) // don't overstuff Str8!
         *pfld += sTail; // tack on stuff following caret
+
+    if ( bNormalizeInterlinear )
+        {
+        for ( CRecPos rps = rpsStart; ; rps.NextField( 0 ) )
+            {
+            BOOL bLast = rps.pfld == prps->pfld;
+            if ( rps.bInterlinear() )
+                {
+                int iEnd = bLast ? prps->iChar : rps.pfld->GetLength();
+                BOOL bKeepBundleSeparator = rps.pfld != rpsStart.pfld && rps.bLastInBundle();
+                int iNewEnd = iNormalizeLineBreaks( rps.pfld, rps.iChar, iEnd, bKeepBundleSeparator );
+                if ( bLast )
+                    prps->SetPos( iNewEnd );
+                }
+            if ( bLast )
+                break;
+            }
+        }
 }
 
 

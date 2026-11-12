@@ -87,7 +87,8 @@ public:
         // Simply returns the very first field with pmkr
         // if pfldPriKey is NULL or if the outline hierarchy is the default.
     
-    void Paste( CRecPos* prps, Str8 sStr, CMarkerSet* pmkrset ); // insert sStr contents into record at prps
+    BOOL bNormalizeInterlinearLineBreaks();
+    void Paste( CRecPos* prps, Str8 sStr, CMarkerSet* pmkrset, BOOL bNormalizeInterlinear = TRUE ); // insert sStr contents into record at prps
     void ApplyDateStamp( CMarker* pmkrDateStamp ); // update or add datestamp field
     BOOL bCheckConsistency( const CNumberedRecElPtr& pnrl, CShwView* pview, CCheckingState *pcks = NULL );
     

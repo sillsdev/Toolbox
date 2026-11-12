@@ -95,7 +95,7 @@ BOOL CShwView::bEditUndo()
 				break;
 			}
 		m_rpsCur.SetPos( min( m_rpsCur.pfld->GetLength(), pund->iChar() ) ); // move to place where it happened in field
-		m_prelCur->prec()->Paste( &m_rpsCur, pund->pszText(), GetDocument()->pmkrset() ); // insert into record at current caret position
+		m_prelCur->prec()->Paste( &m_rpsCur, pund->pszText(), GetDocument()->pmkrset(), FALSE ); // Restore the original text for undo.
 		}
 	else // something was inserted, now we need to delete it
 		{
