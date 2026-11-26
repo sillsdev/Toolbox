@@ -114,6 +114,7 @@
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <ConformanceMode>false</ConformanceMode>
       <EnforceTypeConversionRules>No</EnforceTypeConversionRules>
+      <AdditionalIncludeDirectories>..\CCEngine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -134,6 +135,7 @@
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>libc;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
       <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
       <AdditionalDependencies>winmm.lib;usp10.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <StackReserveSize>10240</StackReserveSize>
@@ -141,10 +143,6 @@
       <SubSystem>Windows</SubSystem>
       <ModuleDefinitionFile>.\Shw32.def</ModuleDefinitionFile>
     </Link>
-    <PostBuildEvent>
-      <Command>xcopy $(SolutionDir)..\redist\32-bit\*.* $(TargetDir) /d /y</Command>
-      <Message>copy dependency DLLs, etc., to the build folder</Message>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MacWine Release|Win32'">
     <ClCompile>
@@ -164,6 +162,7 @@
       <ConformanceMode>false</ConformanceMode>
       <AdditionalOptions>/wd4596 %(AdditionalOptions)</AdditionalOptions>
       <EnforceTypeConversionRules>No</EnforceTypeConversionRules>
+      <AdditionalIncludeDirectories>..\CCEngine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -185,7 +184,7 @@
       <IgnoreSpecificDefaultLibraries>libc;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
       <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
-      <AdditionalDependencies>Cclib32.lib;winmm.lib;usp10.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>winmm.lib;usp10.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <StackReserveSize>10240</StackReserveSize>
       <EntryPointSymbol>wWinMainCRTStartup</EntryPointSymbol>
       <SubSystem>Windows</SubSystem>
@@ -211,6 +210,7 @@
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <ConformanceMode>false</ConformanceMode>
       <EnforceTypeConversionRules>No</EnforceTypeConversionRules>
+      <AdditionalIncludeDirectories>..\CCEngine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -241,12 +241,6 @@
       </IgnoreAllDefaultLibraries>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
-    <PostBuildEvent>
-      <Command>xcopy $(SolutionDir)..\redist\32-bit\*.* $(TargetDir) /d /y</Command>
-    </PostBuildEvent>
-    <PostBuildEvent>
-      <Message>copy dependency DLLs, etc., to the build folder</Message>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='TestLib|Win32'">
     <ClCompile>
@@ -267,6 +261,7 @@
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <ConformanceMode>false</ConformanceMode>
       <EnforceTypeConversionRules>No</EnforceTypeConversionRules>
+      <AdditionalIncludeDirectories>..\CCEngine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -297,12 +292,6 @@
       </IgnoreAllDefaultLibraries>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
-    <PostBuildEvent>
-      <Command>xcopy $(SolutionDir)..\redist\32-bit\*.* $(TargetDir) /d /y</Command>
-    </PostBuildEvent>
-    <PostBuildEvent>
-      <Message>copy dependency DLLs, etc., to the build folder</Message>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Alan.cpp" />
@@ -486,14 +475,15 @@
     <ClInclude Include="CCWrapper.h" />
     <ClInclude Include="Cdblel.h" />
     <ClInclude Include="Cdbllist.h" />
+    <ClInclude Include="cdbllstmac.h" />
     <ClInclude Include="Cfield.h" />
     <ClInclude Include="ChangeTable.h" />
     <ClInclude Include="Change_istream.h" />
     <ClInclude Include="Change_ostream.h" />
     <ClInclude Include="Charset.h" />
+    <ClInclude Include="CorGuess.h" />
     <ClInclude Include="Corpus.h" />
     <ClInclude Include="Corpus_d.h" />
-    <ClInclude Include="CorrespGuess.h" />
     <ClInclude Include="Crecord.h" />
     <ClInclude Include="Crecpos.h" />
     <ClInclude Include="Crlookel.h" />
@@ -504,6 +494,7 @@
     <ClInclude Include="Dbref.h" />
     <ClInclude Include="dbtypmac.h" />
     <ClInclude Include="Ddx.h" />
+    <ClInclude Include="defs.h" />
     <ClInclude Include="Dirlist.h" />
     <ClInclude Include="Dlgimpt.h" />
     <ClInclude Include="Dlgrcins.h" />
@@ -519,7 +510,16 @@
     <ClInclude Include="Find_d.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="generic.h" />
+    <ClInclude Include="help_ids.h" />
+    <ClInclude Include="hide_d.h" />
+    <ClInclude Include="html.h" />
+    <ClInclude Include="km95api.h" />
+    <ClInclude Include="MyMLang.h" />
+    <ClInclude Include="resmac.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="respc.h" />
+    <ClInclude Include="SHConv.h" />
+    <ClInclude Include="shwnotes.h" />
     <ClInclude Include="strstream_d255.h" />
     <ClInclude Include="Hint.h" />
     <ClInclude Include="Hints.h" />
@@ -611,6 +611,11 @@
     <ClInclude Include="Wordlist.h" />
     <ClInclude Include="Wrdlst_d.h" />
     <ClInclude Include="xml.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CCEngine\CCEngine.vcxproj">
+      <Project>{9659d786-f18a-4972-8c32-0976c44619d5}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

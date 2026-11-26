@@ -58,7 +58,6 @@ BOOL bApplyCCT( Str8 sCCT, Str8 sPath ) // 1.5.9mt Apply CC table to file, write
 	Str8 sCCOutBuff; // 1.5.9mh CC output buffer
 	int iCCInBuffLen = iFileLen + 1000; // 1.5.9mh 
 	int iCCOutBuffLen = 5 * iCCInBuffLen + 500000; // 1.5.9mh  // 1.5.9ne Enlarge CC output buffer
-	char* pszCCInBuff = sCCInBuff.GetBuffer( iCCInBuffLen ); // 1.5.9mh Allow room for read
 	char* pszCCOutBuff = sCCOutBuff.GetBuffer( iCCOutBuffLen ); // 1.5.9mh Allow plenty of room for CC expansion
 	// Load file into CC buffer
 	Str8 sLine; // 1.5.9mh 
@@ -75,7 +74,7 @@ BOOL bApplyCCT( Str8 sCCT, Str8 sPath ) // 1.5.9mt Apply CC table to file, write
 	bCCSucc = cct.bLoadFromFile( sCCT ); // 1.5.9mh Load change table
 	int iCCOutLen = iCCOutBuffLen; // 1.5.9mh 
 	if ( bCCSucc ) // 1.5.9mh If succesful load, make changes
-		bCCSucc = cct.bMakeChanges( pszCCInBuff, sCCInBuff.GetLength() + 1, 
+		bCCSucc = cct.bMakeChanges( sCCInBuff, sCCInBuff.GetLength(), 
 			pszCCOutBuff, &iCCOutLen ); // 1.5.9mh Make changes
 	if ( !bCCSucc ) // 1.5.9mh If not successful change, return fail
 		return FALSE; // 1.5.9mh 
@@ -360,7 +359,6 @@ BOOL CShwDoc::bRead(const char* pszPath, Str8& sMessage)
 				Str8 sCCOutBuff; // 1.5.9mh CC output buffer
 				int iCCInBuffLen = iFileLen + 1000; // 1.5.9mh 
 				int iCCOutBuffLen = 2 * iCCInBuffLen; // 1.5.9mh 
-				char* pszCCInBuff = sCCInBuff.GetBuffer( iCCInBuffLen ); // 1.5.9mh Allow room for read
 				char* pszCCOutBuff = sCCOutBuff.GetBuffer( iCCOutBuffLen ); // 1.5.9mh Allow plenty of room for CC expansion
 				// Load file into CC buffer
 				sCCInBuff += sLine; // 1.5.9mh 
@@ -376,7 +374,7 @@ BOOL CShwDoc::bRead(const char* pszPath, Str8& sMessage)
 				bCCSucc = cctImport.bLoadFromFile( sImportCCT ); // 1.5.9mh Load change table
 				int iCCOutLen = iCCOutBuffLen; // 1.5.9mh 
 				if ( bCCSucc ) // 1.5.9mh If succesful load, make changes
-					bCCSucc = cctImport.bMakeChanges( pszCCInBuff, sCCInBuff.GetLength() + 1, 
+					bCCSucc = cctImport.bMakeChanges( sCCInBuff, sCCInBuff.GetLength(), 
 						pszCCOutBuff, &iCCOutLen ); // 1.5.9mh Make changes
 				if ( !bCCSucc ) // 1.5.9mh If not successful change, give message and fail
 					{
