@@ -70,6 +70,7 @@ public:
 
     void OnFileNew(); // Set default folder
     void OnFileOpen(); // Set default folder
+    void OpenFilePath( const Str8& sPath );
 	HBRUSH GetAppDialogBrush(CDC* pDC);
 
 	BOOL bExternalJump(const char* pszWordFocusRef, CShwView* pshvFrom, BOOL bFailMessage = TRUE, BOOL bJump = TRUE ); // 1.4qzjf
@@ -178,7 +179,6 @@ public:
     afx_msg void OnUpdateFileDatabaseTypes(CCmdUI* pCmdUI);
     afx_msg void OnUpdateFileTextCorpus(CCmdUI* pCmdUI);
     afx_msg void OnProjectNew();
-    afx_msg void OnProjectOpen();
     afx_msg void OnProjectClose();
     afx_msg void OnUpdateProjectClose(CCmdUI* pCmdUI);
     afx_msg void OnProjectSave();

@@ -1,5 +1,74 @@
 #include "test_common.h"
+#include "crecpos.h"
 #include "crecord.h"
+
+TEST_CASE("Normalize line breaks in interlinear fields")
+{
+    CLangEncSet lngset("1.0", "");
+    CMarkerSet mkrset(&lngset);
+    CMarker* pmkrId = mkrset.pmkrAdd_MarkAsNew("id");
+    CMarker* pmkrTx = mkrset.pmkrAdd_MarkAsNew("tx");
+    CMarker* pmkrGe = mkrset.pmkrAdd_MarkAsNew("ge");
+    CMarker* pmkrNotes = mkrset.pmkrAdd_MarkAsNew("nt");
+    CMarker_Test::SetInterlinear(pmkrTx, TRUE);
+    CMarker_Test::SetInterlinear(pmkrGe, FALSE);
+
+    CRecord rec(new CField(pmkrId, "1"));
+    CField* pfldTx = new CField(pmkrTx, " \n  word   \r\n\r\n  next\n");
+    CField* pfldGe = new CField(pmkrGe, "go\n\n    PST\n\n");
+    CField* pfldNotes = new CField(pmkrNotes, "first\n\nsecond");
+    CField* pfldUnaligned = new CField(pmkrTx, "line one\nline two");
+    rec.Add(pfldTx);
+    rec.Add(pfldGe);
+    rec.Add(pfldNotes);
+    rec.Add(pfldUnaligned);
+
+    CHECK(rec.bNormalizeInterlinearLineBreaks());
+    CHECK(Str8(pfldTx->sContents()) == "  word   next");
+    CHECK(Str8(pfldGe->sContents()) == "go PST\n");
+    CHECK(Str8(pfldNotes->sContents()) == "first\n\nsecond");
+    CHECK(Str8(pfldUnaligned->sContents()) == "line one\nline two");
+    CHECK_FALSE(rec.bNormalizeInterlinearLineBreaks());
+}
+
+TEST_CASE("Normalize pasted interlinear text before recording the caret position")
+{
+    CLangEncSet lngset("1.0", "");
+    CMarkerSet mkrset(&lngset);
+    CMarker* pmkrId = mkrset.pmkrAdd_MarkAsNew("id");
+    CMarker* pmkrTx = mkrset.pmkrAdd_MarkAsNew("tx");
+    CMarker* pmkrGe = mkrset.pmkrAdd_MarkAsNew("ge");
+    CMarker* pmkrNotes = mkrset.pmkrAdd_MarkAsNew("nt");
+    CMarker_Test::SetInterlinear(pmkrTx, TRUE);
+    CMarker_Test::SetInterlinear(pmkrGe, FALSE);
+
+    CRecord rec(new CField(pmkrId, "1"));
+    CField* pfldTx = new CField(pmkrTx, "word tail");
+    CField* pfldGe = new CField(pmkrGe, "go\n");
+    rec.Add(pfldTx);
+    rec.Add(pfldGe);
+
+    SUBCASE("Plain text in the middle of an interlinear field")
+    {
+        CRecPos rps(4, pfldTx, &rec);
+        rec.Paste(&rps, "\r\nfirst\r\n\r\n  second", &mkrset);
+        CHECK(Str8(pfldTx->sContents()) == "word first second tail");
+        CHECK(rps.pfld == pfldTx);
+        CHECK(rps.iChar == 17);
+        CHECK(Str8(pfldGe->sContents()) == "go\n");
+    }
+
+    SUBCASE("Pasted fields")
+    {
+        CRecPos rps(0, pfldGe, &rec);
+        rec.Paste(&rps, "\\ge first\r\n\r\n  second\r\n\r\n\r\n\\nt first\r\n\r\nsecond ", &mkrset);
+        CField* pfldNewGe = rec.pfldNext(pfldGe);
+        REQUIRE(pfldNewGe);
+        CHECK(Str8(pfldNewGe->sContents()) == "first second\n");
+        CHECK(rps.pfld->pmkr() == pmkrNotes);
+        CHECK(Str8(rps.pfld->sContents()) == "first\n\nsecond go\n");
+    }
+}
 
 void CheckField(CField* pfldResult, CField* pfldExpected, const char* szLabel = "")
 {

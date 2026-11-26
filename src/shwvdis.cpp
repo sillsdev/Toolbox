@@ -2094,11 +2094,15 @@ void CShwView::EditCharInsert( LPCSTR szChar ) // Insert or overlay char //!!! A
 
     if ( nChar == '\n' )
         {
-        m_iWhatChanged |= eMultipleLines;
         CMarker* pmkrFollowingThis = m_rpsCur.pfld->pmkr()->pmkrFollowingThis();
 		if ( pmkrFollowingThis && ptyp()->bHideFields() && pmkrFollowingThis->bHidden() ) // 1.4gzg If automatically inserted field is hidden, don't insert it // 1.4gzj Fix crash (1.4gzg) on Enter at end of field
 			pmkrFollowingThis = NULL;
-        if ( pmkrFollowingThis && ::GetKeyState( VK_SHIFT ) >= 0 )
+        BOOL bInsertFollowingField = pmkrFollowingThis && ::GetKeyState( VK_SHIFT ) >= 0;
+        if ( m_rpsCur.bInterlinear() && !m_rpsCur.bLastInBundle() && !bInsertFollowingField )
+            return; // Only the last field in the bundle can hold a separator.
+
+        m_iWhatChanged |= eMultipleLines;
+        if ( bInsertFollowingField )
             {
             const char* psz = m_rpsCur.psz();
             Shw_bMatchWhiteSpaceAt(&psz);
@@ -2788,20 +2792,20 @@ BOOL CShwView::bEditPaste() // insert contents of clipboard into record
 {
     ASSERT( m_prelCur );
     Str8 sClip = sGetClipBoardData( this, m_rpsCur.pfld->plng()->bUnicodeLang() );  // 1.4rbc Encapsulate get clipboard data
+    if ( sClip.IsEmpty() )
+        return FALSE;
     
-    if ( m_rpsCur.bInterlinear() && !( *(const char*)sClip == '\\' ) )
+    if ( m_rpsCur.bInterlinear() && sClip.GetChar( 0 ) != '\\' )
         {
         int iChar = m_rpsCur.iChar;
         if ( iChar > 0 && *m_rpsCur.psz( iChar - 1 ) == '\n' ) // Don't paste after nl of interlinear
-            return FALSE;
-        if ( sClip.Find( '\n' ) >= 0 ) // Don't paste multiple lines into interlinear
             return FALSE;
         }
     DeleteSelection();
 	if ( sClip.GetChar( 0 ) == '\\' && m_rpsCur.iChar == 0 && m_rpsCur.pfld->GetLength() > 0 ) // 1.5.0jb If paste field at start of field, put before field // 1.5.0jf Fix bug (1.5.0jb) of paste field wrong in empty field
 		bEditLeft(); // 1.5.0jb 
     CRecPos rpsBefore = m_rpsCur;
-    m_prelCur->prec()->Paste( &m_rpsCur, sClip, GetDocument()->pmkrset() ); // insert into record at current caret position
+    m_prelCur->prec()->Paste( &m_rpsCur, sClip, GetDocument()->pmkrset() );
     m_undlst.Add( rpsBefore, m_rpsCur ); // make it undoable
     EditSetCaret( m_rpsCur.pfld, m_rpsCur.iChar );
     SetScroll( TRUE );

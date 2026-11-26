@@ -233,6 +233,8 @@ BOOL CShwDoc::bRead(const char* pszPath, Str8& sMessage)
 				{
 				if ( sTag == sRecMkrGroupEndXML ) // 1.5.9ea If end of record marker group, make record
 					{
+					if ( prec->bNormalizeInterlinearLineBreaks() && !bReadOnly )
+						SetModifiedFlag(TRUE);
 					m_pindset->AddRecord(prec); // 1.5.9ea Add record to index set
 					pfldKey = new CField( ptyp->pmkrRecord() ); // 1.5.9ea Make new empty field to satisfy record
 					prec = new CRecord( pfldKey ); // 1.5.9ea Make new record to fill in
@@ -469,6 +471,8 @@ BOOL CShwDoc::bRead(const char* pszPath, Str8& sMessage)
 						sContentFixed = sContentFixed.Left( sContentFixed.GetLength() - 1 ); // 1.5.9hb Remove nl
 						pfldCur->SetContent( sContentFixed ); // 1.5.9hb Store contentn with nl removed
 						}
+					if ( prec->bNormalizeInterlinearLineBreaks() && !bReadOnly )
+						SetModifiedFlag(TRUE);
 					m_pindset->AddRecord(prec); // 1.5.9hb Add record to index set
 					}
 				if ( !pszSucc ) // 1.5.9hb If end of file, stop reading
@@ -638,9 +642,9 @@ BOOL CShwDoc::bImport(const char* pszPath, const int nMode, const Str8& sMissing
 		_close( fh );
 		sFileText.ReleaseBuffer(bytesread);
 		}
-	if ( sFileText.Find( "\\+ShProjectSettings" ) == 0 ) // 1.2mk If File, Open of project file, give warning // 1.5.0fh Fix problem of thinking message file is project file
+	if ( sFileText.Find( "\\+ShProjectSettings" ) == 0 && CProject::s_bIsProjectFile( pszPath ) )
         {
-		sMessage = _("This file is a Toolbox project file. It must be opened using Project, Open."); // 1.5.0fg 
+		sMessage = _("This file is a Toolbox project file. Use File, Open to switch projects.");
         return FALSE;
         }
 
@@ -829,6 +833,8 @@ BOOL CShwDoc::bReadRecords(const char* pszPath, std::ifstream& ios, SF_istream& 
         CRecord* prec = NULL;
         if (!sfs.bReadRecord(&prec)) 
             return FALSE;
+        if ( prec->bNormalizeInterlinearLineBreaks() && !bReadOnly() )
+            SetModifiedFlag(TRUE);
         m_pindset->AddRecord(prec);  // 1995-05-26 MRP
 		LONG lPos = static_cast<LONG>(ios.tellg());
         if ( !prg.bUpdateProgress(lPos) )
