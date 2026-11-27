@@ -112,8 +112,6 @@ BOOL bAnotherInstanceFound() // 1.2mm See if another instance of Toolbox is runn
 	return FALSE;
 	}
 
-extern void BringIn(); // 1.4vwe 
-
 BOOL CProject::s_bConstruct(const char* pszProjectPath, BOOL bOpening,
         const char* pszSettingsVersion, CProject** ppprj)
 {
@@ -183,16 +181,7 @@ BOOL CProject::s_bConstruct(const char* pszProjectPath, BOOL bOpening,
             CDatabaseType* ptyp = ptrx->ptyp(notlst);
             ptyp->UpdatePaths();
             }
-		if ( !pprj->bExerciseNoSave() ) // 1.4vwg Don't bring in window of moved exercise project
-			BringIn(); // 1.4vwe If project moved, bring Toolbox window into home position
         }
-    if ( pprj->bProjectMoved() ) // 1.2mj If project moved and ambig window outside 640x480, move it in
-        {
-//		if ( pprj->m_rectAmbig.left > 400 || pprj->m_rectAmbig.left < 0 ) // 1.2mj If left or above main monitor, move it in also // 1.4vwf 
-//			pprj->m_rectAmbig.left = 0; // 1.4vwf Not needed because included in BringIn
-//		if ( pprj->m_rectAmbig.top > 300 || pprj->m_rectAmbig.top < 0) // 1.4vwf 
-//			pprj->m_rectAmbig.top = 20; // 1.4vwf 
-		}
 
     *ppprj = pprj;
 

@@ -109,11 +109,47 @@ CAmbigDlg::CAmbigDlg( CFieldList* pfldlst, CFieldList* pfldlstExcluded,
 
 static CRect s_rectAmbig( 0, 20, 0, 0 );
 
+static void RestoreAmbigDialogPosition(CDialog& dialog)
+{
+    CWnd* mainWindow = Shw_papp()->m_pMainWnd;
+    const CRect& savedPosition = Shw_papp()->pProject()->m_rectAmbig;
+    CRect windowRect;
+    dialog.GetWindowRect(&windowRect);
+
+    TITLEBARINFO titleBar = { sizeof(TITLEBARINFO) };
+    CRect captionRect = windowRect;
+    captionRect.bottom = captionRect.top + GetSystemMetrics(SM_CYCAPTION);
+    if (::GetTitleBarInfo(dialog.GetSafeHwnd(), &titleBar))
+        captionRect = titleBar.rcTitleBar;
+    captionRect.OffsetRect(savedPosition.left - windowRect.left,
+                           savedPosition.top - windowRect.top);
+
+    // An oversized dialog is still usable if enough of its title bar can be grabbed.
+    const int grabWidth = min(captionRect.Width(), 2 * GetSystemMetrics(SM_CXSIZE));
+    HMONITOR savedMonitor = MonitorFromRect(&captionRect, MONITOR_DEFAULTTONULL);
+    MONITORINFO monitor = { sizeof(MONITORINFO) };
+    CRect visibleCaption;
+    CPoint position = savedPosition.TopLeft();
+    if (!(savedMonitor && GetMonitorInfo(savedMonitor, &monitor) &&
+          visibleCaption.IntersectRect(&captionRect, &monitor.rcWork) &&
+          visibleCaption.Width() >= grabWidth &&
+          visibleCaption.Height() == captionRect.Height()))
+        {
+        HMONITOR mainMonitor = MonitorFromWindow(mainWindow->GetSafeHwnd(), MONITOR_DEFAULTTONEAREST);
+        if (!GetMonitorInfo(mainMonitor, &monitor))
+            return;
+        const CRect workArea(monitor.rcWork);
+        position.x = workArea.left + max(0, (workArea.Width() - windowRect.Width()) / 2);
+        position.y = workArea.top + max(0, (workArea.Height() - windowRect.Height()) / 2);
+        }
+
+    dialog.SetWindowPos(NULL, position.x, position.y, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+}
+
 BOOL CAmbigDlg::OnInitDialog()
 {
     CDialog::OnInitDialog();
-	s_rectAmbig = Shw_papp()->pProject()->m_rectAmbig; // 1.2mj Remember position of ambig box
-    SetWindowPos( NULL, s_rectAmbig.left, s_rectAmbig.top, 0, 0, SWP_NOSIZE | SWP_NOZORDER ); // Remembers where user put it last
+    RestoreAmbigDialogPosition(*this);
     m_lboAmbigs.InitListBox();
     m_btnFormulas.EnableWindow( m_pwdfset && m_pwdfset->bEnabled() );  // 1999-09-04 MRP
     return TRUE;  // input focus will be set to the dialog's first control
@@ -183,8 +219,7 @@ BOOL CLookFailDlg::OnInitDialog()
 //	SetDlgItemTxt( IDC_LookupFailureKey, m_sKey); // 1.4qpn
 	m_elcKey.SetLangEnc(m_plng);
 	m_elcKey.SetEditLngText( m_sKey ); // 1.4qpn
-	s_rectAmbig = Shw_papp()->pProject()->m_rectAmbig; // 1.2mj Remember position of ambig box
-    SetWindowPos( NULL, s_rectAmbig.left, s_rectAmbig.top, 0, 0, SWP_NOSIZE | SWP_NOZORDER ); // Remembers where user put it last
+    RestoreAmbigDialogPosition(*this);
     return TRUE;  // return TRUE  unless you set the focus to a control
 }
 

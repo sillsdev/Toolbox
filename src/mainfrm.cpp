@@ -663,7 +663,7 @@ void CMainFrame::OnBugReport()
     BugReport();
 }
 
-void BringIn() // 1.4db Add Ctrl+Shift+B to bring in window that is off screen // 1.4vwe 
+void CMainFrame::OnBringIn() // Ctrl+Shift+B brings an off-screen window back into view.
 {
 	CWnd* pwnd = Shw_papp()->m_pMainWnd;
 	WINDOWPLACEMENT wpl;
@@ -686,11 +686,6 @@ void BringIn() // 1.4db Add Ctrl+Shift+B to bring in window that is off screen /
 	pwnd->SetWindowPlacement(&wpl);
 	Shw_papp()->pProject()->SetAmbigPos( 0, 20 ); // 1.4vwf Make bring in command (Ctrl+Alt+B) bring in ambig box
 }
-
-void CMainFrame::OnBringIn() // 1.4db Add Ctrl+Shift+B to bring in window that is off screen // 1.4vwe 
-	{
-	BringIn(); // 1.4vwe Separate function so it can be called from elsewhere
-	}
 
 void CMainFrame::OnViewStatusBar()
 {
