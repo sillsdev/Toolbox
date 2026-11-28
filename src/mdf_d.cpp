@@ -468,13 +468,6 @@ void CMDFAudienceSetupDlg::OnOK()
 	GetDlgItemText( IDC_MDF_edtNationalDot, sDlgItem ); // 1.4qpw
 	m_sNationalDot = sUTF8( sDlgItem ); // 1.4qpw
 
-    // 1997-12-01 MRP: If either the English or National change tables
-    // have a path, remove it, since they must be in the settings folder.
-    if ( !m_sEnglishLabelsCct.IsEmpty() )
-        m_sEnglishLabelsCct = sGetFileName(m_sEnglishLabelsCct);
-    if ( !m_sNationalLabelsCct.IsEmpty() )
-        m_sNationalLabelsCct = sGetFileName(m_sNationalLabelsCct);
-
     m_pdlg->m_sEnglishLabelsCct = m_sEnglishLabelsCct;
     m_pdlg->m_sEnglishDot = m_sEnglishDot;
     m_pdlg->m_sNationalLabelsCct = m_sNationalLabelsCct;
@@ -493,9 +486,6 @@ void CMDFAudienceSetupDlg::OnBrowseEnglishLabelsCct()
 
     if ( CExportProcess::s_bBrowseForFile(_("Change Table for English Audience Labels"), NULL, sFileFilter, sProjectPath, m_sEnglishLabelsCct, IDD) )
         {
-        // 1997-12-01 MRP: If either the English or National change tables
-        // have a path, remove it, since they must be in the settings folder.
-        m_sEnglishLabelsCct = sGetFileName(m_sEnglishLabelsCct);
 	    SetDlgItemText( IDC_MDF_edtEnglishLabelsCct, swUTF16( m_sEnglishLabelsCct ) ); // 1.4qzmg Fix U bug of not updating MDF export template from browse button
 //        UpdateData(FALSE);  // from dialog object members to controls // 1.4qzmg
         }
@@ -527,9 +517,6 @@ void CMDFAudienceSetupDlg::OnBrowseNationalLabelsCct()
 
     if ( CExportProcess::s_bBrowseForFile(_("Change Table for National Audience Labels"), NULL, sFileFilter, sProjectPath, m_sNationalLabelsCct, IDD) )
         {
-        // 1997-12-01 MRP: If either the English or National change tables
-        // have a path, remove it, since they must be in the settings folder.
-        m_sNationalLabelsCct = sGetFileName(m_sNationalLabelsCct);
 	    SetDlgItemText( IDC_MDF_edtNationalLabelsCct, swUTF16( m_sNationalLabelsCct ) ); // 1.4qzmg Fix U bug of not updating MDF export template from browse button
         UpdateData(FALSE);  // from dialog object members to controls // 1.4qzmg
         }

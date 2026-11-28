@@ -85,13 +85,6 @@ CSet* CCorpus::psetMyOwner()
     return m_pcorsetMyOwner; 
 }
 
-void CCorpus::UpdatePaths()
-{
-	Shw_pProject()->UpdatePath( m_sFilesList );
-	Shw_pProject()->UpdatePath( m_sWordIndexPath );
-	Shw_pProject()->UpdatePath( m_sWordListOutput );
-}
-
 #ifdef prjWritefstream // 1.6.4aa 
 void CCorpus::WriteProperties(Object_ofstream& obs) const
 #else
@@ -99,14 +92,14 @@ void CCorpus::WriteProperties(Object_ostream& obs) const
 #endif
 {
 	obs.WriteBeginMarker(psz_Corpus, sKey());
-	obs.WriteString(psz_mkrFilesList, m_sFilesList);
+	obs.WriteString(psz_mkrFilesList, Shw_pProject()->sStoredPathList(m_sFilesList));
 	m_plng->WriteRef(obs, "");
 	obs.WriteString(psz_mkrWordMarkers, m_sWordMarkers);
 	obs.WriteString(psz_mkrBookMarker, m_sBookMarker);
 	obs.WriteString(psz_mkrChapMarker, m_sChapMarker);
 	obs.WriteString(psz_mkrVerseMarker, m_sVerseMarker);
-	obs.WriteString(psz_mkrWordIndex, m_sWordIndexPath);
-	obs.WriteString(psz_mkrWordListOutput, m_sWordListOutput);
+	obs.WriteProjectPath(psz_mkrWordIndex, m_sWordIndexPath);
+	obs.WriteProjectPath(psz_mkrWordListOutput, m_sWordListOutput);
 	obs.WriteEndMarker(psz_Corpus);
 }
 
@@ -122,7 +115,7 @@ BOOL CCorpus::bReadProperties(Object_istream& obs)
 	while (!obs.bAtEnd()) 
 		{
 		if (obs.bReadString(psz_mkrFilesList, m_sFilesList))
-			;
+            m_sFilesList = Shw_pProject()->sResolvedPathList(m_sFilesList, obs.bRelocateLegacyPaths());
 		else if (obs.bReadString(psz_mkrWordMarkers, m_sWordMarkers))
 			;
 		else if (obs.bReadString(psz_mkrBookMarker, m_sBookMarker))
@@ -131,9 +124,9 @@ BOOL CCorpus::bReadProperties(Object_istream& obs)
 			;
 		else if (obs.bReadString(psz_mkrVerseMarker, m_sVerseMarker))
 			;
-		else if (obs.bReadString(psz_mkrWordIndex, m_sWordIndexPath))
+		else if (obs.bReadProjectPath(psz_mkrWordIndex, m_sWordIndexPath))
 			;
-		else if (obs.bReadString(psz_mkrWordListOutput, m_sWordListOutput))
+		else if (obs.bReadProjectPath(psz_mkrWordListOutput, m_sWordListOutput))
 			;
 		else if (Shw_plngset()->bReadLangEncRef(obs, "", plng))
 			;
@@ -593,17 +586,6 @@ CCorpusSet::~CCorpusSet()
 {
 }
 
-void CCorpusSet::UpdatePaths()
-{
-	if ( Shw_pProject()->bProjectMoved() )
-		{
-		m_sSettingsDirPath = Shw_pProject()->sSettingsDirPath();
-		Shw_pProject()->UpdatePath( m_sConcordanceOutput );
-		for ( CCorpus* pcor = (CCorpus*) pselFirst(); pcor; pcor = (CCorpus*) pselNext(pcor) )
-			pcor->UpdatePaths();
-		}
-}
-
 
 void CCorpusSet::ViewElements(CCorpus** ppcorSelect)
 {
@@ -680,7 +662,7 @@ void CCorpusSet::WriteProperties(Object_ostream& obs) const
     obs.WriteInteger(psz_mkrConcordanceMaxCount, m_nConcordanceMaxCount);
     obs.WriteBool(psz_mkrNoConcordanceIgnoreCase, !m_bConcordanceIgnoreCase);
     obs.WriteBool(psz_mkrConcordanceAlignMatchedStrings, m_bConcordanceAlignMatchedStrings); // 1.4vyx 
-    obs.WriteString(psz_mkrConcordanceOutput, m_sConcordanceOutput);
+    obs.WriteProjectPath(psz_mkrConcordanceOutput, m_sConcordanceOutput);
     while (pcor != NULL) 
         {
         pcor->WriteProperties(obs); // 1.6.4aa 
@@ -727,7 +709,7 @@ BOOL CCorpusSet::bReadProperties(Object_istream& obs)
             m_bConcordanceIgnoreCase = !m_bConcordanceIgnoreCase;
         else if (obs.bReadBool(psz_mkrConcordanceAlignMatchedStrings, m_bConcordanceAlignMatchedStrings)) // 1.4vyx 
             ;
-        else if (obs.bReadString(psz_mkrConcordanceOutput, m_sConcordanceOutput))
+        else if (obs.bReadProjectPath(psz_mkrConcordanceOutput, m_sConcordanceOutput))
             ;
         else if (obs.bEnd(psz_CorpusSet)) // If end of list, stop
             break;

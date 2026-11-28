@@ -118,16 +118,16 @@ public:
         { m_refReadOnlyIndexSets.DecrementNumberOfRefs(); }
     BOOL bHasRefsFromReadOnlyIndexSets() const
         { return m_refReadOnlyIndexSets.bHasRefs(); }
-	void UpdatePaths(); // Update paths that point to project folder if project moved
 	void WritePaths( std::ofstream& ostr ); // Write paths that are in active use
     
-	void WriteProperties( const char* sPath ) const; // 5.99f Encapsulate opening of the ostream
+	BOOL bWriteProperties(const char* path, BOOL bForceWrite = FALSE) const;
+    void WriteProperties(const char* path) const { bWriteProperties(path); }
 #ifdef typWritefstream // 1.6.4ac
     void WriteProperties(Object_ofstream& obs) const;
 #else
     void WriteProperties(Object_ostream& obs) const;
 #endif
-    BOOL bReadProperties(CNoteList& notlst);
+    BOOL bReadProperties(CNoteList& notlst, BOOL bLocateMissing = TRUE);
     BOOL bReadProperties(Object_istream& obs);
 
 #ifdef typWritefstream // 1.6.4ac
@@ -259,6 +259,7 @@ public:
 
     void ReadAllProxies(CNoteList& notlst);
     void WriteAllModified( BOOL bForceWrite=FALSE );
+    BOOL bSaveProjectPaths(BOOL bForceWrite);
         
     CDatabaseTypeProxy* ptrxAdd( const char* pszName, const char* pszFileName );
 

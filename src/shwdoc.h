@@ -75,9 +75,9 @@ public:
     BOOL bWrite(const char* pszPath, BOOL bExport = FALSE, CIndex* pindExport = NULL, CMarkerSubSet* psubsetMarkersToExport = NULL, BOOL bCurrentRecord = FALSE, const CRecLookEl* prelCur = NULL, DWORD* pdwError = NULL);
     
 #ifdef prjWritefstream // 1.6.4aa 
-    void WriteProperties(Object_ofstream& obs);
+    void WriteProperties(Object_ofstream& obs, BOOL bProjectList = FALSE);
 #else
-    void WriteProperties(Object_ostream& obs);
+    void WriteProperties(Object_ostream& obs, BOOL bProjectList = FALSE);
 #endif
     static BOOL s_bReadProperties(Object_istream& obs);
     

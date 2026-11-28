@@ -713,7 +713,7 @@ void CShwApp::WriteDbList(Object_ostream& obs)
 
     CDocList doclst; // get list of currently open documents
     for ( CShwDoc* pdoc = doclst.pdocFirst(); pdoc; pdoc = doclst.pdocNext() )
-        pdoc->WriteProperties(obs);
+        pdoc->WriteProperties(obs, TRUE);
 
     obs.WriteEndMarker(psz_dblst);
 }
@@ -1012,7 +1012,8 @@ BOOL CShwApp::bSaveAllFiles( BOOL bWriteProtect, bool bAsk ) // 1.2gz Unwrite pr
 				UnWriteProtect( sUTF8( pdoc->GetPathName() ) ); // 1.2gz Unwrite protect data files when running batch file // 1.4qxa // 1.4qzhg
 			}
         }
-    pProject()->SaveSettings();
+    if (!pProject()->bSaveSettings())
+        return FALSE;
     // Update the name of the project in SHW.INI section of registry
     Str8 sProjectPath = pProject()->pszPath();
     WriteToIni_ProjectPath(sProjectPath);
@@ -1370,7 +1371,8 @@ void CShwApp::OnProjectSaveas()
 		return; // 1.4vze 
     Str8 sNewPath =  sPath; // 1.4qxs // 1.5.8h 
     BOOL bSameDir = !_stricmp( sGetDirPath(sNewPath), sGetDirPath(pProject()->pszPath()) );
-    pProject()->SaveSettings(); // save current project first
+    if (!pProject()->bSaveSettings()) // save current project first
+        return;
 	UnWriteProtect( pProject()->pszPath() ); // 1.2ah Turn off write protect of old project to say no longer in use // 1.4qzhg
     pProject()->SetPath( sNewPath );
     pProject()->SaveSettings( !bSameDir ); // force settings files to be written if saving to different directory

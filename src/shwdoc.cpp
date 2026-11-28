@@ -61,16 +61,14 @@ static const char* psz_wnd = "wnd";
 static const char* psz_Margin = "Margin";
 
 #ifdef prjWritefstream // 1.6.4aa 
-void CShwDoc::WriteProperties(Object_ofstream& obs)
+void CShwDoc::WriteProperties(Object_ofstream& obs, BOOL bProjectList)
 #else
-void CShwDoc::WriteProperties(Object_ostream& obs)
+void CShwDoc::WriteProperties(Object_ostream& obs, BOOL bProjectList)
 #endif
 {
 
-    const Str8& sPath =  sUTF8( GetPathName() ); // 1.4qxf Upgrade GetPathName for Unicode build
-    char pszFullPath[_MAX_PATH];
-    _fullpath(pszFullPath, sPath, sizeof(pszFullPath));
-    obs.WriteBeginMarker(psz_db, pszFullPath);
+    const Str8 path = sUTF8(GetPathName());
+    obs.WriteBeginMarker(psz_db, bProjectList ? Shw_pProject()->sStoredPath(path) : path);
     obs.WriteBool(psz_ReadOnly, m_bReadOnly);
     
     obs.WriteBeginMarker(psz_wndlst);
@@ -112,8 +110,9 @@ BOOL CShwDoc::s_bReadProperties(Object_istream& obs)
     BOOL bReadOnly = FALSE;
 	BOOL bTextFile = FALSE; // 1.1ef
     
-    UpdateAppPath( sPath );     // Update path if it has the <AppPath> token  4-5-98
-    Shw_pProject()->UpdatePath( sPath ); // Update path if project moved and it was in project folder
+    if (obs.bProjectPaths())
+        sPath = Shw_pProject()->sResolvedPath(sPath, obs.bRelocateLegacyPaths());
+    UpdateAppPath(sPath);
 
     // 1995-11-10; 1996-07-24 MRP
     if ( !bFileExists(sPath) ) // || !bAllASCIIComplain( sPath ) )  // If the file does not exist // 1.4vze Complain and refuse if path contains upper ANSI // 1.5.9ka Allow Unicode file names

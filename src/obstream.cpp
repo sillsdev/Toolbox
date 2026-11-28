@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "toolbox.h"
 #include "obstream.h"
+#include "project.h"
 // #undef Object_ostream // 1.6.1cb  // 1.6.4aa Never do full redefine with FileStream
 // #undef Object_istream // 1.6.1cm  // 1.6.4aa Never do full redefine with FileStream
 #include <iostream>
@@ -11,6 +12,27 @@ using namespace std;  // classes istream, ostream
 #ifdef OBSTREAM_NOTES   // 1.6.4aa Not defined
 #include "not.h"  // class CNoteList
 #endif  // 1.6.4aa 
+
+void Object_ofstream::WriteProjectPath(const char* marker, const Str8& path)
+{
+    const CProject* project = Shw_pProject();
+    WriteString(marker, project ? project->sStoredPath(path) : path);
+}
+
+void Object_ostream::WriteProjectPath(const char* marker, const Str8& path)
+{
+    const CProject* project = Shw_pProject();
+    WriteString(marker, project ? project->sStoredPath(path) : path);
+}
+
+BOOL Object_istream::bReadProjectPath(const char* marker, Str8& path)
+{
+    if (!bReadString(marker, path))
+        return FALSE;
+    if (const CProject* project = Shw_pProject())
+        path = project->sResolvedPath(path, bRelocateLegacyPaths());
+    return TRUE;
+}
 
 static const char s_pszWhiteSpace[] = " \n\t";  // space, newline, tab
 static const char s_pszOtherWhiteSpace[] = "\n\t";  // besides space

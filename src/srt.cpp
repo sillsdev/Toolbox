@@ -4,6 +4,7 @@
 #include "toolbox.h"
 #include "lng.h"
 #include "obstream.h"  // classes Object_istream, Object_ostream
+#include "project.h"
 #include "patch.h"  // Shw_bMatchWhiteSpaceAt, Shw_bAtWhiteSpace
 #include "not.h"  // new CNote
 #include "shwnotes.h"  // IDN_srt_...
@@ -249,12 +250,13 @@ void CSortOrder::WriteProperties(Object_ostream& obs) const
     obs.WriteString(psz_SecFollowing, m_sSecondariesFollowing);
     obs.WriteString(psz_ignore, m_sIgnore);
     obs.WriteBool(psz_SecAfterBase, m_bSecAfterBase);
-    // Assume that the Change table file is in the settings directory
 #if UseCct
-    Str8 sPathCCT = sGetFileName(m_sPathCCT, TRUE);
-    obs.WriteString(psz_cct, sPathCCT);
+    obs.WriteProjectPath(psz_cct, m_sPathCCT);
 #endif
-    obs.WriteString(psz_dll, m_sPathDLL);
+    if (sGetDirPath(m_sPathDLL).IsEmpty())
+        obs.WriteString(psz_dll, m_sPathDLL); // Preserve the system lookup for bare DLL names.
+    else
+        obs.WriteProjectPath(psz_dll, m_sPathDLL);
 //    obs.WriteBool(psz_SkipSeq, m_bSkipSeq ); // TLB 04/10/2000 - Replaced with the following:
     obs.WriteBool(psz_DLLOutputsCharCodes, (!m_sPathDLL.IsEmpty() && !m_bSkipSeq)); // When a DLL is present, the default action is to skip the char-code sequencing 
     obs.WriteEndMarker(psz_srt);
@@ -293,7 +295,7 @@ BOOL CSortOrder::s_bReadProperties(Object_istream& obs,
             ;
         else if ( obs.bReadBool(psz_SecAfterBase, bSecAfterBase) )
             ;
-        else if ( obs.bReadString(psz_cct, sPathCCT) )
+        else if ( obs.bReadProjectPath(psz_cct, sPathCCT) )
             ;
         else if ( obs.bReadString(psz_dll, sPathDLL) )
             ;
@@ -304,14 +306,15 @@ BOOL CSortOrder::s_bReadProperties(Object_istream& obs,
             break;
         }
     
-    if ( !sPathCCT.IsEmpty() )
+    if ( !sPathCCT.IsEmpty() && sGetDirPath(sPathCCT).IsEmpty() )
         {
         // Assume that the Change table file is in the settings directory
         const Str8& sSettingsDirPath = psrtsetMyOwner->
             plngMyOwner()->plngsetMyOwner()->sSettingsDirPath();
-        Str8 sFileNameExt = sGetFileName(sPathCCT, TRUE);
-        sPathCCT = sPath(sSettingsDirPath, sFileNameExt);
+        sPathCCT = sPath(sSettingsDirPath, sPathCCT);
         }
+    if (!sGetDirPath(sPathDLL).IsEmpty() && Shw_pProject())
+        sPathDLL = Shw_pProject()->sResolvedPath(sPathDLL, FALSE);
 
     // When sorting or comparing, skip the Language Encoding Character code look-up if we have a Sorting
     // DLL that outputs straight numeric sorting codes rather than language encoding character codes.

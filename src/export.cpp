@@ -257,9 +257,9 @@ void CExportProcessRTF::WriteProperties(Object_ostream& obs) const
     obs.WriteBeginMarker(psz_expRTF, sName());
 
     obs.WriteBool(psz_PriKeyFieldFirst, m_bPriKeyFieldFirst);  // 1998-03-06 MRP
-    obs.WriteString(psz_cct, m_sPathCCT);
-    obs.WriteString(psz_dot, m_sPathDOT);
-    obs.WriteString(psz_rtf, m_sPathRTF);
+    obs.WriteProjectPath(psz_cct, m_sPathCCT);
+    obs.WriteProjectPath(psz_dot, m_sPathDOT);
+    obs.WriteProjectPath(psz_rtf, m_sPathRTF);
     obs.WriteBool(psz_MarkerFont, m_bMarkerFont);
     if ( m_pexpsetMyOwner->bInterlinear() )
         {
@@ -308,11 +308,11 @@ void CExportProcessRTF::ReadProperties(Object_istream& obs)
         {
         if ( obs.bReadBool(psz_PriKeyFieldFirst, m_bPriKeyFieldFirst) )
             ;
-        else if ( obs.bReadString(psz_cct, m_sPathCCT) )
+        else if ( obs.bReadProjectPath(psz_cct, m_sPathCCT) )
             ;
-        else if ( obs.bReadString(psz_dot, m_sPathDOT) )
+        else if ( obs.bReadProjectPath(psz_dot, m_sPathDOT) )
             ;
-        else if ( obs.bReadString(psz_rtf, m_sPathRTF) )
+        else if ( obs.bReadProjectPath(psz_rtf, m_sPathRTF) )
             ;
         else if ( obs.bReadBool(psz_MarkerFont, m_bMarkerFont) )
             ;
@@ -686,8 +686,8 @@ void CExportProcessSF::WriteProperties(Object_ostream& obs) const
     obs.WriteBeginMarker(psz_expSF, sName());
 
     obs.WriteBool(psz_PriKeyFieldFirst, m_bPriKeyFieldFirst);  // 1998-03-06 MRP
-    obs.WriteString(psz_cct, m_sPathCCT);
-    obs.WriteString(psz_sf, m_sPathSF);
+    obs.WriteProjectPath(psz_cct, m_sPathCCT);
+    obs.WriteProjectPath(psz_sf, m_sPathSF);
     obs.WriteString(psz_ChainProcess, m_sChainProcess);
     obs.WriteBool(psz_CheckConsistency, m_bCheckConsistency);
     obs.WriteBool(psz_OverwriteOutputFile, m_bOverwriteOutputFile);
@@ -727,9 +727,9 @@ void CExportProcessSF::ReadProperties(Object_istream& obs)
         {
         if ( obs.bReadBool(psz_PriKeyFieldFirst, m_bPriKeyFieldFirst) )
             ;
-        else if ( obs.bReadString(psz_cct, m_sPathCCT) )
+        else if ( obs.bReadProjectPath(psz_cct, m_sPathCCT) )
             ;
-        else if ( obs.bReadString(psz_sf, m_sPathSF) )
+        else if ( obs.bReadProjectPath(psz_sf, m_sPathSF) )
             ;
         else if ( obs.bReadString(psz_ChainProcess, m_sChainProcess) )
             ;
@@ -1071,9 +1071,9 @@ void CExportProcessXML::WriteProperties(Object_ostream& obs) const
 
     obs.WriteBool(psz_PriKeyFieldFirst, m_bPriKeyFieldFirst);  // 1998-03-06 MRP
     obs.WriteBool(psz_UTF8, m_bUTF8);
-    obs.WriteString(psz_cct, m_sPathCCT);
-    obs.WriteString(psz_stylesheetFile, m_sPathStylesheet);
-    obs.WriteString(psz_exportedFile, m_sPathXML);
+    obs.WriteProjectPath(psz_cct, m_sPathCCT);
+    obs.WriteProjectPath(psz_stylesheetFile, m_sPathStylesheet);
+    obs.WriteProjectPath(psz_exportedFile, m_sPathXML);
     obs.WriteBool(psz_DontCheckConsistency, !m_bCheckConsistency);
     obs.WriteBool(psz_OverwriteOutputFile, m_bOverwriteOutputFile);
     obs.WriteBool(psz_AddAlphDiv, m_bAddAlphDiv);
@@ -1114,11 +1114,11 @@ void CExportProcessXML::ReadProperties(Object_istream& obs)
             ;
         else if ( obs.bReadBool(psz_UTF8, m_bUTF8) )
             ;
-        else if ( obs.bReadString(psz_cct, m_sPathCCT) )
+        else if ( obs.bReadProjectPath(psz_cct, m_sPathCCT) )
             ;
-        else if ( obs.bReadString(psz_stylesheetFile, m_sPathStylesheet) )
+        else if ( obs.bReadProjectPath(psz_stylesheetFile, m_sPathStylesheet) )
             ;
-        else if ( obs.bReadString(psz_exportedFile, m_sPathXML) )
+        else if ( obs.bReadProjectPath(psz_exportedFile, m_sPathXML) )
             ;
         else if ( obs.bReadBool(psz_DontCheckConsistency, b) )
             m_bCheckConsistency = FALSE;
@@ -1548,12 +1548,6 @@ void CExportProcessSet::SetNoMDFReminder(BOOL bNoMDFReminder)
 }
 
 
-void CExportProcessSet::UpdatePaths() // Update paths if project moved
-{
-    for ( CExportProcess* pexp = pexpFirst(); pexp; pexp = pexpNext(pexp) )
-        pexp->UpdatePaths();
-}
-
 void CExportProcessSet::WritePaths( std::ofstream& ostr ) // Write paths of supporting files
 {
     for ( CExportProcess* pexp = pexpFirst(); pexp; pexp = pexpNext(pexp) )
@@ -1722,7 +1716,7 @@ BOOL COldExportProcessSet::bReadProperties(Object_istream& obs)
         return TRUE;
     if ( obs.bReadBool(psz_UseExportCCT, m_bUseExportCCT) )
         return TRUE;
-    if ( obs.bReadString(psz_ExportCCT, m_sExportCCT ) )
+    if ( obs.bReadProjectPath(psz_ExportCCT, m_sExportCCT ) )
         return TRUE;
     if ( obs.bReadBool(psz_IncludeFormatting, m_bMarkerFont ) )
         return TRUE;

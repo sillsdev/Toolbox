@@ -36,6 +36,7 @@ public:
     void WriteEndMarkerWithQualifier(const char* pszMarker, const char* pszQualifier); // Write an end marker with qualifier
     
     void WriteString(const char* pszMarker, const char* psz); // Write string
+    void WriteProjectPath(const char* marker, const Str8& path);
     void WriteString(const char* pszMarker, const char* pszQualifier, const char* psz); // Write marker with qualifier appended and string
     void WriteObligatoryString(const char* pszMarker, const Str8& s); // Write marker and string, even if empty.
     void WriteObligatoryString(const char* pszMarker, const char* pszQualifier, const char* psz); // Write marker with qualifier appended and string, even if empty.
@@ -151,6 +152,7 @@ public:
     void WriteEndMarkerWithQualifier(const char* pszMarker, const char* pszQualifier); // Write an end marker with qualifier
     
     void WriteString(const char* pszMarker, const char* psz); // Write string
+    void WriteProjectPath(const char* marker, const Str8& path);
     void WriteString(const char* pszMarker, const char* pszQualifier, const char* psz); // Write marker with qualifier appended and string
     void WriteObligatoryString(const char* pszMarker, const Str8& s); // Write marker and string, even if empty.
     void WriteObligatoryString(const char* pszMarker, const char* pszQualifier, const char* psz); // Write marker with qualifier appended and string, even if empty.
@@ -177,6 +179,9 @@ private:
 class Object_istream // Hungarian: obs
 {
 private:
+    BOOL m_bProjectPaths = FALSE;
+    BOOL m_bRelocateLegacy = FALSE;
+    BOOL m_bLocateMissingReferences = TRUE;
     std::istream& m_ios;  // iostream from which input is read
     CNoteList& m_notlst;  // notes about problems reading objects
     
@@ -198,6 +203,13 @@ public:
 #endif
     ~Object_istream(); // Destructor
 
+    void SetProjectPathContext(BOOL bRelocateLegacy)
+        { m_bProjectPaths = TRUE; m_bRelocateLegacy = bRelocateLegacy; }
+    BOOL bProjectPaths() const { return m_bProjectPaths; }
+    BOOL bRelocateLegacyPaths() const { return m_bRelocateLegacy; }
+    void SetLocateMissingReferences(BOOL locate) { m_bLocateMissingReferences = locate; }
+    BOOL bLocateMissingReferences() const { return m_bLocateMissingReferences; }
+
     BOOL bAtEnd(); // True if at eof
     BOOL bAtBackslash(); // True if at a backslash
     BOOL bAtBeginMarker(); // True if at any begin marker
@@ -218,6 +230,7 @@ public:
 
     BOOL bReadString(const char* pszMarker, const char* pszQualifier, Str8& s); // Read a string with both a marker and a qualifier before it
     BOOL bReadString(const char* pszMarker, Str8& s); // Read a string
+    BOOL bReadProjectPath(const char* marker, Str8& path);
     BOOL bReadBool(const char* pszMarker, BOOL& b); // Read a boolean. The presence of the marker means TRUE
     BOOL bReadCOLORREF(const char* pszMarker, COLORREF& rgb); // Read a set of three rgb color numbers
     BOOL bReadInteger(const char* pszMarker, int& i); // Read an integer

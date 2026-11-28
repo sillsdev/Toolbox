@@ -2254,7 +2254,7 @@ void CLookupProc::WriteProperties( Object_ostream& obs )
 //  m_pptri[INF]->WriteProperties( obs, psz_triInf );
 #if UseCct
     obs.WriteBool( psz_bApplyCC, m_bApplyCC );      
-    obs.WriteString( psz_CCT, m_sCCT );
+    obs.WriteProjectPath( psz_CCT, m_sCCT );
 #endif
     obs.WriteBool( psz_bSH2Parse, m_bSH2Parse );        
     obs.WriteBool( psz_bKeepCap, m_bKeepCap );      
@@ -2340,8 +2340,8 @@ BOOL CLookupProc::s_bReadProperties( Object_istream& obs,
             ;
         else if ( obs.bReadBool( psz_bApplyCC, pintprc->m_bApplyCC ) )
             ;   
-        else if ( obs.bReadString( psz_CCT, sCCT ) )
-            ;
+        else if ( obs.bReadProjectPath( psz_CCT, sCCT ) )
+            pintprc->m_sCCT = sCCT;
         else if ( obs.bReadBool( psz_bParseProc, bParseProc ) )
             ;   
         else if ( obs.bReadBool( psz_bSH2Parse, pintprc->m_bSH2Parse ) )
@@ -2401,7 +2401,6 @@ BOOL CLookupProc::s_bReadProperties( Object_istream& obs,
         if ( pintprc->bApplyCC() // If applying CC and there is a CC table name, load it // 5.97t Here is bug of trying to load CC table before path has been updated to new project path
                 && sCCT.GetLength() )
 			{
-		    Shw_pProject()->UpdatePath( sCCT ); // 5.98m Update path if project moved and it was in project folder
             pintprc->bLoadCCFromFile( sCCT ); // Load CC
 			}
 #endif
@@ -3479,12 +3478,6 @@ void CInterlinearProcList::MarkerUpdated( CMarkerUpdate& mup ) // update mrflsts
 {
     for ( CInterlinearProc* pintprc = pintprcFirst(); pintprc; pintprc = pintprcNext( pintprc ) )
         pintprc->MarkerUpdated( mup );  
-}
-
-void CInterlinearProcList::UpdatePaths() // Update paths if project moved
-{
-	for ( CInterlinearProc* pintprc = pintprcFirst(); pintprc; pintprc = pintprcNext( pintprc ) )
-		pintprc->UpdatePaths();
 }
 
 void CInterlinearProcList::WritePaths( ofstream& ostr ) // Update paths if project moved

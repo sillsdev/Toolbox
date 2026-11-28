@@ -299,28 +299,28 @@ void CExportProcessMDF::WriteProperties(Object_ostream& obs) const
     obs.WriteBool(psz_RegionalGlossIndex, bRegionalGlossIndex());
 
     // 1999-03-10 MRP: Customized versions of the change tables.
-    obs.WriteString(psz_cctDict1, m_sFileNameDict1);
-    obs.WriteString(psz_cctDict2, m_sFileNameDict2);
-    obs.WriteString(psz_cctDictH, m_sFileNameDictH);
-    obs.WriteString(psz_cctLinkH, m_sFileNameLinkH);
-    obs.WriteString(psz_cctList1, m_sFileNameList1);
-    obs.WriteString(psz_cctList2, m_sFileNameList2);
-    obs.WriteString(psz_cctListH, m_sFileNameListH);
+    obs.WriteProjectPath(psz_cctDict1, m_sFileNameDict1);
+    obs.WriteProjectPath(psz_cctDict2, m_sFileNameDict2);
+    obs.WriteProjectPath(psz_cctDictH, m_sFileNameDictH);
+    obs.WriteProjectPath(psz_cctLinkH, m_sFileNameLinkH);
+    obs.WriteProjectPath(psz_cctList1, m_sFileNameList1);
+    obs.WriteProjectPath(psz_cctList2, m_sFileNameList2);
+    obs.WriteProjectPath(psz_cctListH, m_sFileNameListH);
 
     // 1998-12-03 MRP: User-defined index
     obs.WriteBool(psz_UserDefined, m_bUserDefined);
     if ( m_pmkrIndexSelect )
         m_pmkrIndexSelect->WriteRef(obs, psz_IndexSelect);
     obs.WriteString(psz_option, m_sOption);
-    obs.WriteString(psz_cctIndex1, m_sFileNameIndex1);
+    obs.WriteProjectPath(psz_cctIndex1, m_sFileNameIndex1);
     if ( m_pmkrIndexPriKey )
         m_pmkrIndexPriKey->WriteRef(obs, psz_IndexPriKey);
     const CMarkerRef* pmrf = m_mrflstIndexSecKeys.pmrfFirst();
     for ( ; pmrf; pmrf = m_mrflstIndexSecKeys.pmrfNext(pmrf) )
         pmrf->pmkr()->WriteRef(obs, psz_IndexSecKey);
     obs.WriteBool(psz_IndexingCategories, m_bIndexingCategories);
-    obs.WriteString(psz_cctIndex2, m_sFileNameIndex2);
-    obs.WriteString(psz_cctIndexH, m_sFileNameIndexH);
+    obs.WriteProjectPath(psz_cctIndex2, m_sFileNameIndex2);
+    obs.WriteProjectPath(psz_cctIndexH, m_sFileNameIndexH);
 
     obs.WriteString(psz_EnglishDiglot, m_aasTitle[0][0]);
     obs.WriteString(psz_EnglishTriglot, m_aasTitle[0][1]);
@@ -335,27 +335,27 @@ void CExportProcessMDF::WriteProperties(Object_ostream& obs) const
     obs.WriteString(psz_GlossIndexNN, m_aasTitle[1][3]);
     obs.WriteString(psz_GlossIndexNR, m_aasTitle[1][4]);
     
-    obs.WriteString(psz_exportedEnglishDiglot, m_aasExportedRtf[0][0]);
-    obs.WriteString(psz_exportedEnglishTriglot, m_aasExportedRtf[0][1]);
-    //obs.WriteString(psz_exportedEnglishFinderlist, m_aasExportedRtf[0][2]);
-    obs.WriteString(psz_exportedGlossIndexEE, m_aasExportedRtf[0][2]);
-    obs.WriteString(psz_exportedGlossIndexEN, m_aasExportedRtf[0][3]);
-    obs.WriteString(psz_exportedGlossIndexER, m_aasExportedRtf[0][4]);
-    obs.WriteString(psz_exportedNationalDiglot, m_aasExportedRtf[1][0]);
-    obs.WriteString(psz_exportedNationalTriglot, m_aasExportedRtf[1][1]);
-    //obs.WriteString(psz_exportedNationalFinderlist, m_aasExportedRtf[1][2]);
-    obs.WriteString(psz_exportedGlossIndexNE, m_aasExportedRtf[1][2]);
-    obs.WriteString(psz_exportedGlossIndexNN, m_aasExportedRtf[1][3]);
-    obs.WriteString(psz_exportedGlossIndexNR, m_aasExportedRtf[1][4]);
+    obs.WriteProjectPath(psz_exportedEnglishDiglot, m_aasExportedRtf[0][0]);
+    obs.WriteProjectPath(psz_exportedEnglishTriglot, m_aasExportedRtf[0][1]);
+    //obs.WriteProjectPath(psz_exportedEnglishFinderlist, m_aasExportedRtf[0][2]);
+    obs.WriteProjectPath(psz_exportedGlossIndexEE, m_aasExportedRtf[0][2]);
+    obs.WriteProjectPath(psz_exportedGlossIndexEN, m_aasExportedRtf[0][3]);
+    obs.WriteProjectPath(psz_exportedGlossIndexER, m_aasExportedRtf[0][4]);
+    obs.WriteProjectPath(psz_exportedNationalDiglot, m_aasExportedRtf[1][0]);
+    obs.WriteProjectPath(psz_exportedNationalTriglot, m_aasExportedRtf[1][1]);
+    //obs.WriteProjectPath(psz_exportedNationalFinderlist, m_aasExportedRtf[1][2]);
+    obs.WriteProjectPath(psz_exportedGlossIndexNE, m_aasExportedRtf[1][2]);
+    obs.WriteProjectPath(psz_exportedGlossIndexNN, m_aasExportedRtf[1][3]);
+    obs.WriteProjectPath(psz_exportedGlossIndexNR, m_aasExportedRtf[1][4]);
 
 	// 1998-10-16 MRP
-    obs.WriteString(psz_exportedEnglishWebPage, m_asExportedHtm[0]);
-    obs.WriteString(psz_exportedNationalWebPage, m_asExportedHtm[1]);
+    obs.WriteProjectPath(psz_exportedEnglishWebPage, m_asExportedHtm[0]);
+    obs.WriteProjectPath(psz_exportedNationalWebPage, m_asExportedHtm[1]);
 
-    obs.WriteString(psz_cctEnglishLabels, m_sEnglishLabelsCct);
-    obs.WriteString(psz_dotEnglish, m_sEnglishDot);
-    obs.WriteString(psz_cctNationalLabels, m_sNationalLabelsCct);
-    obs.WriteString(psz_dotNational, m_sNationalDot);
+    obs.WriteProjectPath(psz_cctEnglishLabels, m_sEnglishLabelsCct);
+    obs.WriteProjectPath(psz_dotEnglish, m_sEnglishDot);
+    obs.WriteProjectPath(psz_cctNationalLabels, m_sNationalLabelsCct);
+    obs.WriteProjectPath(psz_dotNational, m_sNationalDot);
 
     if ( m_pfil )
         m_pfil->WriteRef(obs);
@@ -453,19 +453,19 @@ void CExportProcessMDF::ReadProperties(Object_istream& obs)
         else if ( obs.bReadBool(psz_RegionalGlossIndex, bRegionalGlossIndex) )
             ;
         // 1999-03-10 MRP: Customized versions of the change tables.
-        else if ( obs.bReadString(psz_cctDict1, m_sFileNameDict1) )
+        else if ( obs.bReadProjectPath(psz_cctDict1, m_sFileNameDict1) )
             ;
-        else if ( obs.bReadString(psz_cctDict2, m_sFileNameDict2) )
+        else if ( obs.bReadProjectPath(psz_cctDict2, m_sFileNameDict2) )
             ;
-        else if ( obs.bReadString(psz_cctDictH, m_sFileNameDictH) )
+        else if ( obs.bReadProjectPath(psz_cctDictH, m_sFileNameDictH) )
             ;
-        else if ( obs.bReadString(psz_cctLinkH, m_sFileNameLinkH) )
+        else if ( obs.bReadProjectPath(psz_cctLinkH, m_sFileNameLinkH) )
             ;
-        else if ( obs.bReadString(psz_cctList1, m_sFileNameList1) )
+        else if ( obs.bReadProjectPath(psz_cctList1, m_sFileNameList1) )
             ;
-        else if ( obs.bReadString(psz_cctList2, m_sFileNameList2) )
+        else if ( obs.bReadProjectPath(psz_cctList2, m_sFileNameList2) )
             ;
-        else if ( obs.bReadString(psz_cctListH, m_sFileNameListH) )
+        else if ( obs.bReadProjectPath(psz_cctListH, m_sFileNameListH) )
             ;
         // 1998-12-03 MRP: User-defined index
         else if ( obs.bReadBool(psz_UserDefined, m_bUserDefined) )
@@ -474,7 +474,7 @@ void CExportProcessMDF::ReadProperties(Object_istream& obs)
             ;
         else if ( obs.bReadString(psz_option, m_sOption) )
             ;
-        else if ( obs.bReadString(psz_cctIndex1, m_sFileNameIndex1) )
+        else if ( obs.bReadProjectPath(psz_cctIndex1, m_sFileNameIndex1) )
             ;
         else if ( pmkrset->bReadMarkerRef(obs, psz_IndexPriKey, pmkrIndexPriKey) )
             ;
@@ -486,9 +486,9 @@ void CExportProcessMDF::ReadProperties(Object_istream& obs)
             }
         else if ( obs.bReadBool(psz_IndexingCategories, m_bIndexingCategories) )
             ;
-        else if ( obs.bReadString(psz_cctIndex2, m_sFileNameIndex2) )
+        else if ( obs.bReadProjectPath(psz_cctIndex2, m_sFileNameIndex2) )
             ;
-        else if ( obs.bReadString(psz_cctIndexH, m_sFileNameIndexH) )
+        else if ( obs.bReadProjectPath(psz_cctIndexH, m_sFileNameIndexH) )
             ;
         else if ( obs.bReadString(psz_EnglishDiglot, m_aasTitle[0][0]) )
             ;
@@ -514,41 +514,41 @@ void CExportProcessMDF::ReadProperties(Object_istream& obs)
             ;
         else if ( obs.bReadString(psz_GlossIndexNR, m_aasTitle[1][4]) )
             ;
-        else if ( obs.bReadString(psz_exportedEnglishDiglot, m_aasExportedRtf[0][0]) )
+        else if ( obs.bReadProjectPath(psz_exportedEnglishDiglot, m_aasExportedRtf[0][0]) )
             ;
-        else if ( obs.bReadString(psz_exportedEnglishTriglot, m_aasExportedRtf[0][1]) )
+        else if ( obs.bReadProjectPath(psz_exportedEnglishTriglot, m_aasExportedRtf[0][1]) )
             ;
-        //else if ( obs.bReadString(psz_exportedEnglishFinderlist, m_aasExportedRtf[0][2]) )
+        //else if ( obs.bReadProjectPath(psz_exportedEnglishFinderlist, m_aasExportedRtf[0][2]) )
         //    ;
-        else if ( obs.bReadString(psz_exportedGlossIndexEE, m_aasExportedRtf[0][2]) )
+        else if ( obs.bReadProjectPath(psz_exportedGlossIndexEE, m_aasExportedRtf[0][2]) )
             ;
-        else if ( obs.bReadString(psz_exportedGlossIndexEN, m_aasExportedRtf[0][3]) )
+        else if ( obs.bReadProjectPath(psz_exportedGlossIndexEN, m_aasExportedRtf[0][3]) )
             ;
-        else if ( obs.bReadString(psz_exportedGlossIndexER, m_aasExportedRtf[0][4]) )
+        else if ( obs.bReadProjectPath(psz_exportedGlossIndexER, m_aasExportedRtf[0][4]) )
             ;
-        else if ( obs.bReadString(psz_exportedNationalDiglot, m_aasExportedRtf[1][0]) )
+        else if ( obs.bReadProjectPath(psz_exportedNationalDiglot, m_aasExportedRtf[1][0]) )
             ;
-        else if ( obs.bReadString(psz_exportedNationalTriglot, m_aasExportedRtf[1][1]) )
+        else if ( obs.bReadProjectPath(psz_exportedNationalTriglot, m_aasExportedRtf[1][1]) )
             ;
-        //else if ( obs.bReadString(psz_exportedNationalFinderlist, m_aasExportedRtf[1][2]) )
+        //else if ( obs.bReadProjectPath(psz_exportedNationalFinderlist, m_aasExportedRtf[1][2]) )
         //    ;
-        else if ( obs.bReadString(psz_exportedGlossIndexNE, m_aasExportedRtf[1][2]) )
+        else if ( obs.bReadProjectPath(psz_exportedGlossIndexNE, m_aasExportedRtf[1][2]) )
             ;
-        else if ( obs.bReadString(psz_exportedGlossIndexNN, m_aasExportedRtf[1][3]) )
+        else if ( obs.bReadProjectPath(psz_exportedGlossIndexNN, m_aasExportedRtf[1][3]) )
             ;
-        else if ( obs.bReadString(psz_exportedGlossIndexNR, m_aasExportedRtf[1][4]) )
+        else if ( obs.bReadProjectPath(psz_exportedGlossIndexNR, m_aasExportedRtf[1][4]) )
             ;
-        else if ( obs.bReadString(psz_exportedEnglishWebPage, m_asExportedHtm[0]) )
+        else if ( obs.bReadProjectPath(psz_exportedEnglishWebPage, m_asExportedHtm[0]) )
             ;
-        else if ( obs.bReadString(psz_exportedNationalWebPage, m_asExportedHtm[1]) )
+        else if ( obs.bReadProjectPath(psz_exportedNationalWebPage, m_asExportedHtm[1]) )
             ;
-        else if ( obs.bReadString(psz_cctEnglishLabels, m_sEnglishLabelsCct) )
+        else if ( obs.bReadProjectPath(psz_cctEnglishLabels, m_sEnglishLabelsCct) )
             ;
-        else if ( obs.bReadString(psz_dotEnglish, m_sEnglishDot) )
+        else if ( obs.bReadProjectPath(psz_dotEnglish, m_sEnglishDot) )
             ;
-        else if ( obs.bReadString(psz_cctNationalLabels, m_sNationalLabelsCct) )
+        else if ( obs.bReadProjectPath(psz_cctNationalLabels, m_sNationalLabelsCct) )
             ;
-        else if ( obs.bReadString(psz_dotNational, m_sNationalDot) )
+        else if ( obs.bReadProjectPath(psz_dotNational, m_sNationalDot) )
             ;
         else if ( pfilset->bReadFilterRef(obs, m_pfil) )
             ;
@@ -619,13 +619,6 @@ void CExportProcessMDF::ReadProperties(Object_istream& obs)
             0.375, 0.875, numColumns, 0.25);
         }
 
-    // 1997-12-01 MRP: If either the English or National change tables
-    // have a path, remove it, since they must be in the settings folder.
-    if ( !m_sEnglishLabelsCct.IsEmpty() )
-        m_sEnglishLabelsCct = sGetFileName(m_sEnglishLabelsCct);
-    if ( !m_sNationalLabelsCct.IsEmpty() )
-        m_sNationalLabelsCct = sGetFileName(m_sNationalLabelsCct);
-
     // 1998-10-22 MRP: If these properties aren't in the .typ file,
     // reinitialize them with their default values.
     if ( m_sDatabaseTypeRTF.IsEmpty() )
@@ -695,25 +688,25 @@ void CExportProcessMDF::ReadOldProperties(Object_istream& obs)
             ;
         else if ( obs.bReadString(psz_NationalFinderlist, m_aasTitle[1][3]) )
             ;  // 1999-01-26 MRP: Used to be [1][2]
-        else if ( obs.bReadString(psz_rtfEnglishDiglot, m_aasExportedRtf[0][0]) )
+        else if ( obs.bReadProjectPath(psz_rtfEnglishDiglot, m_aasExportedRtf[0][0]) )
             ;
-        else if ( obs.bReadString(psz_rtfEnglishTriglot, m_aasExportedRtf[0][1]) )
+        else if ( obs.bReadProjectPath(psz_rtfEnglishTriglot, m_aasExportedRtf[0][1]) )
             ;
-        //else if ( obs.bReadString(psz_rtfEnglishFinderlist, m_aasExportedRtf[0][2]) )
+        //else if ( obs.bReadProjectPath(psz_rtfEnglishFinderlist, m_aasExportedRtf[0][2]) )
         //    ;
-        else if ( obs.bReadString(psz_rtfNationalDiglot, m_aasExportedRtf[1][0]) )
+        else if ( obs.bReadProjectPath(psz_rtfNationalDiglot, m_aasExportedRtf[1][0]) )
             ;
-        else if ( obs.bReadString(psz_rtfNationalTriglot, m_aasExportedRtf[1][1]) )
+        else if ( obs.bReadProjectPath(psz_rtfNationalTriglot, m_aasExportedRtf[1][1]) )
             ;
-        //else if ( obs.bReadString(psz_rtfNationalFinderlist, m_aasExportedRtf[1][2]) )
+        //else if ( obs.bReadProjectPath(psz_rtfNationalFinderlist, m_aasExportedRtf[1][2]) )
         //    ;
-        else if ( obs.bReadString(psz_cctEnglishLabels, m_sEnglishLabelsCct) )
+        else if ( obs.bReadProjectPath(psz_cctEnglishLabels, m_sEnglishLabelsCct) )
             ;
-        else if ( obs.bReadString(psz_dotEnglish, m_sEnglishDot) )
+        else if ( obs.bReadProjectPath(psz_dotEnglish, m_sEnglishDot) )
             ;
-        else if ( obs.bReadString(psz_cctNationalLabels, m_sNationalLabelsCct) )
+        else if ( obs.bReadProjectPath(psz_cctNationalLabels, m_sNationalLabelsCct) )
             ;
-        else if ( obs.bReadString(psz_dotNational, m_sNationalDot) )
+        else if ( obs.bReadProjectPath(psz_dotNational, m_sNationalDot) )
             ;
         else if ( pfilset->bReadFilterRef(obs, m_pfil) )
             ;
@@ -765,13 +758,6 @@ void CExportProcessMDF::ReadOldProperties(Object_istream& obs)
         m_ppgs = new RtfPageSetup(TRUE, 0.75, 1.25, 0.75, 0.75, 0.5, FALSE,
             0.375, 0.875, numColumns, 0.25);
         }
-
-    // 1997-12-01 MRP: If either the English or National change tables
-    // have a path, remove it, since they must be in the settings folder.
-    if ( !m_sEnglishLabelsCct.IsEmpty() )
-        m_sEnglishLabelsCct = sGetFileName(m_sEnglishLabelsCct);
-    if ( !m_sNationalLabelsCct.IsEmpty() )
-        m_sNationalLabelsCct = sGetFileName(m_sNationalLabelsCct);
 
     // 1998-10-22 MRP: If these properties aren't in the .typ file,
     // reinitialize them with their default values.
@@ -1008,10 +994,9 @@ Str8 CExportProcessMDF::sChangeTableFolder() const
 
 Str8 CExportProcessMDF::sChangeTablePath(const Str8& sFileName) const
 {
-    Str8 sFolder = sChangeTableFolder();
-    Str8 sPath = ::sPath(sFolder, sFileName);
-
-    return sPath;
+    if (!sGetDirPath(sFileName).IsEmpty())
+        return sFileName;
+    return ::sPath(sChangeTableFolder(), sFileName);
 }
 
 Str8 CExportProcessMDF::sFileNameChangeTable1() const

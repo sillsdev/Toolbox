@@ -108,7 +108,6 @@ public:
 
 	virtual void AddGlossesToList( CFieldList *pfldlstAnal, int iStartPos ) {} // Do lookup of each morpheme to add gloss and part of speech
 
-	virtual void UpdatePaths() {}; // Update paths if project moved
 	virtual void WritePaths( std::ofstream& ostr ) {}; // Write paths in use
 
     virtual BOOL bModalView_Properties() = 0;
@@ -335,15 +334,6 @@ public:
 
     void MarkerUpdated( CMarkerUpdate& mup ); // update mrflsts
 
-	void UpdatePaths() // Update paths if project moved
-		{
-		for ( int i = 0; i < NUMTRIES; i++ ) // For all tries that are in use
-			m_pptri[ i ]->UpdatePaths(); // Update trie paths
-#if UseCct
-		Shw_pProject()->UpdatePath( m_sCCT ); // Update CC table path
-#endif
-		m_drflstWordFormulas.UpdatePaths(); // Update Word Formula Path
-		}
 
 #if UseCct
 	void WritePaths( std::ofstream& ostr ) // Write paths in use
@@ -416,8 +406,6 @@ public:
     
     BOOL bInterlinearize( CRecPos rpsStart, int* piLen, int iProcNum, int& iResult ); // Run interlinearization process   
 
-	void UpdatePaths() // Update paths if project moved
-		{ m_drflst.UpdatePaths(); }
 
 	void WritePaths( std::ofstream& ostr ) // Write paths in use
 		{ m_drflst.WritePaths( ostr ); }
@@ -564,7 +552,6 @@ public:
 
     void MarkerUpdated( CMarkerUpdate& mup ); // update mrflsts
 
-	void UpdatePaths(); // Update paths if project moved
 	void WritePaths( std::ofstream& ostr ); // Update paths if project moved
 
     BOOL bModalView_Elements(); // Interface

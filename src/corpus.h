@@ -50,7 +50,6 @@ private:
 public:
 	~CCorpus();
 
-	void UpdatePaths(); // Update paths if project moved
 
 	CCorpusSet* pcorsetMyOwner() const { return m_pcorsetMyOwner; }
 	virtual CSet* psetMyOwner();
@@ -143,7 +142,6 @@ public:
 	CCorpusSet();
 	~CCorpusSet();
 
-	void UpdatePaths(); // Update paths if project moved
 
 #ifdef prjWritefstream // 1.6.4aa 
 	void WriteProperties(Object_ofstream& obs) const;

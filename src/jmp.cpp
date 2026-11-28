@@ -296,11 +296,6 @@ void CJumpPath::MarkerUpdated( CMarkerUpdate& mup ) // update drflsts
     m_drflstTarget.MarkerUpdated(mup);
 }
 
-void CJumpPath::UpdatePaths() // Update paths that point to the project if the project moved
-{
-    m_drflstTarget.UpdatePaths();
-}
-
 // All matching dbrefs should be skipped unconditionally if Doc is not open
 void CJumpPath::DontCheckDiffPathsForDBRefs(const Str8& sDatabasePath)
 {
@@ -719,13 +714,6 @@ void CJumpPathSet::MarkerUpdated( CMarkerUpdate& mup ) // update drflsts
     CJumpPath* pjmp = pjmpFirst();
     for ( ; pjmp; pjmp = pjmpNext(pjmp) )
         pjmp->MarkerUpdated(mup);
-}
-
-void CJumpPathSet::UpdatePaths() // update drflsts
-{
-    CJumpPath* pjmp = pjmpFirst();
-    for ( ; pjmp; pjmp = pjmpNext(pjmp) )
-        pjmp->UpdatePaths();
 }
 
 // All matching dbrefs in all jump paths should be skipped unconditionally if Doc is not open

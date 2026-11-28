@@ -10,6 +10,10 @@
 #include "typ.h"
 #include "kmn.h"
 #include <fstream>
+#include <filesystem>
+#include <vector>
+#include "doclist.h"
+#include "shwdoc.h"
 #include "find_d.h"
 #include "tools.h"  // sPath
 #include "font.h"
@@ -29,6 +33,10 @@
     #undef ASSERT
     #define ASSERT(f) ((void)0)
 #endif
+
+namespace {
+Str8 AbsoluteProjectFolder(const Str8& path);
+}
 
 /////////////////////////////////////////////////////////////////////////////
 // CProject construction
@@ -167,22 +175,6 @@ BOOL CProject::s_bConstruct(const char* pszProjectPath, BOOL bOpening,
         // Rewrite all the settings files
         pprj->SaveSettings(TRUE);  // 1998-03-24 MRP
 
-    // 1998-05-07 MRP: If the project has been moved or copied
-    // to a different folder, update the jump and interlinear paths
-    // in the database types that are actually in use.
-    // 1998-06-27 MRP: ONLY update paths in types that are in use,
-    // even if they all got converted from older/newer format.
-    if ( pprj->bProjectMoved() )
-        {
-        CDatabaseTypeProxy* ptrx = ptypset->ptrxFirst();
-        for ( ; ptrx; ptrx = ptypset->ptrxNext(ptrx) )
-            {
-            CNoteList notlst;
-            CDatabaseType* ptyp = ptrx->ptyp(notlst);
-            ptyp->UpdatePaths();
-            }
-        }
-
     *ppprj = pprj;
 
     return TRUE;
@@ -195,7 +187,6 @@ BOOL CProject::bInitializeProperties(BOOL bOpening)
         CNoteList notlst;
         if ( !bReadProperties(m_sProjectPath, notlst) )
             return FALSE;
-		m_pcorset->UpdatePaths();
         }
     else {
 #ifdef _MAC
@@ -207,7 +198,12 @@ BOOL CProject::bInitializeProperties(BOOL bOpening)
 #endif
         fntdef.iCreateFont( &m_fntMkrs ); // create a default font
     
-        if ( !bWriteProperties(m_sProjectPath) )
+        m_sSavingProjectRoot = sInferProjectRoot();
+        const BOOL saved = bWriteProperties(m_sProjectPath);
+        if (saved)
+            m_sSavedProjectRoot = m_sSavingProjectRoot;
+        m_sSavingProjectRoot.Empty();
+        if (!saved)
             {   
             MessageBeep(0);
             AfxMessageBox( _("Error writing project file.") );
@@ -226,7 +222,10 @@ BOOL CProject::bInitializeProperties(BOOL bOpening)
 
 void CProject::SetPath( const char* pszPath )
 {
+    if (m_sSettingsDirPath != sGetDirPath(pszPath))
+        m_sSavedProjectRoot.Empty();
     m_sProjectPath = pszPath;
+    m_sProjectFolder = AbsoluteProjectFolder(m_sProjectPath);
     m_sSettingsDirPath = sGetDirPath( pszPath );
     m_sProjectName = sGetFileName( pszPath );
 
@@ -258,12 +257,42 @@ void CProject::DoAutoSave()
 
 void CProject::SaveSettings( BOOL bForceWrite )
 {
-    // 1998-03-14 MRP: Write .lng, .typ, then .prj
-    plngset()->WriteAllModified( bForceWrite );
-    ptypset()->WriteAllModified( bForceWrite );
+    bSaveSettings(bForceWrite);
+}
 
-    BOOL bWritten = bWriteProperties(m_sProjectPath, bForceWrite );
-	SetSaved( TRUE ); // 1.1tu Note that something has been saved
+BOOL CProject::bSaveSettings( BOOL bForceWrite )
+{
+    if (bExerciseNoSave() && !bForceWrite)
+        return TRUE;
+
+    m_sSavingProjectRoot = sInferProjectRoot();
+    plngset()->WriteAllModified(bForceWrite);
+    const BOOL rewriteTypes = !m_sPrevProjectPath.IsEmpty() ||
+        (!m_sSavedProjectRoot.IsEmpty() && m_sSavedProjectRoot != m_sSavingProjectRoot);
+    if (rewriteTypes)
+        {
+        if (!ptypset()->bSaveProjectPaths(bForceWrite))
+            {
+            m_sSavingProjectRoot.Empty();
+            return FALSE;
+            }
+        }
+    else
+        ptypset()->WriteAllModified(bForceWrite);
+
+    const BOOL saved = bWriteProperties(m_sProjectPath, bForceWrite);
+    if (saved)
+        {
+        m_sSavedProjectRoot = m_sSavingProjectRoot;
+        m_sPrevProjectPath.Empty();
+        m_sOldProjectRoot.Empty();
+        m_sRelocatedProjectRoot.Empty();
+        SetSaved(TRUE);
+        }
+    else
+        AfxMessageBox(Str8(_("Cannot write file:")) + " " + m_sProjectPath);
+    m_sSavingProjectRoot.Empty();
+    return saved;
 }
 
 extern Str8 g_sVersion; // 1.1tr Write program version in project file, for information only
@@ -306,26 +335,44 @@ BOOL CProject::bWriteProperties(const char* pszPath, BOOL bForceWrite)
 	if ( pprj->bExerciseNoSave() && !bForceWrite ) // 5.99f Don't save if exercises, unless forced by the toggle
 		return TRUE;
 
-	UnWriteProtect( pszPath ); // 1.2af Unwrite protect project file so it can be written // 1.4qzhg
-#ifdef prjWritefstream // 1.6.1cb  // 1.6.4aa Never define FileStream // 1.6.4aa Use prjWritefstream
-	Str8 sPath = pszPath; // 1.6.1cb 
-	CString swPath = swUTF16( sPath ); // 1.6.1cb 
-	Str8 sMode = "w"; // Set up mode string  // 1.6.1cb 
-	CString swMode = swUTF16( sMode ); // Convert mode string to CString  // 1.6.1cb 
-	FILE* pf = nullptr;
-	errno_t err = _wfopen_s(&pf, swPath, swMode);
-	if (err != 0 || pf == nullptr) {
-		return FALSE; // 1.6.1cb 
-	}
-    Object_ofstream obs(pf); // 1.6.1cb 
-    WriteProperties(obs); // 1.6.4aa 
+    WCHAR temporary[MAX_PATH] = {};
+    if (!GetTempFileNameW(swUTF16(m_sProjectFolder), L"prj", 0, temporary))
+        return FALSE;
+
+    BOOL written = FALSE;
+#ifdef prjWritefstream
+    FILE* file = nullptr;
+    if (_wfopen_s(&file, temporary, L"w") == 0 && file)
+        {
+        Object_ofstream obs(file);
+        WriteProperties(obs);
+        written = fflush(file) == 0 && !ferror(file);
+        }
 #else
-    std::ofstream ios(pszPath); // 1.6.1cb 
-    if ( ios.fail() ) // 1.6.1cb 
-        return FALSE; // 1.6.1cb 
-    Object_ostream obs(ios); // 1.6.1cb 
-    WriteProperties(obs); // 1.6.4aa 
-#endif  // 1.6.1cb 
+    {
+        std::ofstream file(temporary);
+        if (file)
+            {
+            Object_ostream obs(file);
+            WriteProperties(obs);
+            file.flush();
+            written = file.good();
+            }
+    }
+#endif
+    if (written)
+        {
+        const BOOL wasReadOnly = bFileReadOnly(pszPath);
+        UnWriteProtect(pszPath);
+        written = MoveFileExW(temporary, swUTF16(pszPath), MOVEFILE_REPLACE_EXISTING);
+        if (!written && wasReadOnly)
+            WriteProtect(pszPath);
+        }
+    if (!written)
+        {
+        DeleteFileW(temporary);
+        return FALSE;
+        }
 #ifdef _MAC
     SetProjectFileType(pszPath); // set file type and creator
 #endif
@@ -348,8 +395,6 @@ void CProject::WriteProperties(Object_ostream& obs)
 
     obs.WriteString( psz_ProgramVersion, g_sVersion ); // 1.1tr Write program version in project file, for information only
 
-    obs.WriteString(psz_ProjectPath, m_sProjectPath);
-
     obs.WriteInteger(psz_LockProject, m_iLockProject); // 1.2fb If project is not locked, don't let any views be locked
 
     m_plngset->pkbdset()->WriteAutoSwitching(obs);  // 1999-09-30 MRP // 1.6.4aa 
@@ -363,7 +408,7 @@ void CProject::WriteProperties(Object_ostream& obs)
     obs.WriteBool(psz_NoBackup, m_bNoBackup); // 1.5.3p 
     obs.WriteBool(psz_SaveWithoutNewlines, m_bSaveWithoutNewlines); // 1.5.4b 
     obs.WriteBool(psz_UseImportCCT, m_bUseImportCCT);
-    obs.WriteString(psz_ImportCCT, m_sImportCCT);
+    obs.WriteString(psz_ImportCCT, sStoredPath(m_sImportCCT));
     obs.WriteBool(psz_KeepSpaces, !m_bRemoveSpaces);
 
     // bReadProperties() depends on these two properties being written before the marker font
@@ -393,6 +438,203 @@ void CProject::WriteProperties(Object_ostream& obs)
     obs.WriteEndMarker(psz_ShProjectSettings);
 }
 
+namespace
+{
+namespace fs = std::filesystem;
+
+fs::path NormalizedPath(const Str8& path)
+{
+    fs::path result(static_cast<LPCWSTR>(swUTF16(path)));
+    result.make_preferred();
+    result = result.lexically_normal();
+    if (result.has_relative_path() && !result.has_filename())
+        result = result.parent_path();
+    return result;
+}
+
+Str8 PathString(const fs::path& path)
+{
+    return sUTF8(path.c_str());
+}
+
+Str8 AbsoluteProjectFolder(const Str8& path)
+{
+    std::error_code error;
+    const fs::path absolute = fs::absolute(NormalizedPath(path), error);
+    return error ? Str8() : PathString(absolute.lexically_normal().parent_path());
+}
+
+bool PathWithin(const fs::path& path, const fs::path& directory, fs::path& suffix)
+{
+    if (directory.empty())
+        return false;
+    auto part = path.begin();
+    for (const auto& dirPart : directory)
+        {
+        if (part == path.end() ||
+            CompareStringOrdinal(part->c_str(), -1, dirPart.c_str(), -1, TRUE) != CSTR_EQUAL)
+            return false;
+        ++part;
+        }
+    suffix.clear();
+    for (; part != path.end(); ++part)
+        suffix /= *part;
+    return true;
+}
+
+bool UsesParentRoot(const fs::path& settings, const fs::path& file)
+{
+    const fs::path parent = settings.parent_path();
+    fs::path suffix;
+    // A UNC share is the top-level folder for this comparison.
+    if (parent == settings || (parent == parent.root_path() && parent.root_name().native().size() > 2))
+        return false;
+    return PathWithin(file, parent, suffix) &&
+        !PathWithin(file, settings, suffix);
+}
+}
+
+void CProject::ReadProjectLayout(Object_istream& obs)
+{
+    if (!obs.bReadBeginMarker(psz_ShProjectSettings))
+        return;
+
+    std::vector<Str8> dataFiles;
+    while (!obs.bAtEnd())
+        {
+        if (obs.bReadString(psz_ProjectPath, m_sPrevProjectPath))
+            continue;
+        if (obs.bReadBeginMarker("dblst"))
+            {
+            Str8 file;
+            while (!obs.bAtEnd())
+                {
+                if (obs.bReadBeginMarker("db", file))
+                    {
+                    dataFiles.push_back(file);
+                    while (!obs.bAtEnd() && !obs.bEnd("db"))
+                        {}
+                    }
+                else if (obs.bEnd("dblst"))
+                    break;
+                }
+            }
+        else if (obs.bEnd(psz_ShProjectSettings))
+            break;
+        }
+
+    const fs::path currentSettings = NormalizedPath(m_sProjectFolder);
+    const fs::path oldSettings = NormalizedPath(m_sPrevProjectPath).parent_path();
+    const fs::path& layoutSettings = oldSettings.is_absolute() ? oldSettings : currentSettings;
+    bool useParent = false;
+    for (const Str8& file : dataFiles)
+        {
+        if (file.Find('<') == 0)
+            continue;
+        const fs::path path = NormalizedPath(file);
+        if ((path.is_absolute() && UsesParentRoot(layoutSettings, path)) ||
+            (!path.has_root_path() && UsesParentRoot(currentSettings, (currentSettings / path).lexically_normal())))
+            {
+            useParent = true;
+            break;
+            }
+        }
+
+    m_sSavedProjectRoot = PathString(useParent ? currentSettings.parent_path() : currentSettings);
+    if (oldSettings.is_absolute())
+        {
+        m_sOldProjectRoot = PathString(useParent ? oldSettings.parent_path() : oldSettings);
+        m_sRelocatedProjectRoot = m_sSavedProjectRoot;
+        }
+}
+
+Str8 CProject::sInferProjectRoot() const
+{
+    const fs::path settings = NormalizedPath(m_sProjectFolder);
+    CDocList docs;
+    for (CShwDoc* doc = docs.pdocFirst(); doc; doc = docs.pdocNext())
+        {
+        if (UsesParentRoot(settings, NormalizedPath(sUTF8(doc->GetPathName()))))
+            return PathString(settings.parent_path());
+        }
+    return PathString(settings);
+}
+
+Str8 CProject::sStoredPath(const Str8& value) const
+{
+    if (value.IsEmpty() || value.Find('<') == 0)
+        return value;
+
+    const fs::path settings = NormalizedPath(m_sProjectFolder);
+    if (!settings.is_absolute())
+        return value;
+
+    fs::path path = NormalizedPath(value);
+    if (!path.has_root_path() && value.Find(':') < 0)
+        path = (settings / path).lexically_normal();
+    if (!path.is_absolute())
+        return value;
+
+    // Standalone settings writes can run while the project is closing.
+    // Use the same root as the saved open-file list during those writes.
+    const Str8& snapshotRoot = m_sSavingProjectRoot.IsEmpty() ? m_sSavedProjectRoot : m_sSavingProjectRoot;
+    const fs::path root = NormalizedPath(snapshotRoot.IsEmpty() ? sInferProjectRoot() : snapshotRoot);
+    fs::path suffix;
+    if (!PathWithin(path, root, suffix))
+        return PathString(path);
+    if (PathWithin(path, settings, suffix))
+        return PathString(fs::path(L".") / suffix);
+    return PathString(fs::path(L"..") / suffix);
+}
+
+Str8 CProject::sResolvedPath(const Str8& value, BOOL bRelocateLegacy) const
+{
+    if (value.IsEmpty() || value.Find('<') == 0)
+        return value;
+
+    const fs::path path = NormalizedPath(value);
+    if (!path.has_root_path() && value.Find(':') < 0)
+        {
+        const fs::path settings = NormalizedPath(m_sProjectFolder);
+        if (settings.is_absolute())
+            return PathString((settings / path).lexically_normal());
+        }
+    else if (path.is_absolute() && bRelocateLegacy && !m_sOldProjectRoot.IsEmpty())
+        {
+        fs::path suffix;
+        if (PathWithin(path, NormalizedPath(m_sOldProjectRoot), suffix))
+            return PathString(NormalizedPath(m_sRelocatedProjectRoot) / suffix);
+        }
+    return value;
+}
+
+static Str8 ConvertPathList(const Str8& paths, const CProject& project, bool storing, BOOL relocate = FALSE)
+{
+    Str8 result;
+    int start = 0;
+    while (start < paths.GetLength())
+        {
+        const int end = paths.Find('\n', start);
+        const Str8 path = paths.Mid(start, end < 0 ? -1 : end - start);
+        result += storing ? project.sStoredPath(path) : project.sResolvedPath(path, relocate);
+        if (end < 0)
+            break;
+        result += '\n';
+        start = end + 1;
+        }
+    return result;
+}
+
+Str8 CProject::sStoredPathList(const Str8& paths) const
+{
+    return ConvertPathList(paths, *this, true);
+}
+
+Str8 CProject::sResolvedPathList(const Str8& paths, BOOL bRelocateLegacy) const
+{
+    return ConvertPathList(paths, *this, false, bRelocateLegacy);
+}
+
 BOOL CProject::bReadProperties(const char* pszPath, CNoteList& notlst)
 {
     ASSERT( pszPath );
@@ -402,10 +644,18 @@ BOOL CProject::bReadProperties(const char* pszPath, CNoteList& notlst)
 		// handle file-not-found
 		return FALSE;
 	}
+    {
+        Newline_istream layoutStream(ios);
+        Object_istream layout(layoutStream, notlst);
+        ReadProjectLayout(layout);
+    }
+    ios.clear();
+    ios.seekg(0);
 	// 08-11-1997
     //The class Newline_istream provieds datas from both, Mac and PC
     Newline_istream iosnl(ios);
     Object_istream obs(iosnl, notlst);
+    obs.SetProjectPathContext(TRUE);
     ReadProperties(obs);
     return TRUE;
 }
@@ -445,6 +695,7 @@ void CProject::ReadProperties(Object_istream& obs)
 
     Str8 sVersion;
     Str8 sProgramVersion; // 1.1tr Write program version in project file, for information only
+    Str8 sLegacyProjectPath;
     BOOL bAutoWrap = FALSE;  // 1999-08-06 MRP
     BOOL bNoAutoWrap = FALSE;  // 1999-08-06 MRP
     BOOL bNoAutoSave = FALSE;
@@ -468,7 +719,7 @@ void CProject::ReadProperties(Object_istream& obs)
             ;
         else if ( obs.bReadString(psz_ProgramVersion, sProgramVersion) ) // 1.1tr Write program version in project file, for information only
             ;
-        else if ( obs.bReadString(psz_ProjectPath, m_sPrevProjectPath) ) // Read saved project path
+        else if ( obs.bReadString(psz_ProjectPath, sLegacyProjectPath) )
             ;
         else if ( m_plngset->pkbdset()->bReadAutoSwitching(obs) )  // 1999-09-30 MRP
             ;
@@ -501,7 +752,7 @@ void CProject::ReadProperties(Object_istream& obs)
         else if ( obs.bReadBool(psz_UseImportCCT, m_bUseImportCCT) )
             ;
         else if ( obs.bReadString(psz_ImportCCT, m_sImportCCT ) )
-            ;
+            m_sImportCCT = sResolvedPath(m_sImportCCT, TRUE);
         else if ( obs.bReadBool(psz_KeepSpaces, b) )
             m_bRemoveSpaces = FALSE;
         else if ( obs.bReadBool(psz_StatusBarHidden, bStatusBarHidden ) )
@@ -574,72 +825,6 @@ void CProject::AssertValidity() const
 }
 #endif  // _DEBUG
 
-BOOL CProject::bProjectMoved() // Return true if project moved
-{
-    Str8 sPrevProjPath = Shw_pProject()->pszPrevPath(); //path where the prj was
-    Str8 sProjPath = Shw_pProject()->pszPath(); //path where the prj is now opened
-    return !bEquivFilePath( sGetDirPath( sPrevProjPath ), sGetDirPath( sProjPath ) );
-}
-
-void CutOffLastFolder( Str8& s ) // 5.99v Cut off last folder from a path
-	{
-	int iLen = s.GetLength();
-	int iLoc = s.ReverseFind( '\\' ); // Find last slash
-	if ( iLoc == ( iLen - 1 ) ) // If it ends with slash, cut it off and find previous slash
-		{
-		Str8 sShortenedPath = s.Left( iLoc ); // Cut off last slash
-		iLoc = sShortenedPath.ReverseFind( '\\' ); // Find previous slash
-		if ( iLoc != -1 ) // If previous slash found, cut of all after it
-			{
-			sShortenedPath = s.Left( iLoc + 1 );
-			s = sShortenedPath; // Return shortened path
-			}
-		}
-	}
-
-void CProject::UpdatePath( Str8& sPathToUpdate ) 
-// Update db path from old project path to new, if applicable
-{
-    // 1998-08-05 MRP: *** Temporary fix for assertion Line 353 in Tools.cpp ***
-    // CLookupProc::UpdatePaths() in interlin.h calls CProject::UpdatePath( m_sCCT )
-    // even if m_sCCT is empty (i.e. no CCT is selected). This is a problem
-    // when sPrevProjPath is also empty, which it will be for pre-version 4 projects.
-    // *** TO DO After the 4.0 release:
-    // 1. Add an if ( !m_sCCT.IsEmpty ) condition in interlin.h
-    // 2. Analyze whether there are other places where this function can be called
-    // with an empty file path, e.g. change the return to an assertion.
-    if ( sPathToUpdate.IsEmpty() )
-        return;
-        
-    if (  bProjectMoved() && Shw_papp()->bOpeningProject() )
-        {
-        Str8 sPrevProjPath = Shw_pProject()->pszPrevPath(); //path where the prj was
-		sPrevProjPath = sGetDirPath( sPrevProjPath ); // 5.98m Get folder part of path
-        Str8 sProjPath = Shw_pProject()->pszPath(); //path where the prj is now opened
-		sProjPath = sGetDirPath( sProjPath);
-		if ( sPathToUpdate[1] == ':' && islower( sPathToUpdate[0] ) ) // 5.98m If lower case device name, match lower case
-			{
-			if ( sPrevProjPath[1] == ':' && isupper( sPrevProjPath[0] ) )
-				{
-				char cDevice = sPrevProjPath[0]; // Remember drive letter
-				cDevice = tolower( cDevice ); // 1.4gn Fix problem that won't compile in Str8
-				Str8 sDevice( cDevice ); // Make lower case 
-				sPrevProjPath = sPrevProjPath.Mid( 1 ); // Cut off drive letter
-				sPrevProjPath = sDevice + sPrevProjPath;
-				}
-			}
-		if ( sPathToUpdate.Find( sPrevProjPath ) == 0 )
-			sPathToUpdate.Replace( sPrevProjPath, sProjPath ); // 5.98m Replace upper part of path
-		else // 5.99v If path is one up from settings, update it
-			{
-			CutOffLastFolder( sPrevProjPath ); // Cut off last folder from prev and current paths
-			CutOffLastFolder( sProjPath );
-			if ( sPrevProjPath.GetLength() > 4 ) // 1.3dc Fix bug of not correctly updating path if project moved
-				sPathToUpdate.Replace( sPrevProjPath, sProjPath ); // Replace upper part of path
-			}
-        }
-}
-
 Str8 CProject::sSettingsDirLabel() const
 {
     Str8 sDirPath = m_sSettingsDirPath;
@@ -701,10 +886,6 @@ BOOL CProject::bOpenMovedFile(Str8* psPath)
     ASSERT( psPath );
     Str8 sMovedPath;
     Str8 sOriginalPath = *psPath;
-
-    // If the project has moved, try new project place for file *** Later check for whether it was in old project place
-    if ( !m_bMovedPath && m_sProjectPath != m_sPrevProjectPath )
-        m_sMovedFileDirPath = sGetDirPath( m_sProjectPath );
 
     // If the user has already chosen a directory to open a moved file,
     // then attempt to open this file in that same directory.   

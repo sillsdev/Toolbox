@@ -82,35 +82,28 @@ static const char* psz_sPlaySoundPath = "PlaySoundPath"; // 1.5.0hc
 
 static const char* psz_SecKey = "SecKey";
 
-void CDatabaseType::UpdatePaths() // Update paths that point to project folder if project moved
+BOOL CDatabaseType::bWriteProperties(const char* path, BOOL bForceWrite) const
 {
-	m_jmpset.UpdatePaths(); // Update jump paths
-	m_intprclst.UpdatePaths(); // Update interlinearization references
-	m_pexpset->UpdatePaths(); // Update export process references
-}
+    if (Shw_pProject()->bExerciseNoSave() && !bForceWrite)
+        return TRUE;
 
-void CDatabaseType::WriteProperties( const char* sPath ) const // 5.99f Encapsulate opening of the ostream
-	{
-	CProject* pprj = Shw_papp()->pProject();
-	if ( pprj->bExerciseNoSave() ) // 5.99f Don't save if exercises
-		return;
-#ifdef typWritefstream // 1.6.4ac
-	CString swPath = swUTF16( sPath ); // 1.6.1cb 
-	Str8 sMode = "w"; // Set up mode string  // 1.6.1cb 
-	CString swMode = swUTF16( sMode ); // Convert mode string to CString  // 1.6.1cb 
-	FILE* pf = nullptr;
-	errno_t err = _wfopen_s(&pf, swPath, swMode); // Open file // 1.6.1cb 
-	if (err != 0 || pf == nullptr) {	 // If file open failed, return failure // 1.6.1cb 
-		return; // 1.6.1cb 
-	}
-    Object_ofstream obs(pf); // 1.6.1cb 
-#else // 1.6.1cb 
-    std::ofstream ios(sPath); // 1.6.1cb 
-    Object_ostream obs(ios); // 1.6.1cb 
-#endif // 1.6.1cb 
+#ifdef typWritefstream
+    FILE* file = nullptr;
+    if (_wfopen_s(&file, swUTF16(path), L"w") != 0 || !file)
+        return FALSE;
+    Object_ofstream obs(file);
     WriteProperties(obs);
-	}
-
+    return fflush(file) == 0 && !ferror(file);
+#else
+    std::ofstream file(path);
+    if (!file)
+        return FALSE;
+    Object_ostream obs(file);
+    WriteProperties(obs);
+    file.flush();
+    return file.good();
+#endif
+}
 void CDatabaseType::WritePaths( std::ofstream& ostr ) // Update paths that point to the project if the project moved
 {
 	m_intprclst.WritePaths( ostr ); // Update interlinearization references
@@ -128,6 +121,7 @@ void CDatabaseType::WriteProperties(Object_ostream& obs) const
 
     // 1998-03-12 MRP: Always write the current version
     obs.WriteString(psz_ver, ptypsetMyOwner()->sSettingsVersion());
+    obs.WriteBool("ProjectRelativePaths", TRUE);
 
     obs.WriteString(psz_desc, m_sDescription);
     m_mkrset.WriteProperties(obs);
@@ -159,7 +153,7 @@ void CDatabaseType::WriteProperties(Object_ostream& obs) const
 	else if ( m_pnbrproc )
 		m_pnbrproc->WriteProperties(obs);  // 1999-02-03 TLB
 	obs.WriteBool(psz_bHideFields, m_bHideFields); // 1.1ef
-    obs.WriteString( psz_sPlaySoundPath, m_sPlaySoundPath ); // 1.5.0hc 
+    obs.WriteProjectPath(psz_sPlaySoundPath, m_sPlaySoundPath);
 	obs.WriteUnrecognizedSettingsInfo( m_sUnrecognizedSettingsInfo ); // 1.0cp Write unrecognized settings info
 
     obs.WriteEndMarker(psz_DatabaseType);
@@ -208,7 +202,7 @@ void CDatabaseType::TemplateWriteProperties(Object_ostream& obs) const
     obs.WriteEndMarker(psz_Template);
 }
 
-BOOL CDatabaseType::bReadProperties(CNoteList& notlst)
+BOOL CDatabaseType::bReadProperties(CNoteList& notlst, BOOL bLocateMissing)
 {
     const Str8& sPath = m_ptrxMyProxy->sPath();
 	if ( !bAllASCIIComplain( sPath ) ) // 1.4vze 
@@ -222,6 +216,8 @@ BOOL CDatabaseType::bReadProperties(CNoteList& notlst)
     Newline_istream iosnl(ios);
         
     Object_istream obs(iosnl, notlst);
+    obs.SetProjectPathContext(TRUE);
+    obs.SetLocateMissingReferences(bLocateMissing);
     return bReadProperties(obs);
 }
 
@@ -230,7 +226,8 @@ BOOL CDatabaseType::bReadProperties(Object_istream& obs)
     if ( !obs.bAtBackslash() || !obs.bReadBeginMarker(psz_DatabaseType) )
         return FALSE;
 
-    Str8 s; 
+    BOOL bRelativePaths = FALSE;
+    Str8 s;
     m_iInterlinCharWd = 8; // Give a default in case not in the settings file
     Str8 sRecordMarker;
     CMarker* pmkrSecKey = NULL;
@@ -242,6 +239,8 @@ BOOL CDatabaseType::bReadProperties(Object_istream& obs)
         {
         if ( obs.bReadString(psz_ver, s) )
             ;
+        else if ( obs.bReadBool("ProjectRelativePaths", bRelativePaths) )
+            obs.SetProjectPathContext(FALSE);
         else if ( obs.bReadString(psz_desc, m_sDescription) )
             ;
         else if ( m_mkrset.bReadProperties(obs) )
@@ -291,7 +290,7 @@ BOOL CDatabaseType::bReadProperties(Object_istream& obs)
             ;
 		else if ( obs.bReadBool(psz_bHideFields, m_bHideFields) )
 			;
-        else if ( obs.bReadString(psz_sPlaySoundPath, m_sPlaySoundPath) )
+        else if ( obs.bReadProjectPath(psz_sPlaySoundPath, m_sPlaySoundPath) )
             ;
 		else if ( obs.bUnrecognizedSettingsInfo( psz_DatabaseType, m_sUnrecognizedSettingsInfo  ) ) // 1.0cp Store any unrecognized settings info so as not to lose it
 			;
@@ -987,6 +986,35 @@ void CDatabaseTypeSet::WriteAllModified( BOOL bForceWrite )
         ptrx->WritePropertiesIfModified( bForceWrite );
 }
 
+
+BOOL CDatabaseTypeSet::bSaveProjectPaths(BOOL bForceWrite)
+{
+    CNoteList notes;
+    for (CDatabaseTypeProxy* proxy = ptrxFirst(); proxy; proxy = ptrxNext(proxy))
+        {
+        const Str8 path = proxy->sPath();
+        if (!proxy->m_ptyp && !proxy->ptypNew()->bReadProperties(notes, FALSE))
+            {
+            delete proxy->m_ptyp;
+            proxy->m_ptyp = nullptr;
+            AfxMessageBox(Str8(_("Cannot read file:")) + " " + path);
+            return FALSE;
+            }
+
+        // Keep the original type file intact if migration cannot write the replacement.
+        WCHAR temporary[MAX_PATH] = {};
+        if (GetTempFileNameW(swUTF16(m_sSettingsDirPath), L"typ", 0, temporary) &&
+            proxy->m_ptyp->bWriteProperties(sUTF8(temporary), bForceWrite) &&
+            MoveFileExW(temporary, swUTF16(path), MOVEFILE_REPLACE_EXISTING))
+            continue;
+
+        if (*temporary)
+            DeleteFileW(temporary);
+        AfxMessageBox(Str8(_("Cannot write file:")) + " " + path);
+        return FALSE;
+        }
+    return TRUE;
+}
 
 BOOL CDatabaseTypeSet::bSearch(const char* pszName,
         CDatabaseType** pptyp, CNoteList& notlst)

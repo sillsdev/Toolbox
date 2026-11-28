@@ -38,6 +38,11 @@ private:
     Str8 m_sSettingsDirPath;
     Str8 m_sProjectName;  // remember user's actual choice of case
     Str8 m_sProjectPath;
+    Str8 m_sProjectFolder;
+    Str8 m_sOldProjectRoot;
+    Str8 m_sRelocatedProjectRoot;
+    Str8 m_sSavedProjectRoot;
+    Str8 m_sSavingProjectRoot;
     Str8 m_sPrevProjectPath; // Path where project was saved in previous run, detects moved project AB 3-10-98
     Str8 m_sMovedFileDirPath;
 	Str8 m_sUnrecognizedSettingsInfo; // 1.0cp Don't lose settings info from later versions
@@ -100,9 +105,10 @@ public:
     
     void SetPath( const char* pszPath ); // set full path for project file
     const char* pszPath() { return m_sProjectPath; } // return full pathname to project file
-    const char* pszPrevPath() { return m_sPrevProjectPath; } // return full pathname to project file
-    BOOL CProject::bProjectMoved(); // Return true if project moved
-    void UpdatePath( Str8& sPath ); // Update path from old project path to new, if applicable
+    Str8 sStoredPath(const Str8& path) const;
+    Str8 sResolvedPath(const Str8& path, BOOL bRelocateLegacy) const;
+    Str8 sStoredPathList(const Str8& paths) const;
+    Str8 sResolvedPathList(const Str8& paths, BOOL bRelocateLegacy) const;
     const Str8& sSettingsDirPath() const { return m_sSettingsDirPath; }
     Str8 sSettingsDirLabel() const;
     const Str8& sProjectName() const { return m_sProjectName; }
@@ -122,6 +128,7 @@ public:
 
 	void DoAutoSave(); // save db type & lang, if modified
     void SaveSettings( BOOL bForceWrite=FALSE ); // save db type, language and project settings
+    BOOL bSaveSettings( BOOL bForceWrite=FALSE );
     BOOL bClosing() { return m_bClosing; }
     BOOL bDoRunDos();
     
@@ -205,6 +212,8 @@ private:
     BOOL bInitializeProperties(BOOL bOpening);  // 1998-03-24 MRP
     BOOL bReadProperties(const char* pszPath, CNoteList& notlst);
     void ReadProperties(Object_istream& obs);
+    void ReadProjectLayout(Object_istream& obs);
+    Str8 sInferProjectRoot() const;
     BOOL bWriteProperties(const char* pszPath, BOOL bForceWrite = FALSE);
 #ifdef prjWritefstream // 1.6.4aa Use prjWritefstream
     void WriteProperties(Object_ofstream& obs);

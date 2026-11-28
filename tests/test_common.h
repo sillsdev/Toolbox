@@ -89,6 +89,18 @@ public:
 
 class CProject_Test {
 public:
+    static CProject* Create(const char* path) {
+        return new CProject(path, "1.2.3");
+    }
+
+    static void ReadLayout(CProject& project, Object_istream& stream) {
+        project.ReadProjectLayout(stream);
+    }
+
+    static void SetSavingRoot(CProject& project, const char* path) {
+        project.m_sSavingProjectRoot = path;
+    }
+
     // Accessors for private members
     static BOOL AutoWrap(const CProject* pprj) {
         return pprj->m_bAutoWrap;

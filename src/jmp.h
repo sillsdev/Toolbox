@@ -93,7 +93,6 @@ public:
     
     void MarkerUpdated( CMarkerUpdate& mup ); // update drfs
 
-	void UpdatePaths(); // Update paths that point to the project if the project moved
     void DontCheckDiffPathsForDBRefs(const Str8& sDatabasePath); // All matching dbrefs should be skipped unconditionally if Doc is not open
     void SkipDBRefs(const Str8& sDatabasePath, const Str8& sKey = ""); // Mark all matching dbrefs as okay to skip
     void FixDBRefs(const Str8& sOldDatabasePath, const Str8& sNewDatabasePath); // Change all matching dbrefs to new pathname
@@ -162,7 +161,6 @@ public:
     
     void MarkerUpdated( CMarkerUpdate& mup ); // update drfs
 
-	void UpdatePaths(); // Update paths that point to the project if the project moved
 
     void DontCheckDiffPathsForDBRefs(const Str8& sDatabasePath); // All matching dbrefs in all jump paths should be skipped unconditionally if Doc is not open
     void SkipDBRefs(const Str8& sDatabasePath, const Str8& sKey = ""); // Mark all matching dbrefs in all jump paths as okay to skip

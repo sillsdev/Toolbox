@@ -67,7 +67,6 @@ public:
 
     BOOL bAutoOpen(const Str8& sPath, Str8& sMessage);
 
-	virtual void UpdatePaths() {}; // Update paths if project moved
 	virtual void WritePaths( std::ofstream& ostr ) {}; // Update paths if project moved
 
     virtual void FilterUpdated(CFilterUpdate& fup);
@@ -128,11 +127,6 @@ public:
     BOOL bExport(CIndex* pindCur, const CRecLookEl* prelCur,
             const Str8& sPathDatabase, Str8& sMessage);
 
-	void UpdatePaths() // Update paths if project moved
-		{
-		Shw_pProject()->UpdatePath( m_sPathCCT ); // Update CC table path
-		Shw_pProject()->UpdatePath( m_sPathSF ); // Update output file path 5.98v
-		}
 
 	void WritePaths( std::ofstream& ostr ) // Write paths 
 		{
@@ -207,12 +201,6 @@ public:
     BOOL bExport(CIndex* pindCur, const CRecLookEl* prelCur,
             const Str8& sPathDatabase, Str8& sMessage);
 
-	void UpdatePaths() // Update paths if project moved
-		{
-		Shw_pProject()->UpdatePath( m_sPathCCT ); // Update CC table path
-		Shw_pProject()->UpdatePath( m_sPathDOT ); // Update template path
-		Shw_pProject()->UpdatePath( m_sPathRTF ); // Update output file path 5.98v
-		}
 
 	void WritePaths( std::ofstream& ostr ) // Write paths 
 		{
@@ -292,12 +280,6 @@ public:
     BOOL bExport(CIndex* pindCur, const CRecLookEl* prelCur,
             const Str8& sPathDatabase, Str8& sMessage);
 
-	void UpdatePaths() // Update paths if project moved
-		{
-		Shw_pProject()->UpdatePath( m_sPathCCT ); // Update CC table path
-		Shw_pProject()->UpdatePath( m_sPathStylesheet ); // Update stylesheet path
-		Shw_pProject()->UpdatePath( m_sPathXML ); // Update output file path 5.98v
-		}
 
 	void WritePaths( std::ofstream& ostr ) // Write paths 
 		{
@@ -399,7 +381,6 @@ public:
     BOOL bExport(CIndex* pindCur, const CRecLookEl* prelCur,
             const Str8& sPathDatabase, Str8& sMessage);
 
-	void UpdatePaths(); // Update paths if project moved
 	void WritePaths( std::ofstream& ostr ); // Write paths in use
 
     void FilterUpdated(CFilterUpdate& fup);

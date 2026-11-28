@@ -174,13 +174,6 @@ void CDatabaseRef::MarkerUpdated( CMarkerUpdate& mup ) // handle marker name cha
         m_sKey = mup.pmkr()->sName();
 }
 
-void CDatabaseRef::UpdatePath() // Update path if project moved and path is to old project
-{
-    ASSERT(!m_pind); // TLB - 1999-06-11: Prevent use of this function once index has been established.
-    ASSERT(!m_sDatabasePath.IsEmpty());
-	Shw_pProject()->UpdatePath( m_sDatabasePath ); // Update path if project moved and it was in project folder
-}
-
 void CDatabaseRef::WritePaths( std::ofstream& ostr ) // Write paths that are in active use
 {
 	ostr << m_sDatabasePath << "\n";
@@ -206,7 +199,7 @@ void CDatabaseRef::WriteProperties(Object_ostream& obs) const
 {
     obs.WriteBeginMarker(psz_drf);
     ASSERT(!m_sDatabasePath.IsEmpty());
-    obs.WriteString(psz_File, m_sDatabasePath);
+    obs.WriteProjectPath(psz_File, m_sDatabasePath);
     if (m_sKey.GetLength()) // m_sKey not used in some cases
         CMarker::s_WriteRef( obs, m_sKey );
     obs.WriteEndMarker(psz_drf);
@@ -220,22 +213,23 @@ BOOL CDatabaseRef::s_bReadProperties(Object_istream& obs, CDatabaseRef** ppdrf)
     Str8 sKey;
     while ( !obs.bAtEnd() )
         {
-        if ( obs.bReadString(psz_File, sDatabasePath) )
+        if ( obs.bReadProjectPath(psz_File, sDatabasePath) )
             ;
         else if ( CMarker::s_bReadRef( obs, sKey ) )
             ;
         else if ( obs.bEnd(psz_drf) )
             break;
         }
-    
-	Shw_pProject()->UpdatePath( sDatabasePath ); // 5.99v Change path if project moved
 
     if ( sDatabasePath.IsEmpty() )
         return TRUE;
         
-    if ( !bFileExists(sDatabasePath) &&
-            !Shw_pProject()->bOpenMovedFile(&sDatabasePath) )
-        return TRUE;
+    if ( obs.bLocateMissingReferences() && !bFileExists(sDatabasePath) )
+        {
+        Str8 locatedPath = sDatabasePath;
+        if (Shw_pProject()->bOpenMovedFile(&locatedPath))
+            sDatabasePath = locatedPath;
+        }
         
     *ppdrf = new CDatabaseRef(sDatabasePath, sKey);
     return TRUE;            
@@ -272,12 +266,6 @@ void CDatabaseRefList::MarkerUpdated( CMarkerUpdate& mup ) // update drfs
 {
     for ( CDatabaseRef* pdrf = pdrfFirst(); pdrf; pdrf = pdrfNext(pdrf) )
         pdrf->MarkerUpdated(mup);
-}
-
-void CDatabaseRefList::UpdatePaths() // Update paths that point to the project if the project moved
-{
-    for ( CDatabaseRef* pdrf = pdrfFirst(); pdrf; pdrf = pdrfNext(pdrf) )
-		pdrf->UpdatePath();
 }
 
 void CDatabaseRefList::WritePaths( std::ofstream& ostr ) // Write active paths to ostr

@@ -255,7 +255,6 @@ public:
     
     void MarkerUpdated( CMarkerUpdate& mup ); // update mrflsts in case of marker name change
 
-	void UpdatePaths() { m_drflst.UpdatePaths(); } // Update paths if project moved
     
     void ClearRefs() // Clear mrflst and database type pointer, for clearing up before closing database types
         { m_pmkrOut = NULL, m_mrflst.ClearRefs(), m_trf.ClearPtr(); }
